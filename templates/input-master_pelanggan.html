@@ -1,0 +1,87 @@
+{% extends 'initial.html'%}
+{% load humanize %}
+
+{% block title %}
+L-tokoku | Master Pelanggan
+{% endblock %}
+
+{% block header_sidebar%}
+    Master Data
+{% endblock%}
+
+{% block sidebar%}
+    <button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="mastersupplier">Master Data Supplier</button>
+    <button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="masterpelanggan">Master Data Pelanggan</button>
+{% endblock%}
+
+{% block stamp%}
+Master Data Pelanggan
+{% endblock%}
+
+
+{% block content%}
+<div class="shadow rounded p-2">
+        <form method="post" enctype="multipart/form-data" >
+            {% csrf_token%}
+            <div class="row">
+                <div class="col-3">Kode Pelanggan:</div>
+                <div class="col-9">{{form.kode_pelanggan}}</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Nama Pelanggan:</div>
+                <div class="col-9">{{form.nama_pelanggan}}</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Nomor Telpon Pelanggan:</div>
+                <div class="col-9">{{form.nomor_tlp}}</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Alamat Pelanggan:</div>
+                <div class="col-9">{{form.alamat_pelanggan}}</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Foto Ktp:</div>
+                <div class="col-9">{{form.foto_ktp}}</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Tipe Pelanggan:</div>
+                <div class="col-9">{{form.tipe}}</div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <input type="submit" name="btnSubmit" class="btn btn-outline-secondary">                    
+                </div>
+            </div>
+        </form>     
+    </div>
+{% endblock%}
+
+{% block mylist %}
+    <div class="p-2 shadow my-3 bg-ligth rounded-2">
+        <div class=" shadow  container-fluid rounded">
+            <b>     
+                <div class="row bg-primary rounded border">
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">No.</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">Kode Pelanggan</div>
+                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2">Nama Pelanggan</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">No. Tlp</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">Alamat</div>
+                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2">Tipe</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">KTP</div>
+                </div>
+            </b>    
+            {% for mydata in data %}
+            <div class="row border rounded border">
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{forloop.counter}}</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{mydata.kode_pelanggan}}</div>
+                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 border">{{mydata.nama_pelanggan| truncatechars:10}}</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{mydata.alamat_pelanggan | truncatechars:10}}</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{mydata.nomor_tlp | truncatechars:10}}
+                    </div>
+                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 border">{{mydata.get_tipe_display}}</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border"><img src="{{mydata.foto_ktp.url}}" class='gbrku'></div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

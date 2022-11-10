@@ -1,0 +1,27 @@
+{% extends 'initial.html'%}
+{% load humanize %}
+
+{% block title %} L-tokoku | Master Supplier {% endblock %}
+
+
+{% block stamp%}
+    Welcome to Master Data!
+{% endblock%}
+
+{% block header_sidebar%}
+Master Data
+{% endblock%}
+
+{% block sidebar%}
+    <button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="mastersupplier">Master Data Supplier</button>
+    <button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="masterpelanggan">Master Data Pelanggan</button>
+{% endblock%}
+
+{% block content%}
+
+    <div class="shadow rounded p-2">
+        <p><b>Menu Management Master Data</b></p>
+        <p>Selamat datang di menu Management Master Data. Sebelum input master data silahkan cek terlebih dahulu catatan Anda. Master Data yang sudah melakukan transaksi pembelian atau penjualan tidak bisa dihapus.</p>
+        <p>Terima kasih. Admin.</p>
+    </div>
+{% endblock%}

@@ -1,0 +1,52 @@
+{% extends 'initial.html'%}
+
+{% block title %} Form Dashboard {% endblock %}
+
+{% block stamp%}
+    Master Data Supplier
+{% endblock%}
+
+{% block content%}
+
+    <div class="shadow rounded p-2">
+        <form method="post">
+            {% csrf_token%}
+            <div class="row">
+                <div class="col-3">Kode Supplier</div>
+                <div class="col-auto">{{form.kode_supplier}}</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Nama Supplier</div>
+                <div class="col-auto">{{form.nama_supplier}}</div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <input type="submit" name="btnSubmit" class="btn btn-outline-secondary">  
+                </div>
+            </div>
+        </form>     
+    </div>
+
+    <div class="p-2 shadow my-3 bg-primary bg-opacity-10 rounded-2">
+        <div class=" shadow  container-fluid rounded ">
+            <b>     
+                <div class="row bg-primary rounded">
+                    <div class="col-1">No.</div>
+                    <div class="col-5">Kode Supplier</div>
+                    <div class="col-auto">Nama Supplier</div>
+                </div>
+            </b>    
+            {% for mydata in data %}
+            <div class="row border rounded">
+                <div class="col-1 ">{{forloop.counter}}</div>
+                <div class="col-5 d">{{mydata.kode_supplier | truncatechars:15}}</div>
+                <div class="col-auto">{{mydata.nama_supplier | truncatechars:15}}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block jquery%}
+    $('document').write('hallo');
+{% endblock%}

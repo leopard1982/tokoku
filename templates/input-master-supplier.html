@@ -1,0 +1,105 @@
+{% extends 'initial.html'%}
+{% load humanize %}
+
+{% block title %} L-tokoku | Master Supplier {% endblock %}
+
+
+{% block stamp%}
+    Master Data Supplier
+{% endblock%}
+
+{% block header_sidebar%}
+Master Data
+{% endblock%}
+
+{% block sidebar%}
+    <button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="mastersupplier">Master Data Supplier</button>
+    <button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="masterpelanggan">Master Data Pelanggan</button>
+{% endblock%}
+
+{% block content%}
+
+    <div class="shadow rounded p-2">
+        <form method="post">
+            {% csrf_token%}
+            <div class="row">
+                <div class="col-3">Kode Supplier:</div>
+                <div class="col-9">{{form.kode_supplier}}</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Nama Supplier:</div>
+                <div class="col-9">{{form.nama_supplier}}</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Nomor Telpon #1:</div>
+                <div class="col-9">{{form.tlp1}}</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Nomor Telpon #2:</div>
+                <div class="col-9">{{form.tlp2}}</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Alamat Supplier:</div>
+                <div class="col-9">{{form.alamat}}</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Hutang Awal:</div>
+                <div class="col-1">Rp.</div>
+                <div class="col-8">{{form.hutang_awal}}</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Catatan:</div>
+                <div class="col-9">{{form.catatan}}</div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <input type="submit" name="btnSubmit" class="btn btn-outline-secondary">                    
+                </div>
+            </div>
+        </form>     
+    </div>
+{% endblock%}
+{% block mylist %}
+    <div class="p-2 shadow my-3 bg-ligth rounded-2">
+        <div class=" shadow  container-fluid rounded">
+            <b>     
+                <div class="row bg-primary rounded border">
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">No.</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">Kode Supplier</div>
+                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2">Nama Supplier</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">No. Telp.#1</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">No. Telp.#2</div>
+                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2">Alamat</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">Hutang Awal</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">Hutang Tambahan</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">Hutang Akhir</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">Catatan</div>
+                </div>
+            </b>    
+            {% for mydata in data %}
+            <div class="row border rounded border">
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{forloop.counter}}</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{mydata.kode_supplier}}</div>
+                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 border">{{mydata.nama_supplier| truncatechars:10}}</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{mydata.tlp1 | truncatechars:10}}</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">
+                    {% if mydata.tlp2 == None %}
+                        -
+                    {% else%}
+                        {{mydata.tlp2 | truncatechars:10}}
+                    {% endif %}
+                    </div>
+                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 border">{{mydata.alamat | truncatechars:10}}</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{mydata.hutang_awal | intcomma}}</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{mydata.hutang_tambahan | intcomma}}</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{mydata.hutang_akhir | intcomma}}</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{mydata.catatan|truncatechars:10}}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block jquery%}
+    $('document').write('hallo');
+{% endblock%}

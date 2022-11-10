@@ -1,0 +1,12 @@
+.gbrku {
+	border: 1px solid yellow;
+	border-radius: 5px;
+	height:  100px;
+	width: 150px;
+}
+.gbrku:hover {
+	height: 300px;
+	width: 450px;
+	animation-duration: 4s;
+	animation-delay: 2s;
+}
