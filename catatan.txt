@@ -1,0 +1,1 @@
+1. untuk pop up ditempatkan semua di div initial.html

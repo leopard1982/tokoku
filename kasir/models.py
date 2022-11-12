@@ -1,5 +1,7 @@
 from django.db import models
 
+from django.urls import reverse
+
 # Create your models here.
 class MasterSupplier(models.Model):
 	kode_supplier= models.CharField(max_length=100,verbose_name="Kode Supplier",default="",primary_key=True,null=False,blank=False)
@@ -14,6 +16,9 @@ class MasterSupplier(models.Model):
 
 	def __str__(self):
 		return "%s - %s"%(self.kode_supplier,self.nama_supplier)
+
+	def delete_master(self):
+		return reverse('Delete_Master_Supplier',args=[str(self.kode_supplier)])
 
 	class Meta:
 		unique_together=["kode_supplier","nama_supplier"]

@@ -66,7 +66,7 @@ Master Data
                 <div class="row bg-primary rounded border">
                     <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">No.</div>
                     <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">Kode Supplier</div>
-                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2">Nama Supplier</div>
+                    <div class="col-xxl-1 col-xl-2 col-lg-2 col-md-2 col-sm-2">Nama Supplier</div>
                     <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">No. Telp.#1</div>
                     <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">No. Telp.#2</div>
                     <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2">Alamat</div>
@@ -74,13 +74,14 @@ Master Data
                     <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">Hutang Tambahan</div>
                     <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">Hutang Akhir</div>
                     <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">Catatan</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">Delete</div>
                 </div>
             </b>    
             {% for mydata in data %}
             <div class="row border rounded border">
                     <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{forloop.counter}}</div>
                     <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{mydata.kode_supplier}}</div>
-                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 border">{{mydata.nama_supplier| truncatechars:10}}</div>
+                    <div class="col-xxl-1 col-xl-2 col-lg-2 col-md-2 col-sm-2 border">{{mydata.nama_supplier| truncatechars:10}}</div>
                     <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{mydata.tlp1 | truncatechars:10}}</div>
                     <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">
                     {% if mydata.tlp2 == None %}
@@ -94,6 +95,7 @@ Master Data
                     <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{mydata.hutang_tambahan | intcomma}}</div>
                     <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{mydata.hutang_akhir | intcomma}}</div>
                     <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{mydata.catatan|truncatechars:10}}</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border"><button onclick="location.href='{{mydata.delete_master}}'" class="btn-outline-secondary">Delete</button></div>
             </div>
             {% endfor %}
         </div>
