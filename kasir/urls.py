@@ -12,4 +12,5 @@ urlpatterns = [
     path("i/", views.Initial_Input_Master,name="Initial_Input_Master"),
     path('POS/',views.Pos,name="Pos"),
     path('chart/',views.chartku,name='chartku'),
+    path('logout/',views.logout,name='logout'),
 ]

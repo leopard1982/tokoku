@@ -1,52 +1,70 @@
-{% extends 'initial.html'%}
+{% load static %}
 
-{% block title %} Form Dashboard {% endblock %}
-
-{% block stamp%}
-    Master Data Supplier
-{% endblock%}
-
-{% block content%}
-
-    <div class="shadow rounded p-2">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L-tokoku</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap5.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/demo.css'%}">
+    <link rel="stylesheet" href="{% static 'css/fontawesome.css'%}">
+    <link rel="stylesheet" href="{% static 'css/google.apis.fonts.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'css/leopardcss.css'%}">
+    <link rel="shortcut icon" href="{% static 'img/logo.ico'%}" type="image/x-icon">
+</head>
+<body>
+        <div class="container border shadow text-center" style="background-color:lightblue">
+            <div class="container-fluid m-3">
+                <h1><b>Toko Sembako</b></h1>
+                <h3><b>L-tokoku </b><h5>sistem id: LT001</h5></h3>
+            </div>
+        </div>    
+        {% if loginkan == 1%}
+            <div class="text-center bg-info my-3 p-3 container rounded-pill shadow w-50">
+                {% if user.is_authenticated %}
+                    Login Berhasil!
+                {% else %}
+                    Username dan Password berbeda!
+                {% endif %}
+                </div>
+        {% endif%}
         <form method="post">
-            {% csrf_token%}
-            <div class="row">
-                <div class="col-3">Kode Supplier</div>
-                <div class="col-auto">{{form.kode_supplier}}</div>
-            </div>
-            <div class="row">
-                <div class="col-3">Nama Supplier</div>
-                <div class="col-auto">{{form.nama_supplier}}</div>
-            </div>
-            <div class="row">
-                <div class="col-4">
-                    <input type="submit" name="btnSubmit" class="btn btn-outline-secondary">  
+            {%csrf_token%}
+            <div class="container d-flex justify-content-center my-5 w-75">
+                
+                <div class="container border shadow">
+                    <div class="row">
+                        <div class="text-center container border rounded-3 shadow p-2 h4" style="background-color:lightyellow">
+                            &laquo; login &raquo;
+                        </div>
+                        
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-4">
+                            Username:
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" placeholder="username" name='txtusername' required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Password:
+                        </div>
+                        <div class="col-8">
+                            <input type="password" class="form-control" placeholder="password" name='txtpassword' required>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <button type="submit" class="form-control btn btn-outline-secondary">Login</button>
+                    </div>
                 </div>
             </div>
-        </form>     
-    </div>
-
-    <div class="p-2 shadow my-3 bg-primary bg-opacity-10 rounded-2">
-        <div class=" shadow  container-fluid rounded ">
-            <b>     
-                <div class="row bg-primary rounded">
-                    <div class="col-1">No.</div>
-                    <div class="col-5">Kode Supplier</div>
-                    <div class="col-auto">Nama Supplier</div>
-                </div>
-            </b>    
-            {% for mydata in data %}
-            <div class="row border rounded">
-                <div class="col-1 ">{{forloop.counter}}</div>
-                <div class="col-5 d">{{mydata.kode_supplier | truncatechars:15}}</div>
-                <div class="col-auto">{{mydata.nama_supplier | truncatechars:15}}</div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-{% endblock %}
-
-{% block jquery%}
-    $('document').write('hallo');
-{% endblock%}
+        </form>
+        <script src="{% static 'js/bootstrap5.bundle.min.js'%}"></script>
+    <script src="{% static 'js/jquery.min.js'%}"></script>
+</body>
+</html>
