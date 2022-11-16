@@ -1,0 +1,1 @@
+web: gunicorn tokoku.wsgi:application --log-file -
