@@ -80,12 +80,8 @@ WSGI_APPLICATION = "tokoku.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "dbtokoku",
-        "USER": "admin",
-        "PASSWORD": "chandra1982",
-        "HOST": "localhost",
-        'PORT': "5432"
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / 'dbtokoku.sqlite3'
     }
 }
 
