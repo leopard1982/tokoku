@@ -7,9 +7,12 @@ from .models import MasterSupplier, MasterPelanggan
 from django.contrib.auth.models import User
 from django.contrib import auth
 
+import datetime
+
 # Create your views here.
 def indeks(request):
     loginkan=0
+    
     if request.method == 'POST':
         loginkan=1
         username=request.POST['txtusername']
@@ -61,11 +64,12 @@ def Initial_Input_Master(request):
     else:
         return render(request, 'initial_masterdata.html')
 
-def Pos(request):
+def Pos(request,nomor):
+    mydate = datetime.date.today()
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
-        return render(request,'POS/initial.html')
+        return render(request,'POS/initial.html',{'nomor':nomor,'mydate':mydate})
 
 def chartku(request):
     if not request.user.is_authenticated:

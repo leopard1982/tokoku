@@ -22,17 +22,16 @@
                 <h3><b>L-tokoku </b><h5>sistem id: LT001</h5></h3>
             </div>
         </div>    
-        <div class="text-center bg-info my-3 p-3 container rounded-pill shadow w-50">
-        {% if loginkan == 1%}
-            {% if user.is_authenticated %}
-                Login Berhasil!
-            {% else %}
-                Username dan Password berbeda!
-            {% endif %}
+        {% if user.is_authenticated %}
+            <script>
+                window.location.href = '/POS/1/';
+            </script>
         {% else %}
-            {% if user.is_authenticated %}
-                Sudah Login!
-            {% endif%}
+            {% if loginkan == 1 %}
+                <div class="text-center bg-info my-3 p-3 container rounded-pill shadow w-50">
+                    Username dan Password berbeda!
+                </div>
+            {% endif %}
         {% endif%}
         </div>
         <form method="post">

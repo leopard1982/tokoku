@@ -39,19 +39,48 @@
 			<div class="col-3 rounded border h3 mx-3 py-4 shadow text-center" style="background-color:lightblue;font-weight:bold">Jumlah Item: #3</div>
 		</div>
 		<div class="row text-center h5 shadow my-1" style="background-color:lightblue">
-			<div class="col-5 text-start">
-				<p class="mx-2">User Login: suryo</p><button type="button" class="btn btn-outline-secondary" onclick="location.href='{% url 'logout'%}'">logout</button>
+			<div class="col-4 text-start">
+				<div class="row">
+					<div class="d-flex justify-content-start col-5 py-2">
+						user login: &nbsp;<b>{{user.username}}</b>
+					</div>
+					<div class="d-flex justify-content-start col-7">
+						<button type="button" class="btn btn-outline-primary rounded-pill" onclick="location.href='{% url 'logout'%}'">logout</button></p>
+					</div>	
+				</div>
 			</div>
-			<div class="col-7 text-end">
-				<p class="mx-2">Transaksi Tanggal 15 Agustus 2022</p>
+			<div class="col-8 py-1 text-end">
+				tanggal: {{mydate}}
 			</div>
 		</div>
 
 		<div class="row container-fluid" style="background-color:whitesmoke">
 			<div class="col-12">
+				<div class="row py-2" style="background-color: lightcyan;">
+					<div class="col-4">
+						<button class="form-control rounded-pill btn btn-outline-primary" onclick="location.href='/POS/1/'">POS#1</button>
+					</div>
+					<div class="col-4">
+						<button class="form-control rounded-pill btn btn-outline-secondary" onclick="location.href='/POS/2/'">POS#2</button>
+					</div>
+					<div class="col-4">
+						<button class="form-control rounded-pill btn btn-outline-success" onclick="location.href='/POS/3/'">POS#3</button>
+					</div>
+				</div>
 				<div class="row">
-					<div class="col-6 text-start"><h3>Transaksi Penjualan</h3></div>
-					<div class="col-6 text-end"><h3>Pelanggan:
+					<div class="col-2 text-center py-2  border-1 my-2" style="background-color: cyan;" style="position: absolute;z-index: 1;"><h5>Transaksi Penjualan</h5></div>
+					<div class="col-1 text-center py-2 rounded-pill rounded-start border-1 my-2" style="background-color: paleturquoise;" style="left:20px; position:absolute; z-index: 2;"><h5>
+						{% if nomor == "1" %}
+							POS#1
+						{% elif nomor == "2" %}
+							POS#2
+						{% elif nomor == "3" %}
+							POS#3
+						{% endif %}
+					</h5></div>
+				</div>
+				<div class="row">
+					<div class="col-9 text-end"><h3>Pelanggan:
 						<select>
 							<option>Eceran</option>
 							<option>Nama#1</option>
@@ -63,17 +92,7 @@
 					</h3></div>
 				</div>
 
-				<div class="row">
-					<div class="col-4">
-						<button class="form-control btn btn-outline-primary">POS#1</button>
-					</div>
-					<div class="col-4">
-						<button class="form-control btn btn-outline-secondary">POS#2</button>
-					</div>
-					<div class="col-4">
-						<button class="form-control btn btn-outline-success">POS#3</button>
-					</div>
-				</div>
+				
 				<div class="container-fluid my-2">
 					<div class="row border rounded p-3" style="background-color:Bisque">
 						<div class="container-fluid h4" style="background-color:rgb(251, 235, 217)">
