@@ -25,8 +25,9 @@ SECRET_KEY = "django-insecure-7-5i8&657y54c8&%d_#u=&1i^sl(dctg@(cvb(tzvgfhf5asj7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['maning.herokuapp.com','localhost','192.168.1.50']
+ALLOWED_HOSTS = ['mytoko.herokuapp.com','localhost','192.168.1.50']
 
+CSRF_TRUSTED_ORIGINS = ['https://mytoko.herokuapp.com','http://192.168.1.50','http://localhost']
 
 # Application definition
 
