@@ -20,7 +20,7 @@ Daftar Supplier
 {% endblock%}
 
 {% block content%}
-    <table class="table" style="font-size: 13px;width: 100%;">
+    <table class="table" style="width: 100%;font-size:14px;">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -37,7 +37,7 @@ Daftar Supplier
             </tr>
         </thead>
         {% for dataku in data %}
-        <tbody style="overflow:auto;">
+        <tbody style="overflow-x:auto;">
             <tr class="{% cycle 'table-primary' 'table-secondary' 'table-success'%}">
                 <th scope="col">{{forloop.counter}}</th>
                 <td>{{dataku.kode_supplier}}</td>
@@ -45,9 +45,9 @@ Daftar Supplier
                 <td>{{dataku.tlp1}}</td>
                 <td>{{dataku.tlp2}}</td>
                 <td>{{dataku.alamat}}</td>
-                <td>{{dataku.hutang_awal}}</td>
-                <td>{{dataku.hutang_tambahan}}</td>
-                <td>{{dataku.hutang_akhir}}</td>
+                <td>{{dataku.hutang_awal|intcomma}}</td>
+                <td>{{dataku.hutang_tambahan|intcomma}}</td>
+                <td>{{dataku.hutang_akhir|intcomma}}</td>
                 <td>{{dataku.catatan}}</td>
                 <td>{{dataku.hapus}}</td>
             </tr>

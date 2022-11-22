@@ -34,7 +34,7 @@ Daftar Pelanggan
             </tr>
         </thead>
         {% for dataku in data %}
-        <tr class="{% cycle 'table-primary' 'table-secondary' 'table-success'%}">
+        <tr class="{% cycle 'table-primary' 'table-secondary' 'table-success'%}"  style="overflow-x: auto;">
             <th scope="col">{{forloop.counter}}</th>
             <td>{{dataku.kode_pelanggan}}</td>
             <td>{{dataku.nama_pelanggan}}</td>

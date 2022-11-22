@@ -47,15 +47,15 @@ Daftar Barang
                 <th scope="col">{{forloop.counter}}</th>
                 <td>{{dataku.id_barang}}</td>
                 <td>{{dataku.nama_barang}}</td>
-                <td>{{dataku.stok_awal}}</td>
-                <td>{{dataku.stok_beli}}</td>
-                <td>{{dataku.stok_rusak}}</td>
-                <td>{{dataku.stok_akhir}}</td>
-                <td>{{dataku.harga_modal}}</td>
-                <td>{{dataku.harga_ecer}}</td>
-                <td>{{dataku.harga_grosir1}}</td>
-                <td>{{dataku.harga_grosir2}}</td>
-                <td>{{dataku.harga_grosir3}}</td>
+                <td>{{dataku.stok_awal|intcomma}}</td>
+                <td>{{dataku.stok_beli|intcomma}}</td>
+                <td>{{dataku.stok_rusak|intcomma}}</td>
+                <td>{{dataku.stok_akhir|intcomma}}</td>
+                <td>{{dataku.harga_modal|intcomma}}</td>
+                <td>{{dataku.harga_ecer|intcomma}}</td>
+                <td>{{dataku.harga_grosir1|intcomma}}</td>
+                <td>{{dataku.harga_grosir2|intcomma}}</td>
+                <td>{{dataku.harga_grosir3|intcomma}}</td>
                 <td>{{dataku.get_satuan_barang_display}}</td>
                 <td>{{dataku.keterangan_isi}}</td>
                 <td><img src="{{dataku.foto.url}}" style="width:50px;height: 50px;"></td>
