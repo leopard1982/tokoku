@@ -105,6 +105,30 @@
     </footer>
     <script src="{% static 'js/bootstrap5.bundle.min.js'%}"></script>
     <script src="{% static 'js/jquery.min.js'%}"></script>
-    <script src="{% static 'js/sidebar_click.js' %}"></script>
+    <script>
+      $('document').ready(function() {
+        $('#mastersupplier').click(function() {
+          window.location="/i/ms/";
+        });
+        $('#masterpelanggan').click(function() {
+          window.location="/i/mp/";
+        });
+        $('#masterbarang').click(function() {
+          window.location="/i/mb/";
+        });
+        $('#viewmastersupplier').click(function() {
+          window.location="/v/s/";
+        });
+        $('#viewmasterpelanggan').click(function() {
+          window.location="/v/p/";
+        });
+        $('#viewmasterbarang').click(function() {
+          window.location="/v/b/";
+        });
+        $('#exitwarning').click(function() {
+          $('#exitwarning').hide(1000);
+        })
+      })
+    </script>
 </body>
 </html>
