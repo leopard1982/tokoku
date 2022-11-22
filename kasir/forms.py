@@ -6,7 +6,7 @@ class InputMasterSupplier(forms.ModelForm):
 	class Meta:
 		model=MasterSupplier
 		fields = "__all__"
-		exclude= ['hutang_tambahan','hutang_akhir']
+		exclude= ['hutang_tambahan','hutang_akhir','hapus']
 
 		widgets= {
 			'kode_supplier':forms.TextInput(attrs={'class':'form-control input-lg'}),
@@ -22,6 +22,7 @@ class InputMasterPelanggan(forms.ModelForm):
 	class Meta:
 		model=MasterPelanggan
 		fields = "__all__"
+		exclude = ['hapus']
 
 		widgets= {
 			'kode_pelanggan': forms.TextInput(attrs={'class':'form-control input-lg'}),
@@ -34,7 +35,7 @@ class InputMasterBarang(forms.ModelForm):
 	class Meta:
 		model=MasterBarang
 		fields = "__all__"
-		exclude = ['stok_beli','stok_rusak','stok_akhir']
+		exclude = ['stok_beli','stok_rusak','stok_akhir','hapus']
 
 		widgets = {
 			'id_barang': forms.TextInput(attrs={'class':'form-control input-lg'}),

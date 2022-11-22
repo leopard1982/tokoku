@@ -1,0 +1,28 @@
+{% extends 'initial.html'%}
+{% load humanize %}
+
+{% block title %}
+L-tokoku | Master Pelanggan
+{% endblock %}
+
+{% block header_sidebar%}
+    Master Data
+{% endblock%}
+
+{% block sidebar%}
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="viewmasterbarang">Daftar Barang</button>
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="viewmastersupplier">Daftar Supplier</button>
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="viewmasterpelanggan">Daftar Pelanggan</button>
+{% endblock%}
+
+{% block stamp%}
+Daftar Master Data
+{% endblock%}
+
+{% block content%}
+    <div class="shadow rounded p-2">
+        <p><b>Daftar Master Data</b></p>
+        <p>Selamat datang di menu Management Master Data. Anda Bisa melihat data yang sudah diinput dan melakukan update dengan privilege seorang admin.</p>
+        <p>Terima kasih. Admin.</p>
+    </div>
+{% endblock%}

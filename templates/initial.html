@@ -50,7 +50,8 @@
                       <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">Master</a>
                         <ul class="dropdown-menu shadow">
-                          <li><a class="dropdown-item" href="/i/">Master Data</a></li>
+                          <li><a class="dropdown-item" href="/i/">Menambah Master Data</a></li>
+                          <li><a class="dropdown-item" href="/v/">Lihat/ Update Master Data</a></li>
                         </ul>
                       <li class="nav-item">
                         <a class="nav-link" href="/POS/1/">POS Penjualan</a>
@@ -104,21 +105,6 @@
     </footer>
     <script src="{% static 'js/bootstrap5.bundle.min.js'%}"></script>
     <script src="{% static 'js/jquery.min.js'%}"></script>
-    <script>
-      $('document').ready(function() {
-        $('#mastersupplier').click(function() {
-          window.location="/i/ms/";
-        });
-        $('#masterpelanggan').click(function() {
-          window.location="/i/mp/";
-        });
-        $('#masterbarang').click(function() {
-          window.location="/i/mb/";
-        });
-        $('#exitwarning').click(function() {
-          $('#exitwarning').hide(1000);
-        })
-      })
-    </script>
+    <script src="{% static 'js/sidebar_click.js' %}"></script>
 </body>
 </html>

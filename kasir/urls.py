@@ -13,4 +13,6 @@ urlpatterns = [
     path('POS/<str:nomor>/',views.Pos,name="Pos"),
     path('chart/',views.chartku,name='chartku'),
     path('logout/',views.logout,name='logout'),
+    path('v/',views.Initial_View_Master,name='Initial_View_Master'),
+    path('v/p/',views.View_Master_Pelanggan,name='View_Master_Pelanggan'),
 ]

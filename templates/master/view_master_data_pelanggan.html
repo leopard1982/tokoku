@@ -1,0 +1,54 @@
+{% extends 'initial.html'%}
+{% load humanize %}
+
+{% block title %}
+L-tokoku | Master Pelanggan
+{% endblock %}
+
+{% block header_sidebar%}
+    Master Data
+{% endblock%}
+
+{% block sidebar%}
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="viewmasterbarang">Daftar Barang</button>
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="viewmastersupplier">Daftar Supplier</button>
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="viewmasterpelanggan">Daftar Pelanggan</button>
+{% endblock%}
+
+{% block stamp%}
+Daftar Pelanggan
+{% endblock%}
+
+{% block content%}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Id</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Tlp.</th>
+                <th scope="col">Alamat</th>
+                <th scope="col">KTP</th>
+                <th scope="col">Tipe</th>
+                <th scope="col">Hapus</th>
+            </tr>
+        </thead>
+        {% for dataku in data %}
+        <tr class="{% cycle 'table-primary' 'table-secondary' 'table-success'%}">
+            <th scope="col">{{forloop.counter}}</th>
+            <td>{{dataku.kode_pelanggan}}</td>
+            <td>{{dataku.nama_pelanggan}}</td>
+            <td>{{dataku.nomor_tlp}}</td>
+            <td>{{dataku.alamat_pelanggan}}</td>
+            <td><img style="width: 100px; height: 50px" src="{{dataku.foto_ktp.url}}"></td>
+            <td>{{dataku.get_tipe_display}}</td>
+            <td>{{dataku.hapus}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="8">Jumlah Pelanggan: {{jml_data}} orang</td>
+        </tr>
+    </table>
+
+    
+{% endblock%}

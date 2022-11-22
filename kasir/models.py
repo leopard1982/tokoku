@@ -13,6 +13,7 @@ class MasterSupplier(models.Model):
 	hutang_tambahan=models.PositiveIntegerField(verbose_name="Hutang Tambahan",default=0)
 	hutang_akhir = models.PositiveIntegerField(verbose_name="Hutang Akhir",default=0)
 	catatan = models.CharField(max_length=200,verbose_name="Catatan",default="-")
+	hapus= models.BooleanField(default=True)
 
 	def __str__(self):
 		return "%s - %s"%(self.kode_supplier,self.nama_supplier)
@@ -34,7 +35,8 @@ class MasterPelanggan(models.Model):
 	alamat_pelanggan = models.CharField(max_length=100,verbose_name="Alamat KTP",null=False,blank=False)
 	foto_ktp = models.ImageField(verbose_name="Foto KTP",upload_to="ktp",null=False,blank=False)
 	tipe = models.CharField(max_length=1,choices=pilihan,verbose_name="Tipe Pelanggan",null=False,blank=False)
-
+	hapus= models.BooleanField(default=True)
+	
 	def __str_(self):
 		return "%s - %s"%(self.kode_pelanggan,self.nama_pelanggan)
 
@@ -59,7 +61,8 @@ class MasterBarang(models.Model):
 	satuan_barang = models.CharField(verbose_name="Satuan Barang",max_length=1,choices=pilih_satuan,null=False,blank=False,default="D")
 	keterangan_isi = models.CharField(verbose_name="Keterangan Isi",max_length=100,null=False,blank=False)
 	foto = models.ImageField(verbose_name="Foto Barang",upload_to="stok_barang",null=False,blank=False)
-
+	hapus= models.BooleanField(default=True)
+	
 	def __str__(self):
 		return "%s - %s"%(self.id_barang,self.nama_barang)
 	

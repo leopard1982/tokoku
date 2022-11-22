@@ -38,7 +38,7 @@ def Input_Master_Supplier(request):
                 errornya =forms.errors.items()
 
         forms = InputMasterSupplier()
-        return render(request, 'input-master-supplier.html',{'form':forms,'errornya':errornya,'apa_post':apa_post})
+        return render(request, 'master/input-master-supplier.html',{'form':forms,'errornya':errornya,'apa_post':apa_post})
 
 def Delete_Master_Supplier(request,idsupplier):
     if not request.user.is_authenticated:
@@ -62,13 +62,13 @@ def Input_Master_Pelanggan(request):
                 errornya = forms.errors.items()
 
         forms = InputMasterPelanggan()
-        return render(request, 'input-master_pelanggan.html',{'form':forms,'errornya':errornya,'apa_post':apa_post})
+        return render(request, 'master/input-master_pelanggan.html',{'form':forms,'errornya':errornya,'apa_post':apa_post})
 
 def Initial_Input_Master(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
-        return render(request, 'initial_masterdata.html')
+        return render(request, 'master/initial_input_masterdata.html')
 
 def Pos(request,nomor):
     mydate = datetime.date.today()
@@ -101,4 +101,12 @@ def Input_Master_Barang(request):
             errornya= forms.errors.items()
             
     forms = InputMasterBarang()
-    return render(request,"input_master_barang.html",{'form':forms,'errornya':errornya,'apa_post':apa_post})
+    return render(request,"master/input_master_barang.html",{'form':forms,'errornya':errornya,'apa_post':apa_post})
+
+def Initial_View_Master(request):
+    return render(request,"master/initial_view_master_data.html")
+
+def View_Master_Pelanggan(request):
+    data = MasterPelanggan.objects.all()
+    jml_data = data.count()
+    return render(request,"master/view_master_data_pelanggan.html",{'data':data,'jml_data':jml_data})
