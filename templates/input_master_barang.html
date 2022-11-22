@@ -1,0 +1,106 @@
+{% extends 'initial.html'%}
+{% load humanize %}
+
+{% block title %}
+L-tokoku | Master Pelanggan
+{% endblock %}
+
+{% block header_sidebar%}
+    Master Data
+{% endblock%}
+
+{% block sidebar%}
+    <button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="masterbarang">Master Data Barang</button>
+    <button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="mastersupplier">Master Data Supplier</button>
+    <button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="masterpelanggan">Master Data Pelanggan</button>
+
+{% endblock%}
+
+{% block stamp%}
+Master Data Barang
+{% endblock%}
+
+{% block warnings%}
+    {% if apa_post %}
+        {% if errornya is not None %}
+            <div class="d-flex justify-content-center" >
+                <div class="card shadow mx-2 roundend-2 py-4 bg-warning"  id="exitwarning">
+                    <div class="row text-center h3 mx-2">Error Input</div>
+                    {% for bagian, message in errornya%}
+                        <div class="row mx-4">
+                            {{forloop.counter}}. {{bagian}}: {{message}}
+                        </div>
+                    {% endfor%}
+                    
+                </div>
+            </div>
+        {% else %}
+            <div class="d-flex justify-content-center " >
+                <div class="card shadow mx-2 rounded-2 bg-success py-4"  id="exitwarning">
+                    <div class="row text-center h3 mx-2">Data Berhasil ditambahkan!</div>
+                </div>
+            </div>
+        {% endif %}
+    {%endif%}
+{% endblock%}
+
+{% block content%}
+<div class="shadow rounded p-2 ">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token%}
+        <div class="row">
+            <div class="col-3">Kode Barang:</div>
+            <div class="col-9">{{form.id_barang}}</div>
+        </div>
+        <div class="row">
+            <div class="col-3">Nama Barang:</div>
+            <div class="col-9">{{form.nama_barang}}</div>
+        </div>
+        <div class="row">
+            <div class="col-3">Jml Stok Awal:</div>
+            <div class="col-9">{{form.stok_awal}}</div>
+        </div>
+        <div class="row">
+            <div class="col-3">Harga Modal:</div>
+            <div class="col-9">{{form.harga_modal}}</div>
+        </div>
+        <div class="row">
+            <div class="col-3">Harga Eceran:</div>
+            <div class="col-9">{{form.harga_ecer}}</div>
+        </div>
+        <div class="row">
+            <div class="col-3">Harga Grosir #1:</div>
+            <div class="col-9">{{form.harga_grosir1}}</div>
+        </div>
+        <div class="row">
+            <div class="col-3">Harga Grosir #2:</div>
+            <div class="col-9">{{form.harga_grosir2}}</div>
+        </div>
+        <div class="row">
+            <div class="col-3">Harga Grosir #3:</div>
+            <div class="col-9">{{form.harga_grosir3}}</div>
+        </div>
+        <div class="row">
+            <div class="col-3">Satuan Barang:</div>
+            <div class="col-9">{{form.satuan_barang}}</div>
+        </div>
+        <div class="row">
+            <div class="col-3">Keterangan Barang:</div>
+            <div class="col-9">{{form.keterangan_isi}}</div>
+        </div>
+        <div class="row">
+            <div class="col-3">Foto Kemasan Barang:</div>
+            <div class="col-9">{{form.foto}}</div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <input type="submit" name="btnSubmit" class="btn btn-outline-secondary" value="Tambahkan Master Barang">                    
+            </div>
+        </div>
+    </form>     
+</div>
+{% endblock%}
+
+{% block mylist %}
+    
+{% endblock %}

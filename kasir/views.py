@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 
-from .forms import InputMasterSupplier, InputMasterPelanggan
+from .forms import InputMasterSupplier, InputMasterPelanggan, InputMasterBarang
 
 from .models import MasterSupplier, MasterPelanggan
 
@@ -24,17 +24,21 @@ def indeks(request):
     return render(request, 'coba.html',{'loginkan':loginkan})
 
 def Input_Master_Supplier(request):
+    errornya = None
+    apa_post= False
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
         if request.method == "POST":
+            apa_post=True
             forms = InputMasterSupplier(request.POST)
             if(forms.is_valid()):
                 forms.save()
+            else:
+                errornya =forms.errors.items()
 
         forms = InputMasterSupplier()
-        data = MasterSupplier.objects.all()
-        return render(request, 'input-master-supplier.html',{'form':forms,'data':data})
+        return render(request, 'input-master-supplier.html',{'form':forms,'errornya':errornya,'apa_post':apa_post})
 
 def Delete_Master_Supplier(request,idsupplier):
     if not request.user.is_authenticated:
@@ -44,19 +48,21 @@ def Delete_Master_Supplier(request,idsupplier):
         return HttpResponseRedirect('/i/ms/')
 
 def Input_Master_Pelanggan(request):
+    errornya = None
+    apa_post= False
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
         if request.method == "POST":
+            apa_post=True
             forms = InputMasterPelanggan(request.POST,request.FILES)
             if(forms.is_valid()):
                 forms.save()
             else:
-                print(forms)
+                errornya = forms.errors.items()
 
         forms = InputMasterPelanggan()
-        data = MasterPelanggan.objects.all()
-        return render(request, 'input-master_pelanggan.html',{'form':forms,'data':data})
+        return render(request, 'input-master_pelanggan.html',{'form':forms,'errornya':errornya,'apa_post':apa_post})
 
 def Initial_Input_Master(request):
     if not request.user.is_authenticated:
@@ -82,3 +88,17 @@ def chartku(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/')
+
+def Input_Master_Barang(request):
+    errornya = None
+    apa_post= False
+    if request.method == "POST":
+        apa_post=True
+        forms = InputMasterBarang(request.POST,request.FILES)
+        if forms.is_valid():
+            forms.save()
+        else:
+            errornya= forms.errors.items()
+            
+    forms = InputMasterBarang()
+    return render(request,"input_master_barang.html",{'form':forms,'errornya':errornya,'apa_post':apa_post})

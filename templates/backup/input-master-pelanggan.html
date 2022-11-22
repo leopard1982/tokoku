@@ -19,29 +19,6 @@ L-tokoku | Master Pelanggan
 Master Data Pelanggan
 {% endblock%}
 
-{% block warnings%}
-    {% if apa_post %}
-        {% if errornya is not None %}
-            <div class="d-flex justify-content-center" >
-                <div class="card shadow mx-2 roundend-2 py-4 bg-warning"  id="exitwarning">
-                    <div class="row text-center h3 mx-2">Error Input</div>
-                    {% for bagian, message in errornya%}
-                        <div class="row mx-4">
-                            {{forloop.counter}}. {{bagian}}: {{message}}
-                        </div>
-                    {% endfor%}
-                    
-                </div>
-            </div>
-        {% else %}
-            <div class="d-flex justify-content-center " >
-                <div class="card shadow mx-2 rounded-2 bg-success py-4"  id="exitwarning">
-                    <div class="row text-center h3 mx-2">Data Berhasil ditambahkan!</div>
-                </div>
-            </div>
-        {% endif %}
-    {%endif%}
-{% endblock%}
 
 {% block content%}
 <div class="shadow rounded p-2">
@@ -79,3 +56,33 @@ Master Data Pelanggan
         </form>     
     </div>
 {% endblock%}
+
+{% block mylist %}
+    <div class="p-2 shadow my-3 bg-ligth rounded-2">
+        <div class=" shadow  container-fluid rounded">
+            <b>     
+                <div class="row bg-primary rounded border">
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">No.</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">Kode Pelanggan</div>
+                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2">Nama Pelanggan</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">No. Tlp</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">Alamat</div>
+                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2">Tipe</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1">KTP</div>
+                </div>
+            </b>    
+            {% for mydata in data %}
+            <div class="row border rounded border">
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{forloop.counter}}</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{mydata.kode_pelanggan}}</div>
+                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 border">{{mydata.nama_pelanggan| truncatechars:10}}</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{mydata.alamat_pelanggan | truncatechars:10}}</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border">{{mydata.nomor_tlp | truncatechars:10}}
+                    </div>
+                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 border">{{mydata.get_tipe_display}}</div>
+                    <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-1 col-sm-1 border"><img src="{{mydata.foto_ktp.url}}" class='gbrku'></div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

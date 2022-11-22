@@ -17,6 +17,7 @@ class MasterSupplier(models.Model):
 	def __str__(self):
 		return "%s - %s"%(self.kode_supplier,self.nama_supplier)
 
+
 	def delete_master(self):
 		return reverse('Delete_Master_Supplier',args=[str(self.kode_supplier)])
 
@@ -39,3 +40,28 @@ class MasterPelanggan(models.Model):
 
 	class Meta:
 		ordering = ['kode_pelanggan','nama_pelanggan']
+
+class MasterBarang(models.Model):
+	pilih_satuan = [('D','Kardus'),
+		('R','Renceng'),
+		('E','Ecer')]
+	id_barang = models.CharField(max_length=100,verbose_name="ID Barang",null=False,blank=False,primary_key=True,default="-")
+	nama_barang = models.CharField(max_length=100,verbose_name="Nama Barang",null=False,blank=False,default="-")
+	stok_awal = models.PositiveBigIntegerField(verbose_name="Stok Awal Barang",default=0,null=False,blank=False)
+	stok_beli = models.PositiveBigIntegerField(verbose_name="Stok Pembelian",default=0,null=False,blank=False)
+	stok_rusak = models.PositiveBigIntegerField(verbose_name="Stok Barang Rusak",default=0,null=False,blank=False)
+	stok_akhir = models.PositiveBigIntegerField(verbose_name="Stok Barang Akhir",default=0,null=False,blank=False)
+	harga_modal = models.PositiveBigIntegerField(verbose_name="Harga Modal",default=0,null=False,blank=False)
+	harga_ecer = models.PositiveBigIntegerField(verbose_name="Harga Ecer",default=0,null=False,blank=False)
+	harga_grosir1 = models.PositiveBigIntegerField(verbose_name="Harga Grosir#1",default=0,null=False,blank=False)
+	harga_grosir2 = models.PositiveBigIntegerField(verbose_name="Harga Grosir#2",default=0,null=False,blank=False)
+	harga_grosir3 = models.PositiveBigIntegerField(verbose_name="Harga Grosir#3",default=0,null=False,blank=False)
+	satuan_barang = models.CharField(verbose_name="Satuan Barang",max_length=1,choices=pilih_satuan,null=False,blank=False,default="D")
+	keterangan_isi = models.CharField(verbose_name="Keterangan Isi",max_length=100,null=False,blank=False)
+	foto = models.ImageField(verbose_name="Foto Barang",upload_to="stok_barang",null=False,blank=False)
+
+	def __str__(self):
+		return "%s - %s"%(self.id_barang,self.nama_barang)
+	
+	class Meta:
+		ordering = ['id_barang','nama_barang']

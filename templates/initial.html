@@ -27,6 +27,7 @@
     <script src="{% static 'js/chart.js'%}"></script>
 </head>
 <body style="background-color: whitesmoke ;">
+ 
         <main>
             <!-- Start Mega Menu HTML -->
             <nav class="navbar navbar-expand-lg navbar-light bg-primary navbar-dark shadow fixed-top"">
@@ -47,91 +48,17 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                       </li>
                       <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">Management</a>
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">Master</a>
                         <ul class="dropdown-menu shadow">
                           <li><a class="dropdown-item" href="/i/">Master Data</a></li>
-                          <li><a class="dropdown-item" href="blog.html">Blog</a></li>
-                          <li class="dropstart">
-                            <a href="#" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown">Submenu Left</a>
-                            <ul class="dropdown-menu shadow">
-                              <li><a class="dropdown-item" href=""> Third level 1</a></li>
-                              <li><a class="dropdown-item" href=""> Third level 2</a></li>
-                              <li><a class="dropdown-item" href=""> Third level 3</a></li>
-                              <li><a class="dropdown-item" href=""> Third level 4</a></li>
-                              <li><a class="dropdown-item" href=""> Third level 5</a></li>
-                            </ul>
-                          </li>
-                          <li class="dropend">
-                            <a href="#" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside">Submenu Right</a>
-                            <ul class="dropdown-menu shadow">
-                              <li><a class="dropdown-item" href=""> Second level 1</a></li>
-                              <li><a class="dropdown-item" href=""> Second level 2</a></li>
-                              <li><a class="dropdown-item" href=""> Second level 3</a></li>
-                              <li class="dropend">
-                                <a href="#" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown">Let's go deeper!</a>
-                                <ul class="dropdown-menu dropdown-submenu shadow">
-                                  <li><a class="dropdown-item" href=""> Third level 1</a></li>
-                                  <li><a class="dropdown-item" href=""> Third level 2</a></li>
-                                  <li><a class="dropdown-item" href=""> Third level 3</a></li>
-                                  <li><a class="dropdown-item" href=""> Third level 4</a></li>
-                                  <li><a class="dropdown-item" href=""> Third level 5</a></li>
-                                </ul>
-                              </li>
-                              <li><a class="dropdown-item" href=""> Third level 5</a></li>
-                            </ul>
-                          </li>
-                          <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
-                      </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="/POS/">POS Penjualan</a>
-                      </li>
-                      <li class="nav-item dropdown dropdown-mega position-static">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">Megamenu</a>
-                        <div class="dropdown-menu shadow">
-                          <div class="mega-content px-4">
-                            <div class="container-fluid">
-                              <div class="row">
-                                <div class="col-12 col-sm-4 col-md-3 py-4">
-                                  <h5>Pages</h5>
-                                  <div class="list-group">
-                                    <a class="list-group-item" href="#">Accomodations</a>
-                                    <a class="list-group-item" href="#">Terms &amp; Conditions</a>
-                                    <a class="list-group-item" href="#">Privacy</a>
-                                  </div>
-                                </div>
-                                <div class="col-12 col-sm-4 col-md-3 py-4">
-                                  <h5>Card</h5>
-                                  <div class="card">
-                              <img src="img/banner-image.jpg" class="img-fluid" alt="image">
-                              <div class="card-body">
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              </div>
-                            </div>
-                                </div>
-                                <div class="col-12 col-sm-4 col-md-3 py-4">
-                                  <h5>About CodeHim</h5>
-                                    <p><b>CodeHim</b> is one of the BEST developer websites that provide web designers and developers with a simple way to preview and download a variety of free code & scripts.</p>
-                                </div>
-                                <div class="col-12 col-sm-12 col-md-3 py-4">
-                                  <h5>Damn, so many</h5>
-                                  <div class="list-group">
-                                    <a class="list-group-item" href="#">Accomodations</a>
-                                    <a class="list-group-item" href="#">Terms & Conditions</a>
-                                    <a class="list-group-item" href="#">Privacy</a>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      
+                        <a class="nav-link" href="/POS/1/">POS Penjualan</a>
+                      </li>                      
                     </ul>
                     <form class="d-flex ms-auto">
                         <div class="input-group">
-                            <input class="form-control border-0 mr-2" type="search" placeholder="Search" aria-label="Search">
+                            <input class="form-control border-0 mr-2" type="search" placeholder="Pencarian Barang" aria-label="Search">
                             <button class="btn btn-info border-0" type="submit">Search</button>
                         </div>
                     </form>
@@ -140,6 +67,10 @@
               </nav>
             <!-- END Mega Menu HTML -->
         </main>
+    
+    {% block warnings%}
+    {% endblock %}
+
     <div class="row px-5 py-3 shadow border rounded-2 w-auto m-3 my-5">
       <div class=" col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-3  shadow rounded-2 p-3" style="border: 1px solid; border: 1px solid bisque;">
         <div class=" bg-light text-center bg-gradient rounded shadow mb-2" style="border: 1px solid bisque;font-weight:bold; font-size: 16px; background-color: lightyellow !important ;">
@@ -173,6 +104,21 @@
     </footer>
     <script src="{% static 'js/bootstrap5.bundle.min.js'%}"></script>
     <script src="{% static 'js/jquery.min.js'%}"></script>
-    <script src="{% static 'js/sidebar_click.js'%}"></script>
+    <script>
+      $('document').ready(function() {
+        $('#mastersupplier').click(function() {
+          window.location="/i/ms/";
+        });
+        $('#masterpelanggan').click(function() {
+          window.location="/i/mp/";
+        });
+        $('#masterbarang').click(function() {
+          window.location="/i/mb/";
+        });
+        $('#exitwarning').click(function() {
+          $('#exitwarning').hide(1000);
+        })
+      })
+    </script>
 </body>
 </html>

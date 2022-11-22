@@ -24,7 +24,4 @@ from django.conf import settings
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("",include("kasir.urls")),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-'''untuk bisa tampilkan image'''
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 

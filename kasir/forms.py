@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import MasterSupplier, MasterPelanggan
+from .models import MasterSupplier, MasterPelanggan, MasterBarang
 
 class InputMasterSupplier(forms.ModelForm):
 	class Meta:
@@ -29,3 +29,22 @@ class InputMasterPelanggan(forms.ModelForm):
 			'nomor_tlp' : forms.TextInput(attrs={'class':'form-control input-lg'}),
 			'alamat_pelanggan' : forms.TextInput(attrs={'class':'form-control input-lg'})
 		}
+
+class InputMasterBarang(forms.ModelForm):
+	class Meta:
+		model=MasterBarang
+		fields = "__all__"
+		exclude = ['stok_beli','stok_rusak','stok_akhir']
+
+		widgets = {
+			'id_barang': forms.TextInput(attrs={'class':'form-control input-lg'}),
+			'nama_barang' :forms.TextInput(attrs={'class':'form-control input-lg'}),
+			'stok_awal': forms.TextInput(attrs={'class':'form-control input-lg'}),
+			'harga_modal':forms.TextInput(attrs={'class':'form-control input-lg'}),
+			'harga_ecer': forms.TextInput(attrs={'class':'form-control input-lg'}),
+			'harga_grosir1': forms.TextInput(attrs={'class':'form-control input-lg'}),
+			'harga_grosir2': forms.TextInput(attrs={'class':'form-control input-lg'}),
+			'harga_grosir3': forms.TextInput(attrs={'class':'form-control input-lg'}),
+			'keterangan_isi' : forms.TextInput(attrs={'class':'form-control input-lg'}),
+		}
+		
