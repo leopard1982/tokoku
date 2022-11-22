@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 
 from .forms import InputMasterSupplier, InputMasterPelanggan, InputMasterBarang
 
-from .models import MasterSupplier, MasterPelanggan
+from .models import MasterSupplier, MasterPelanggan, MasterBarang
 
 from django.contrib.auth.models import User
 from django.contrib import auth
@@ -110,3 +110,13 @@ def View_Master_Pelanggan(request):
     data = MasterPelanggan.objects.all()
     jml_data = data.count()
     return render(request,"master/view_master_data_pelanggan.html",{'data':data,'jml_data':jml_data})
+
+def View_Master_Barang(request):
+    data = MasterBarang.objects.all()
+    jml_data = data.count()
+    return render(request,"master/view_master_data_barang.html",{'data':data,'jml_data':jml_data})
+
+def View_Master_Supplier(request):
+    data = MasterSupplier.objects.all()
+    jml_data = data.count()
+    return render(request,"master/view_master_data_supplier.html",{'data':data,'jml_data':jml_data})

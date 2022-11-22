@@ -1,0 +1,62 @@
+{% extends 'initial.html'%}
+{% load humanize %}
+
+{% block title %}
+L-tokoku | Master Pelanggan
+{% endblock %}
+
+{% block header_sidebar%}
+    Master Data
+{% endblock%}
+
+{% block sidebar%}
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="viewmasterbarang">Daftar Barang</button>
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="viewmastersupplier">Daftar Supplier</button>
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="viewmasterpelanggan">Daftar Pelanggan</button>
+{% endblock%}
+
+{% block stamp%}
+Daftar Supplier
+{% endblock%}
+
+{% block content%}
+    <table class="table" style="font-size: 13px;width: 100%;">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Id</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Tlp#1</th>
+                <th scope="col">Tlp#2</th>
+                <th scope="col">Alamat</th>
+                <th scope="col">H.Awal</th>
+                <th scope="col">H.Tbhn</th>
+                <th scope="col">H.Akhir</th>
+                <th scope="col">Catatan</th>
+                <th scope="col">Hapus</th>
+            </tr>
+        </thead>
+        {% for dataku in data %}
+        <tbody style="overflow:auto;">
+            <tr class="{% cycle 'table-primary' 'table-secondary' 'table-success'%}">
+                <th scope="col">{{forloop.counter}}</th>
+                <td>{{dataku.kode_supplier}}</td>
+                <td>{{dataku.nama_supplier}}</td>
+                <td>{{dataku.tlp1}}</td>
+                <td>{{dataku.tlp2}}</td>
+                <td>{{dataku.alamat}}</td>
+                <td>{{dataku.hutang_awal}}</td>
+                <td>{{dataku.hutang_tambahan}}</td>
+                <td>{{dataku.hutang_akhir}}</td>
+                <td>{{dataku.catatan}}</td>
+                <td>{{dataku.hapus}}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+        <tr>
+            <td colspan="8">Jumlah Supplier: {{jml_data}} orang</td>
+        </tr>
+    </table>
+
+    
+{% endblock%}

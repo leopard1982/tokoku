@@ -15,4 +15,6 @@ urlpatterns = [
     path('logout/',views.logout,name='logout'),
     path('v/',views.Initial_View_Master,name='Initial_View_Master'),
     path('v/p/',views.View_Master_Pelanggan,name='View_Master_Pelanggan'),
+    path('v/b/',views.View_Master_Barang,name='View_Master_Barang'),
+    path('v/s/',views.View_Master_Supplier,name='View_Master_Supplier'),
 ]
