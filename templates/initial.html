@@ -57,7 +57,7 @@
                         <a class="nav-link" href="/POS/1/">POS Penjualan</a>
                       </li>                      
                     </ul>
-                    <form class="d-flex ms-auto" action="{% url 'Find_kode_barang'%}" method="POST">
+                    <form class="d-flex ms-auto" action="{% url 'Find_kode_barang'%}" method="POST" target="_blank">
                       {% csrf_token %}
                         <div class="input-group">
                             <input class="form-control border-0 mr-2" type="text" placeholder="Pencarian" aria-label="Search" name='txtcari'>
