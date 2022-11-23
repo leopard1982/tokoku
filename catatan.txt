@@ -2,4 +2,6 @@
 2. encrypt untuk kode voucher adalah blackb
 3. POS1, POS2 dan POS3 mengikat ke user
 4. Proteksi untuk lisensi bulanan bila tanggal dimundurkan, sisa hari di bulan berjalan langsung habis
+5. Buat counter untuk nomor nota
+6. untuk transaksi dibuat dengan berdasarkan: nomor nota, nama user, tanggal nota, tetapi untuk data POS1-POS2-POS3 tidak usah memakai tanggal
 https://docs.python.org/3/library/hashlib.html

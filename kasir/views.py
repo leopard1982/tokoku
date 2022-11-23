@@ -7,6 +7,8 @@ from .models import MasterSupplier, MasterPelanggan, MasterBarang
 from django.contrib.auth.models import User
 from django.contrib import auth
 
+from django.db.models import Q
+
 import datetime
 
 # Create your views here.
@@ -120,3 +122,38 @@ def View_Master_Supplier(request):
     data = MasterSupplier.objects.all()
     jml_data = data.count()
     return render(request,"master/view_master_data_supplier.html",{'data':data,'jml_data':jml_data})
+
+def Find_kode_barang(request):
+    data = MasterBarang.objects.all()
+    data_supplier = MasterSupplier.objects.all()
+    data_pelanggan = MasterPelanggan.objects.all()
+    if request.method == 'POST':
+        filter_data = request.POST['txtcari']
+        data = data.filter(Q(id_barang__contains=filter_data) | Q(nama_barang__contains=filter_data))
+        data_supplier = data_supplier.filter(Q(kode_supplier__contains=filter_data) | Q(nama_supplier__contains=filter_data))
+        data_pelanggan = data_pelanggan.filter(Q(kode_pelanggan__contains=filter_data) | Q(nama_pelanggan__contains=filter_data))
+
+        if data.exists():
+            if filter_data=="":
+                filter_data = "semua"
+            jumlah_data = data.count()
+        else:
+            jumlah_data = 0
+
+        if data_supplier.exists():
+            jumlah_data_supplier = data_supplier.count()
+        else:
+            jumlah_data_supplier = 0
+        
+        if data_pelanggan.exists():
+            jumlah_data_pelanggan = data_pelanggan.count()
+        else:
+            jumlah_data_pelanggan = 0
+        
+            
+    else:
+        filter_data = "semua"
+        jumlah_data = data.count()
+        jumlah_data_supplier = data_supplier.count()
+        jumlah_data_pelanggan = data_pelanggan.count()
+    return render(request,'search_barang.html',{'data':data,'filter_data':filter_data,'jumlah_data':jumlah_data,'jumlah_data_supplier':jumlah_data_supplier,'jumlah_data_pelanggan':jumlah_data_pelanggan,'data_pelanggan':data_pelanggan,'data_supplier':data_supplier})

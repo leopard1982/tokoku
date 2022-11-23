@@ -17,4 +17,5 @@ urlpatterns = [
     path('v/p/',views.View_Master_Pelanggan,name='View_Master_Pelanggan'),
     path('v/b/',views.View_Master_Barang,name='View_Master_Barang'),
     path('v/s/',views.View_Master_Supplier,name='View_Master_Supplier'),
+    path('f/',views.Find_kode_barang,name='Find_kode_barang'),
 ]

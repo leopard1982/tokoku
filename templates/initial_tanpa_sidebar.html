@@ -74,30 +74,14 @@
     {% endblock %}
 
     <div class="row px-5 py-3 shadow border rounded-2 w-auto m-3 my-5">
-      <div class=" col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-3  shadow rounded-2 p-3" style="border: 1px solid; border: 1px solid bisque;">
-        <div class=" bg-light text-center bg-gradient rounded shadow mb-2" style="border: 1px solid bisque;font-weight:bold; font-size: 16px; background-color: lightyellow !important ;">
-          <b>{%block header_sidebar%}{%endblock%}</b></div>
-          
-          <!--sidebar menu-->
-          <div class=" justify-content-center bg-light">
-            {% block sidebar %}
- 
-            {% endblock %}
-          </div>
-          <!--end of sidebar menu-->
-      </div>
-        <div class=" col-xxl-9 col-xl-9 col-lg-9 col-md-9 col-sm-9 p-2 m-auto " style="overflow-x:auto" >
-          <div class="container-fluid shadow text-center p-3 my-2 rounded-4" style="background-color:lightyellow" >
+      <div class="container-fluid shadow text-start p-3 my-2 rounded-4" style="background-color:lightyellow" >
               <p class="h2">{% block stamp%}{% endblock%}</p>
-          </div>
+      </div>
+      <div class="container-fluid shadow" style="overflow-x:auto;">
           {% block content %}
 
           {% endblock %}
-        </div>
-        <div class="container-fluid">
-          {% block mylist %}
-          {% endblock%}
-        </div>
+      </div>
       
     <footer class="footer fixed-bottom bg-transparent py-2  border">
       <div class="container-fluid text-center">
