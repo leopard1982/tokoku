@@ -130,8 +130,8 @@ def Find_kode_barang(request):
     if request.method == 'POST':
         filter_data = request.POST['txtcari']
         data = data.filter(Q(id_barang__contains=filter_data) | Q(nama_barang__contains=filter_data))
-        data_supplier = data_supplier.filter(Q(kode_supplier__contains=filter_data) | Q(nama_supplier__contains=filter_data))
-        data_pelanggan = data_pelanggan.filter(Q(kode_pelanggan__contains=filter_data) | Q(nama_pelanggan__contains=filter_data))
+        data_supplier = data_supplier.filter(Q(alamat__contains=filter_data) |Q(kode_supplier__contains=filter_data) | Q(nama_supplier__contains=filter_data))
+        data_pelanggan = data_pelanggan.filter(Q(alamat_pelanggan__contains=filter_data) | Q(kode_pelanggan__contains=filter_data) | Q(nama_pelanggan__contains=filter_data))
 
         if data.exists():
             if filter_data=="":
