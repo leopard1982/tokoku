@@ -94,66 +94,84 @@ def logout(request):
 def Input_Master_Barang(request):
     errornya = None
     apa_post= False
-    if request.method == "POST":
-        apa_post=True
-        forms = InputMasterBarang(request.POST,request.FILES)
-        if forms.is_valid():
-            forms.save()
-        else:
-            errornya= forms.errors.items()
-            
-    forms = InputMasterBarang()
-    return render(request,"master/input_master_barang.html",{'form':forms,'errornya':errornya,'apa_post':apa_post})
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    else:
+        if request.method == "POST":
+            apa_post=True
+            forms = InputMasterBarang(request.POST,request.FILES)
+            if forms.is_valid():
+                forms.save()
+            else:
+                errornya= forms.errors.items()
+                
+        forms = InputMasterBarang()
+        return render(request,"master/input_master_barang.html",{'form':forms,'errornya':errornya,'apa_post':apa_post})
 
 def Initial_View_Master(request):
-    return render(request,"master/initial_view_master_data.html")
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    else:
+        return render(request,"master/initial_view_master_data.html")
 
 def View_Master_Pelanggan(request):
     data = MasterPelanggan.objects.all()
     jml_data = data.count()
-    return render(request,"master/view_master_data_pelanggan.html",{'data':data,'jml_data':jml_data})
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    else:
+        return render(request,"master/view_master_data_pelanggan.html",{'data':data,'jml_data':jml_data})
 
 def View_Master_Barang(request):
     data = MasterBarang.objects.all()
     jml_data = data.count()
-    return render(request,"master/view_master_data_barang.html",{'data':data,'jml_data':jml_data})
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    else:
+        return render(request,"master/view_master_data_barang.html",{'data':data,'jml_data':jml_data})
 
 def View_Master_Supplier(request):
     data = MasterSupplier.objects.all()
     jml_data = data.count()
-    return render(request,"master/view_master_data_supplier.html",{'data':data,'jml_data':jml_data})
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    else:
+        return render(request,"master/view_master_data_supplier.html",{'data':data,'jml_data':jml_data})
 
 def Find_kode_barang(request):
     data = MasterBarang.objects.all()
     data_supplier = MasterSupplier.objects.all()
     data_pelanggan = MasterPelanggan.objects.all()
-    if request.method == 'POST':
-        filter_data = request.POST['txtcari']
-        data = data.filter(Q(id_barang__contains=filter_data) | Q(nama_barang__contains=filter_data))
-        data_supplier = data_supplier.filter(Q(alamat__contains=filter_data) |Q(kode_supplier__contains=filter_data) | Q(nama_supplier__contains=filter_data))
-        data_pelanggan = data_pelanggan.filter(Q(alamat_pelanggan__contains=filter_data) | Q(kode_pelanggan__contains=filter_data) | Q(nama_pelanggan__contains=filter_data))
-
-        if data.exists():
-            if filter_data=="":
-                filter_data = "semua"
-            jumlah_data = data.count()
-        else:
-            jumlah_data = 0
-
-        if data_supplier.exists():
-            jumlah_data_supplier = data_supplier.count()
-        else:
-            jumlah_data_supplier = 0
-        
-        if data_pelanggan.exists():
-            jumlah_data_pelanggan = data_pelanggan.count()
-        else:
-            jumlah_data_pelanggan = 0
-        
-            
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/')
     else:
-        filter_data = "semua"
-        jumlah_data = data.count()
-        jumlah_data_supplier = data_supplier.count()
-        jumlah_data_pelanggan = data_pelanggan.count()
-    return render(request,'search_barang.html',{'data':data,'filter_data':filter_data,'jumlah_data':jumlah_data,'jumlah_data_supplier':jumlah_data_supplier,'jumlah_data_pelanggan':jumlah_data_pelanggan,'data_pelanggan':data_pelanggan,'data_supplier':data_supplier})
+        if request.method == 'POST':
+            filter_data = request.POST['txtcari']
+            data = data.filter(Q(id_barang__contains=filter_data) | Q(nama_barang__contains=filter_data))
+            data_supplier = data_supplier.filter(Q(alamat__contains=filter_data) |Q(kode_supplier__contains=filter_data) | Q(nama_supplier__contains=filter_data))
+            data_pelanggan = data_pelanggan.filter(Q(alamat_pelanggan__contains=filter_data) | Q(kode_pelanggan__contains=filter_data) | Q(nama_pelanggan__contains=filter_data))
+
+            if data.exists():
+                if filter_data=="":
+                    filter_data = "semua"
+                jumlah_data = data.count()
+            else:
+                jumlah_data = 0
+
+            if data_supplier.exists():
+                jumlah_data_supplier = data_supplier.count()
+            else:
+                jumlah_data_supplier = 0
+            
+            if data_pelanggan.exists():
+                jumlah_data_pelanggan = data_pelanggan.count()
+            else:
+                jumlah_data_pelanggan = 0
+            
+                
+        else:
+            filter_data = "semua"
+            jumlah_data = data.count()
+            jumlah_data_supplier = data_supplier.count()
+            jumlah_data_pelanggan = data_pelanggan.count()
+        return render(request,'search_barang.html',{'data':data,'filter_data':filter_data,'jumlah_data':jumlah_data,'jumlah_data_supplier':jumlah_data_supplier,'jumlah_data_pelanggan':jumlah_data_pelanggan,'data_pelanggan':data_pelanggan,'data_supplier':data_supplier})
