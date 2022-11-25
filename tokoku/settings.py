@@ -82,7 +82,7 @@ WSGI_APPLICATION = "tokoku.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / 'dbtokoku.sqlite3'
+        "NAME": BASE_DIR / 'dbtokoku',
     }
 }
 
