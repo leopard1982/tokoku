@@ -59,7 +59,12 @@ Daftar Supplier
                 <td>{{dataku.hutang_tambahan|intcomma}}</td>
                 <td>{{dataku.hutang_akhir|intcomma}}</td>
                 <td>{{dataku.catatan}}</td>
-                <td>{{dataku.hapus}}</td>
+                <td>{% if dataku.hapus%}
+                    <button onclick="konfirmasi_hapus('{{dataku.kode_supplier}}^{{dataku.nama_supplier}}')" class="btn btn-outline-danger">Hapus</button>
+                {% else %}
+                    <button disabled class="btn btn-outline-dark">Hapus</button>
+                {% endif%}
+            </td>
             </tr>
         </tbody>
         {% endfor %}
@@ -74,8 +79,8 @@ Daftar Supplier
     function konfirmasi_hapus(data) {
       $('#konfirmasinya').show(1000);
       $('#konfirmasinya2').show(1000);
-      document.getElementById('kode_barang').innerHTML = data.split('^')[0];
-      document.getElementById('nama_barang').innerHTML = data.split('^')[1];
+      document.getElementById('kode_supplier').innerHTML = data.split('^')[0];
+      document.getElementById('nama_supplier').innerHTML = data.split('^')[1];
       document.getElementById('hapuskanlah').value = data.split('^')[0];
     };
     function batalkan() {

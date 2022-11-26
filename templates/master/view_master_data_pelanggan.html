@@ -52,7 +52,12 @@ Daftar Pelanggan
             <td>{{dataku.alamat_pelanggan}}</td>
             <td><img style="width: 100px; height: 50px" src="{{dataku.foto_ktp.url}}"></td>
             <td>{{dataku.get_tipe_display}}</td>
-            <td>{{dataku.hapus}}</td>
+            <td>{% if dataku.hapus%}
+                <button onclick="konfirmasi_hapus('{{dataku.kode_pelanggan}}^{{dataku.nama_pelanggan}}')" class="btn btn-outline-danger">Hapus</button>
+            {% else %}
+                <button disabled class="btn btn-outline-dark">Hapus</button>
+            {% endif%}
+        </td>
         </tr>
         {% endfor %}
         <tr>
@@ -66,8 +71,8 @@ Daftar Pelanggan
     function konfirmasi_hapus(data) {
       $('#konfirmasinya').show(1000);
       $('#konfirmasinya2').show(1000);
-      document.getElementById('kode_barang').innerHTML = data.split('^')[0];
-      document.getElementById('nama_barang').innerHTML = data.split('^')[1];
+      document.getElementById('kode_pelanggan').innerHTML = data.split('^')[0];
+      document.getElementById('nama_pelanggan').innerHTML = data.split('^')[1];
       document.getElementById('hapuskanlah').value = data.split('^')[0];
     };
     function batalkan() {
