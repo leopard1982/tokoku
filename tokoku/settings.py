@@ -25,9 +25,9 @@ SECRET_KEY = "django-insecure-7-5i8&657y54c8&%d_#u=&1i^sl(dctg@(cvb(tzvgfhf5asj7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['mytoko.herokuapp.com','localhost','192.168.1.50']
+ALLOWED_HOSTS = ['leopard1982.pythonanywhere.com','localhost','192.168.1.50']
 
-CSRF_TRUSTED_ORIGINS = ['https://mytoko.herokuapp.com','http://192.168.1.50','http://localhost']
+CSRF_TRUSTED_ORIGINS = ['http://leopard1982.pythonanywhere.com/','http://192.168.1.50','http://localhost']
 
 # Application definition
 
@@ -52,8 +52,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     
 ]
-
-CSRF_TRUSTED_ORIGINS = ['http://192.168.1.50','http://localhost:8080']
 
 ROOT_URLCONF = "tokoku.urls"
 
