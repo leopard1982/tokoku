@@ -109,16 +109,34 @@ def Input_Master_Barang(request):
         return render(request,"master/input_master_barang.html",{'form':forms,'errornya':errornya,'apa_post':apa_post})
 
 def Delete_Master_Barang(request,idbarang):
-    MasterBarang.objects.get(id_barang=idbarang).delete()
-    return HttpResponseRedirect('/v/b/')
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    else:
+        try:
+            MasterBarang.objects.get(id_barang=idbarang).delete()
+        except:
+            pass
+        return HttpResponseRedirect('/v/b/')
 
 def Delete_Master_Supplier(request,idsupplier):
-    MasterSupplier.objects.get(kode_supplier=idsupplier).delete()
-    return HttpResponseRedirect('/v/s/')
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    else:
+        try:
+            MasterSupplier.objects.get(kode_supplier=idsupplier).delete()
+        except:
+            pass
+        return HttpResponseRedirect('/v/s/')
 
 def Delete_Master_Pelanggan(request,idpelanggan):
-    MasterPelanggan.objects.get(kode_pelanggan=idpelanggan).delete()
-    return HttpResponseRedirect('/v/p/')
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    else:
+        try:
+            MasterPelanggan.objects.get(kode_pelanggan=idpelanggan).delete()
+        except:
+            pass
+        return HttpResponseRedirect('/v/p/')
 
 def Initial_View_Master(request):
     if not request.user.is_authenticated:
