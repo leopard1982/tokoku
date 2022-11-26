@@ -19,6 +19,16 @@ L-tokoku | Master Pelanggan
 Daftar Barang
 {% endblock%}
 
+{% block konfirmasi%}
+    <div style="display: none; padding-top: 40px;" id="konfirmasinya" class="d-flex justify-content-center">
+        <div class="card border-danger w-50 text-center bg-warning" style="display: none;" id="konfirmasinya2">
+                Apakah benar akan dilakukan penghapusan untuk barang dengan kode barang: <span id="kode_barang" style="font-weight: bold;"></span> dengan nama barang: <span id="nama_barang" style="font-weight: bold;"></span>?
+            <br><br>
+            <button class="btn btn-outline-danger" id="hapuskanlah" onclick="hapuskan()">Ya!</button> <button class="btn btn-outline-info" onclick="batalkan()">Batalkan!</button>
+        </div> 
+    </div>
+{% endblock%}
+
 {% block content%}
     <table class="table" style="font-size: 15px;">
         <thead>
@@ -37,6 +47,7 @@ Daftar Barang
                 <th scope="col">Hrg.Grs3</th>
                 <th scope="col">Satuan</th>
                 <th scope="col">Keterangan</th>
+                <th scope="col">Disc.%</th>
                 <th scope="col">Foto</th>
                 <th scope="col">Hapus</th>
             </tr>
@@ -58,8 +69,14 @@ Daftar Barang
                 <td>{{dataku.harga_grosir3|intcomma}}</td>
                 <td>{{dataku.get_satuan_barang_display}}</td>
                 <td>{{dataku.keterangan_isi}}</td>
+                <td>{{dataku.discount}}</td>
                 <td><img src="{{dataku.foto.url}}" style="width:50px;height: 50px;"></td>
-                <td>{{dataku.hapus}}</td>
+                <td>{% if dataku.hapus%}
+                        <button onclick="konfirmasi_hapus('{{dataku.id_barang}}^{{dataku.nama_barang}}')" class="btn btn-outline-danger">Hapus</button>
+                    {% else %}
+                        <button disabled class="btn btn-outline-dark">Hapus</button>
+                    {% endif%}
+                </td>
             </tr>
         </tbody>
         {% endfor %}
@@ -67,6 +84,24 @@ Daftar Barang
             <td colspan="8">Jumlah Barang: {{jml_data}} item(s)</td>
         </tr>
     </table>
+{% endblock%}
 
-    
+{% block javascript%}
+<script>
+    function konfirmasi_hapus(data) {
+      $('#konfirmasinya').show(1000);
+      $('#konfirmasinya2').show(1000);
+      document.getElementById('kode_barang').innerHTML = data.split('^')[0];
+      document.getElementById('nama_barang').innerHTML = data.split('^')[1];
+      document.getElementById('hapuskanlah').value = data.split('^')[0];
+    };
+    function batalkan() {
+      $('#konfirmasinya').hide(1000);
+      $('#konfirmasinya2').hide(1000);      
+    };
+
+    function hapuskan() {
+      window.location.href= '/d/mb/' + document.getElementById('hapuskanlah').value;
+    }
+</script>
 {% endblock%}

@@ -73,6 +73,9 @@
     {% block warnings%}
     {% endblock %}
 
+    {% block konfirmasi %}
+    {% endblock%}
+
     <div class="row px-5 py-3 shadow border rounded-2 w-auto m-3 my-5">
       <div class=" col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-3  shadow rounded-2 p-3" style="border: 1px solid; border: 1px solid bisque;">
         <div class=" bg-light text-center bg-gradient rounded shadow mb-2" style="border: 1px solid bisque;font-weight:bold; font-size: 16px; background-color: lightyellow !important ;">
@@ -106,30 +109,10 @@
     </footer>
     <script src="{% static 'js/bootstrap5.bundle.min.js'%}"></script>
     <script src="{% static 'js/jquery.min.js'%}"></script>
-    <script>
-      $('document').ready(function() {
-        $('#mastersupplier').click(function() {
-          window.location="/i/ms/";
-        });
-        $('#masterpelanggan').click(function() {
-          window.location="/i/mp/";
-        });
-        $('#masterbarang').click(function() {
-          window.location="/i/mb/";
-        });
-        $('#viewmastersupplier').click(function() {
-          window.location="/v/s/";
-        });
-        $('#viewmasterpelanggan').click(function() {
-          window.location="/v/p/";
-        });
-        $('#viewmasterbarang').click(function() {
-          window.location="/v/b/";
-        });
-        $('#exitwarning').click(function() {
-          $('#exitwarning').hide(1000);
-        })
-      })
-    </script>
+    <script src="{% static 'js/sidebar_click.js'%}"></script>
+    <script src="{% static 'js/konfirmasi.js'%}"></script>
+    
+    {% block javascript%}
+    {% endblock%}
 </body>
 </html>

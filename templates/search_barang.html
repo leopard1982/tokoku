@@ -36,6 +36,7 @@ Hasil Pencarian Keyword="{{filter_data}}"
                 <th scope="col">Hrg.Grs3</th>
                 <th scope="col">Satuan</th>
                 <th scope="col">Keterangan</th>
+                <th scope="col">Disc.%</th>
                 <th scope="col">Foto</th>
                 <th scope="col">Hapus</th>
             </tr>
@@ -57,6 +58,7 @@ Hasil Pencarian Keyword="{{filter_data}}"
                 <td>{{dataku.harga_grosir3|intcomma}}</td>
                 <td>{{dataku.get_satuan_barang_display}}</td>
                 <td>{{dataku.keterangan_isi}}</td>
+                <td>{{dataku.discount}}</td>
                 <td><img src="{{dataku.foto.url}}" style="width:50px;height: 50px;"></td>
                 <td>{{dataku.hapus}}</td>
             </tr>

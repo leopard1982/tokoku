@@ -49,48 +49,52 @@ Master Data Barang
     <form method="post" enctype="multipart/form-data">
         {% csrf_token%}
         <div class="row">
-            <div class="col-3">Kode Barang:</div>
-            <div class="col-9">{{form.id_barang}}</div>
+            <div class="col-4">Kode Barang:</div>
+            <div class="col-8">{{form.id_barang}}</div>
         </div>
         <div class="row">
-            <div class="col-3">Nama Barang:</div>
-            <div class="col-9">{{form.nama_barang}}</div>
+            <div class="col-4">Nama Barang:</div>
+            <div class="col-8">{{form.nama_barang}}</div>
         </div>
         <div class="row">
-            <div class="col-3">Jml Stok Awal:</div>
-            <div class="col-9">{{form.stok_awal}}</div>
+            <div class="col-4">Jml Stok Awal:</div>
+            <div class="col-8">{{form.stok_awal}}</div>
         </div>
         <div class="row">
-            <div class="col-3">Harga Modal:</div>
-            <div class="col-9">{{form.harga_modal}}</div>
+            <div class="col-4">Harga Modal:</div>
+            <div class="col-8">{{form.harga_modal}}</div>
         </div>
         <div class="row">
-            <div class="col-3">Harga Eceran:</div>
-            <div class="col-9">{{form.harga_ecer}}</div>
+            <div class="col-4">Harga Eceran:</div>
+            <div class="col-8">{{form.harga_ecer}}</div>
         </div>
         <div class="row">
-            <div class="col-3">Harga Grosir #1:</div>
-            <div class="col-9">{{form.harga_grosir1}}</div>
+            <div class="col-4">Harga Grosir #1:</div>
+            <div class="col-8">{{form.harga_grosir1}}</div>
         </div>
         <div class="row">
-            <div class="col-3">Harga Grosir #2:</div>
-            <div class="col-9">{{form.harga_grosir2}}</div>
+            <div class="col-4">Harga Grosir #2:</div>
+            <div class="col-8">{{form.harga_grosir2}}</div>
         </div>
         <div class="row">
-            <div class="col-3">Harga Grosir #3:</div>
-            <div class="col-9">{{form.harga_grosir3}}</div>
+            <div class="col-4">Harga Grosir #3:</div>
+            <div class="col-8">{{form.harga_grosir3}}</div>
         </div>
         <div class="row">
-            <div class="col-3">Satuan Barang:</div>
-            <div class="col-9">{{form.satuan_barang}}</div>
+            <div class="col-4">Satuan Barang:</div>
+            <div class="col-8">{{form.satuan_barang}}</div>
         </div>
         <div class="row">
-            <div class="col-3">Keterangan Barang:</div>
-            <div class="col-9">{{form.keterangan_isi}}</div>
+            <div class="col-4">Keterangan Barang:</div>
+            <div class="col-8">{{form.keterangan_isi}}</div>
         </div>
         <div class="row">
-            <div class="col-3">Foto Kemasan Barang:</div>
-            <div class="col-9">{{form.foto}}</div>
+            <div class="col-4">Discount:</div>
+            <div class="col-8">{{form.discount}} %</div>
+        </div>
+        <div class="row">
+            <div class="col-4">Foto Kemasan Barang:</div>
+            <div class="col-8">{{form.foto}}</div>
         </div>
         <div class="row">
             <div class="col-12 text-center">

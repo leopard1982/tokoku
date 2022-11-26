@@ -19,6 +19,16 @@ L-tokoku | Master Pelanggan
 Daftar Supplier
 {% endblock%}
 
+{% block konfirmasi%}
+    <div style="display: none; padding-top: 40px;" id="konfirmasinya" class="d-flex justify-content-center">
+        <div class="card border-danger w-50 text-center bg-warning" style="display: none;" id="konfirmasinya2">
+                Apakah benar akan dilakukan penghapusan untuk supplier dengan kode supplier: <span id="kode_supplier" style="font-weight: bold;"></span> dengan nama supplier: <span id="nama_supplier" style="font-weight: bold;"></span>?
+            <br><br>
+            <button class="btn btn-outline-danger" id="hapuskanlah" onclick="hapuskan()">Ya!</button> <button class="btn btn-outline-info" onclick="batalkan()">Batalkan!</button>
+        </div> 
+    </div>
+{% endblock%}
+
 {% block content%}
     <table class="table" style="width: 100%;font-size:14px;">
         <thead>
@@ -57,6 +67,25 @@ Daftar Supplier
             <td colspan="8">Jumlah Supplier: {{jml_data}} orang</td>
         </tr>
     </table>
-
-    
 {% endblock%}
+
+{% block javascript%}
+<script>
+    function konfirmasi_hapus(data) {
+      $('#konfirmasinya').show(1000);
+      $('#konfirmasinya2').show(1000);
+      document.getElementById('kode_barang').innerHTML = data.split('^')[0];
+      document.getElementById('nama_barang').innerHTML = data.split('^')[1];
+      document.getElementById('hapuskanlah').value = data.split('^')[0];
+    };
+    function batalkan() {
+      $('#konfirmasinya').hide(1000);
+      $('#konfirmasinya2').hide(1000);      
+    };
+
+    function hapuskan() {
+      window.location.href= '/d/ms/' + document.getElementById('hapuskanlah').value;
+    }
+</script>
+{% endblock%}
+

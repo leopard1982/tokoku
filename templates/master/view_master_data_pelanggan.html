@@ -19,6 +19,16 @@ L-tokoku | Master Pelanggan
 Daftar Pelanggan
 {% endblock%}
 
+{% block konfirmasi%}
+    <div style="display: none; padding-top: 40px;" id="konfirmasinya" class="d-flex justify-content-center">
+        <div class="card border-danger w-50 text-center bg-warning" style="display: none;" id="konfirmasinya2">
+                Apakah benar akan dilakukan penghapusan untuk pelanggan dengan kode pelanggan: <span id="kode_pelanggan" style="font-weight: bold;"></span> dengan nama pelanggan: <span id="nama_pelanggan" style="font-weight: bold;"></span>?
+            <br><br>
+            <button class="btn btn-outline-danger" id="hapuskanlah" onclick="hapuskan()">Ya!</button> <button class="btn btn-outline-info" onclick="batalkan()">Batalkan!</button>
+        </div> 
+    </div>
+{% endblock%}
+
 {% block content%}
     <table class="table">
         <thead>
@@ -49,6 +59,24 @@ Daftar Pelanggan
             <td colspan="8">Jumlah Pelanggan: {{jml_data}} orang</td>
         </tr>
     </table>
+{% endblock%}
 
-    
+{% block javascript%}
+<script>
+    function konfirmasi_hapus(data) {
+      $('#konfirmasinya').show(1000);
+      $('#konfirmasinya2').show(1000);
+      document.getElementById('kode_barang').innerHTML = data.split('^')[0];
+      document.getElementById('nama_barang').innerHTML = data.split('^')[1];
+      document.getElementById('hapuskanlah').value = data.split('^')[0];
+    };
+    function batalkan() {
+      $('#konfirmasinya').hide(1000);
+      $('#konfirmasinya2').hide(1000);      
+    };
+
+    function hapuskan() {
+      window.location.href= '/d/mp/' + document.getElementById('hapuskanlah').value;
+    }
+</script>
 {% endblock%}

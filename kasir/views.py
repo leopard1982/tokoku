@@ -108,6 +108,10 @@ def Input_Master_Barang(request):
         forms = InputMasterBarang()
         return render(request,"master/input_master_barang.html",{'form':forms,'errornya':errornya,'apa_post':apa_post})
 
+def Delete_Master_Barang(request,idbarang):
+    MasterBarang.objects.get(id_barang=idbarang).delete()
+    return HttpResponseRedirect('/v/b/')
+
 def Initial_View_Master(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')

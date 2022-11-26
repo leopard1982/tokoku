@@ -18,8 +18,5 @@ $('document').ready(function() {
         $('#viewmasterbarang').click(function() {
           window.location="/v/b/";
         });
-        $('#exitwarning').click(function() {
-          $('#exitwarning').hide(1000);
-        })
       })
 })
