@@ -20,11 +20,23 @@ Daftar Barang
 {% endblock%}
 
 {% block konfirmasi%}
-    <div style="display: none; padding-top: 40px;" id="konfirmasinya" class="d-flex justify-content-center">
-        <div class="card border-danger w-50 text-center bg-warning" style="display: none;" id="konfirmasinya2">
-                Apakah benar akan dilakukan penghapusan untuk barang dengan kode barang: <span id="kode_barang" style="font-weight: bold;"></span> dengan nama barang: <span id="nama_barang" style="font-weight: bold;"></span>?
-            <br><br>
-            <button class="btn btn-outline-danger" id="hapuskanlah" onclick="hapuskan()">Ya!</button> <button class="btn btn-outline-info" onclick="batalkan()">Batalkan!</button>
+    <div style="display: none;" id="konfirmasinya" class="container-fluid d-flex justify-content-center">
+        
+        <div class="card border-info w-50 text-center shadow justify-content-center" style="display: none; background: linear-gradient(to bottom,skyblue,whitesmoke);" id="konfirmasinya2">
+            <div class=" d-flex justify-content-center rounded">
+                <div class="col-11 bg-info p-2 card-text">
+                    Konfirmasi
+                </div>
+                <div class="col-1 d-flex justify-content-start rounded  bg-info">
+                    <button class="btn btn-info"  onclick="batalkan()">X</button>
+                </div>
+     
+            </div>
+            Apakah benar akan dilakukan penghapusan untuk barang dengan kode barang: <span id="kode_barang" style="font-weight: bold;"></span> dengan nama barang: <span id="nama_barang" style="font-weight: bold;"></span>?
+            <div class="d-flex justify-content-center container">
+                <button  id="hapuskanlah"  class="btn btn-danger" onclick="hapuskan()">Ya! Data Barang Dihapus! </button>
+            </div>
+            <br>            
         </div> 
     </div>
 {% endblock%}
@@ -89,6 +101,8 @@ Daftar Barang
 {% block javascript%}
 <script>
     function konfirmasi_hapus(data) {
+      $('#konfirmasinya').css('position', 'absolute');
+      $('#konfirmasinya').addClass('py-5');
       $('#konfirmasinya').show(1000);
       $('#konfirmasinya2').show(1000);
       document.getElementById('kode_barang').innerHTML = data.split('^')[0];

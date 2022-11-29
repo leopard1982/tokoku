@@ -14,8 +14,8 @@
     <link rel="shortcut icon" href="{% static 'img/logo.ico'%}" type="image/x-icon">
     <style type="text/css">
     	pre {
-        word-wrap: normal !important;
-    		font-family: monospace !important;
+        	word-wrap: nowrap !important;
+    		font-family: verdana !important;
     		border-radius: 0 !important;
 
         }
@@ -72,37 +72,74 @@
 		<div class="row container-fluid" style="background-color:whitesmoke">
 			<div class="col-12">
 				<div class="row py-2" style="background-color: lightcyan;">
-					<div class="col-4">
+					<div class="col-3">
+						<div class="row">
+							<div class="col-6 text-center py-2  border-1 my-2 rounded-end rounded-pill shadow" style="background-color: cyan;" style="position: absolute;z-index: 1;"><b>SALES</b></div>
+							<div class="col-6 text-center py-2 rounded-pill rounded-start border-1 my-2 shadow" style="background-color: paleturquoise;" style="left:20px; position:absolute; z-index: 2;"><b>
+								{% if nomor == "1" %}
+									POS#1
+								{% elif nomor == "2" %}
+									POS#2
+								{% elif nomor == "3" %}
+									POS#3
+								{% endif %}
+							</b></div>
+	
+						</div>
+					</div>
+					<div class="col-3 py-2">
 						<button class="form-control rounded-pill btn btn-outline-primary rounded-start shadow" onclick="location.href='/POS/1/'">POS#1</button>
 					</div>
-					<div class="col-4">
+					<div class="col-3 py-2">
 						<button class="form-control rounded-pill btn btn-outline-secondary rounded-start shadow" onclick="location.href='/POS/2/'">POS#2</button>
 					</div>
-					<div class="col-4">
+					<div class="col-3 py-2">
 						<button class="form-control rounded-pill btn btn-outline-success rounded-start shadow" onclick="location.href='/POS/3/'">POS#3</button>
 					</div>
 				</div>
-				<div class="row mx-0">
-					<div class="col-1 text-center py-2  border-1 my-2 rounded-end rounded-pill shadow" style="background-color: cyan;" style="position: absolute;z-index: 1;"><h5>SALES</h5></div>
-					<div class="col-1 text-center py-2 rounded-pill rounded-start border-1 my-2 shadow" style="background-color: paleturquoise;" style="left:20px; position:absolute; z-index: 2;"><h5>
-						{% if nomor == "1" %}
-							POS#1
-						{% elif nomor == "2" %}
-							POS#2
-						{% elif nomor == "3" %}
-							POS#3
-						{% endif %}
-					</h5></div>
-				</div>
 				
-				<div class="container-fluid my-2">
-					<div class="row border rounded p-3" style="background-color:Bisque">
-						<div class="container-fluid h4" style="background-color:rgb(251, 235, 217)">
-						Pilih Item Barang
+				<div class="container-fluid my-2 p-2">
+					<div class="row">
+						<div class="container col-3 border-3 border-primary rounded-3 shadow"">
+							<div class="containers text-center">
+								<span style="font-weight: bold;">Toko Sembako</span><br>
+								Jl. Kyai Kasan Timur no.250<br>
+								Kranggan-Temanggung<br>
+								081213270275<hr>
+							</div>
+							<pre>Nomor Nota: xxxxxxxxxxx
+							</pre>
 						</div>
-						<div class="col-5" >Nama/ Kode Barang<br/><input style="background-color:beige" type="text" class="form-control border"></div>
-						<div class="col-5" >Harga Barang<br/><input style="background-color:beige" type="text" class="form-control border"></div>
-						<div class="col-2" >Jumlah<br/><input style="background-color:beige" type="text" class="form-control border"></div>
+						<div class="col-9">
+							<div>
+								<div class="h5 p-2 rounded-pill text-center" style="background-color: lightblue">
+									 Input Penjualan 
+								</div>
+								<div class="row">
+									<div class="col-3">Kode Barang:<br>
+									<input type="text" class="form-control" placeholder="Input/ Scan Barcode" id="kode_barang"><br>
+									<input type="text" class="form-control" placeholder="Klik Untuk Pilih Barang" id="kode_barang" readonly><br>
+									</div>
+									<div class="col-3">Nama Barang:<br>
+										<input type="text" class="form-control" placeholder="Nama Barang" id="nama_barang" readonly>
+									</div>
+									<div class="col-2">Stok:<br>
+										<input type="text" class="form-control" placeholder="0" id="jml_stok" readonly>
+									</div>
+									<div class="col-2">Beli:<br>
+										<input type="text" class="form-control" placeholder="0" id="jml_beli">
+									</div>
+									<div class="col-2">Tambahkan<br>
+										<button class="btn btn-primary">Tambahkan</button>
+									</div>
+								</div>
+							</div>
+							<div  class="row  border shadow p-3">
+								<div class="h5 p-2 rounded-pill text-center" style="background-color: lightblue;">
+									Daftar Belanja
+								</div>
+							</div>
+						<div>
 					</div>
 				</div>
 			</div>

@@ -20,11 +20,11 @@ Daftar Pelanggan
 {% endblock%}
 
 {% block konfirmasi%}
-    <div style="display: none; padding-top: 40px;" id="konfirmasinya" class="d-flex justify-content-center">
-        <div class="card border-danger w-50 text-center bg-warning" style="display: none;" id="konfirmasinya2">
+    <div style="display: none; padding-top: 40px;" id="konfirmasinya" class="d-flex justify-content-center ">
+        <div class="card border-info w-50 text-center shadow p-2" style="display: none; background: linear-gradient(to bottom,skyblue,whitesmoke);" id="konfirmasinya2">
                 Apakah benar akan dilakukan penghapusan untuk pelanggan dengan kode pelanggan: <span id="kode_pelanggan" style="font-weight: bold;"></span> dengan nama pelanggan: <span id="nama_pelanggan" style="font-weight: bold;"></span>?
             <br><br>
-            <button class="btn btn-outline-danger" id="hapuskanlah" onclick="hapuskan()">Ya!</button> <button class="btn btn-outline-info" onclick="batalkan()">Batalkan!</button>
+            <button class="form-control btn-outline-danger btn" id="hapuskanlah" onclick="hapuskan()">Ya!</button> <button class="btn form-control btn-outline-info" onclick="batalkan()">Batalkan!</button>
         </div> 
     </div>
 {% endblock%}
