@@ -69,19 +69,19 @@
 			</div>
 		</div>
 
-		<div class="row container-fluid" style="background-color:whitesmoke">
-			<div class="col-12">
-				<div class="row py-2" style="background-color: lightcyan;">
+		<div class="row container-fluid">
+			<div class="col-12 mx-1">
+				<div class="row p-2  rounded-pill shadow" style="background-color: lightcyan;">
 					<div class="col-3">
 						<div class="row">
 							<div class="col-6 text-center py-2  border-1 my-2 rounded-end rounded-pill shadow" style="background-color: cyan;" style="position: absolute;z-index: 1;"><b>SALES</b></div>
 							<div class="col-6 text-center py-2 rounded-pill rounded-start border-1 my-2 shadow" style="background-color: paleturquoise;" style="left:20px; position:absolute; z-index: 2;"><b>
 								{% if nomor == "1" %}
-									POS#1
+									<b>POS#1</b>
 								{% elif nomor == "2" %}
-									POS#2
+									<b>POS#2</b>
 								{% elif nomor == "3" %}
-									POS#3
+									<b>POS#3</b>
 								{% endif %}
 							</b></div>
 	
@@ -100,7 +100,7 @@
 				
 				<div class="container-fluid my-2 p-2">
 					<div class="row">
-						<div class="container col-3 border-3 border-primary rounded-3 shadow"">
+						<div class="container col-3 rounded shadow border" style="background-color: rgb(255, 255, 214);">
 							<div class="containers text-center">
 								<span style="font-weight: bold;">Toko Sembako</span><br>
 								Jl. Kyai Kasan Timur no.250<br>
@@ -112,30 +112,29 @@
 						</div>
 						<div class="col-9">
 							<div>
-								<div class="h5 p-2 rounded-pill text-center" style="background-color: lightblue">
+								<div class="h5 p-2 rounded-pill text-center shadow" style="background-color: lightblue">
 									 Input Penjualan 
 								</div>
 								<div class="row">
 									<div class="col-3">Kode Barang:<br>
-									<input type="text" class="form-control" placeholder="Input/ Scan Barcode" id="kode_barang"><br>
-									<input type="text" class="form-control" placeholder="Klik Untuk Pilih Barang" id="kode_barang" readonly><br>
+									<input type="text" class="form-control rounded-pill shadow" placeholder="Input/ Scan Barcode" id="kode_barang"><br>
 									</div>
-									<div class="col-3">Nama Barang:<br>
-										<input type="text" class="form-control" placeholder="Nama Barang" id="nama_barang" readonly>
+									<div class="col-3 ">Nama Barang:<br>
+										<input type="text" class="form-control rounded-pill shadow" placeholder="Nama Barang" id="nama_barang" readonly>
 									</div>
 									<div class="col-2">Stok:<br>
-										<input type="text" class="form-control" placeholder="0" id="jml_stok" readonly>
+										<input type="text" class="form-control rounded-pill shadow" placeholder="0" id="jml_stok" readonly>
 									</div>
 									<div class="col-2">Beli:<br>
-										<input type="text" class="form-control" placeholder="0" id="jml_beli">
+										<input type="text" class="form-control rounded-pill shadow" placeholder="0" id="jml_beli">
 									</div>
-									<div class="col-2">Tambahkan<br>
-										<button class="btn btn-primary">Tambahkan</button>
+									<div class="col-2"><br>
+										<button class="btn btn-outline-primary rounded-pill shadow">Tambahkan</button>
 									</div>
 								</div>
 							</div>
-							<div  class="row  border shadow p-3">
-								<div class="h5 p-2 rounded-pill text-center" style="background-color: lightblue;">
+							<div  class="row  border shadow p-3 rounded">
+								<div class="h5 p-2 rounded-pill text-center shadow" style="background-color: lightblue;">
 									Daftar Belanja
 								</div>
 							</div>
