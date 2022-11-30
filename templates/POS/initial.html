@@ -1,4 +1,5 @@
 {% load static%}
+{% load humanize%}
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,10 +118,10 @@
 								</div>
 								<div class="row">
 									<div class="col-3">Kode Barang:<br>
-									<input type="text" class="form-control rounded-pill shadow" placeholder="Input/ Scan Barcode" id="kode_barang"><br>
+									<input type="text" class="form-control rounded-pill shadow" placeholder="Daftar Barang" readonly id="kode_barang" onclick="tampilkanbarang()"><br>
 									</div>
 									<div class="col-3 ">Nama Barang:<br>
-										<input type="text" class="form-control rounded-pill shadow" placeholder="Nama Barang" id="nama_barang" readonly>
+										<input type="text" class="form-control rounded-pill shadow" placeholder="Nama Barang" id="nama_barang" readonly >
 									</div>
 									<div class="col-2">Stok:<br>
 										<input type="text" class="form-control rounded-pill shadow" placeholder="0" id="jml_stok" readonly>
@@ -144,9 +145,60 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- ini untuk menampilkan daftar barang-->
+	<div class="container-fluid border-info border-5 h-75" style="position: absolute; overflow-y: scroll; display:none" id="daftarbarang">
+		<div  class="shadow w-100 py-3 container border rounded" style="background-color: beige;">
+			<div class="row rounded-top  shadow" style="background: linear-gradient(to bottom,rgb(243, 243, 101),rgb(247, 217, 217))">
+				<div class="col-2 fw-bold py-2">Pilihan Daftar Barang:</div>
+				<div class="col-9 fw-bold"><input type="text" class="form-control"></input></div>
+				<div class="col-1 d-flex justify-content-end"><button class="close btn" onclick="close_daftarbarang()">X</button></div>
+			</div>
+			<div class="row rounded-bottom  shadow p-2" style="background-color: white">
+				<table class="table table-striped table-hover ">
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Id Barang</th>
+						<th scope="col">Nama Barang</th>
+						<th scope="col">Harga Ecer</th>
+						<th scope="col">Jumlah Stok</th>
+						<th scope="col">Gambar</th>
+						<th scope="col"></th>
+					</tr>
+					{% for daftar in daftarbarang %}
+					<tr class="{%cycle 'table-primary' 'table-warning'%}">
+						<th scope="row">{{forloop.counter}}</th>
+						<td>{{daftar.id_barang}}</td>
+						<td>{{daftar.nama_barang}}</td>
+						<td>Rp.{{daftar.harga_ecer | intcomma}},00</td>
+						<td>{{daftar.stok_akhir | intcomma}}</td>
+						<td><img src="{{daftar.foto.url}}" style="width: 100px;height:50px"></td>
+						<td><button class="btn btn-outline-primary">tambahkan</button></td>
+					</tr>
+					{% endfor%}
+				</table>
+			</div>
+		</div>	
+	</div>
+	<!--end of menampilkan daftar barang-->
+
 	<script src="{% static 'js/bootstrap5.bundle.min.js'%}"></script>
     <script src="{% static 'js/jquery.min.js'%}"></script>
     <script src="{% static 'js/sidebar_click.js'%}"></script>
 	<script src="{% static 'js/konfirmasi.js'%}"></script>
+
+	<script>
+		function tampilkanbarang()
+		{
+	
+			$('#daftarbarang').show(1000);
+		}
+
+		function close_daftarbarang()
+		{
+			$('#daftarbarang').hide(1000);
+	
+		}
+	</script>
 </body>
 </html>

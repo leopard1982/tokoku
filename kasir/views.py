@@ -74,10 +74,11 @@ def Initial_Input_Master(request):
 
 def Pos(request,nomor):
     mydate = datetime.date.today()
+    daftarbarang = MasterBarang.objects.all()
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
-        return render(request,'POS/initial.html',{'nomor':nomor,'mydate':mydate})
+        return render(request,'POS/initial.html',{'nomor':nomor,'mydate':mydate,'daftarbarang':daftarbarang})
 
 def chartku(request):
     if not request.user.is_authenticated:
