@@ -173,7 +173,7 @@
 						<td>Rp.{{daftar.harga_ecer | intcomma}},00</td>
 						<td>{{daftar.stok_akhir | intcomma}}</td>
 						<td><img src="{{daftar.foto.url}}" style="width: 100px;height:50px"></td>
-						<td><button class="btn btn-outline-primary">tambahkan</button></td>
+						<td><button class="btn btn-outline-primary" onclick="oke_barangditambahkan('{{daftar.id_barang}}^{{daftar.nama_barang}}^{{daftar.stok_akhir}}')" >tambahkan</button></td>
 					</tr>
 					{% endfor%}
 				</table>
@@ -197,7 +197,10 @@
 		function close_daftarbarang()
 		{
 			$('#daftarbarang').hide(1000);
-	
+			$('#barangnya').value="";
+			document.getElementById('kode_barang').value="";
+			document.getElementById('nama_barang').value="";
+			document.getElementById('jml_barang').value="";
 		}
 
 		$(document).ready(function(){
@@ -208,6 +211,14 @@
 				});
 			});
 		});
+
+		function oke_barangditambahkan(mydata) {
+			$('#daftarbarang').hide(1000);
+			$('#barangnya').value="";
+			document.getElementById('kode_barang').value=mydata.split('^')[0];
+			document.getElementById('nama_barang').value=mydata.split('^')[1];
+			document.getElementById('jml_barang').value=mydata.split('^')[2];
+		}
 	</script>
 </body>
 </html>
