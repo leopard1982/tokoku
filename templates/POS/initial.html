@@ -151,11 +151,11 @@
 		<div  class="shadow w-100 py-3 container border rounded" style="background-color: beige;">
 			<div class="row rounded-top  shadow" style="background: linear-gradient(to bottom,rgb(243, 243, 101),rgb(247, 217, 217))">
 				<div class="col-2 fw-bold py-2">Pilihan Daftar Barang:</div>
-				<div class="col-9 fw-bold"><input type="text" class="form-control"></input></div>
+				<div class="col-9 fw-bold"><input type="text" class="form-control" id="myInput"></input></div>
 				<div class="col-1 d-flex justify-content-end"><button class="close btn" onclick="close_daftarbarang()">X</button></div>
 			</div>
 			<div class="row rounded-bottom  shadow p-2" style="background-color: white">
-				<table class="table table-striped table-hover ">
+				<table class="table table-striped table-hover" id="myTable">
 					<tr>
 						<th scope="col">#</th>
 						<th scope="col">Id Barang</th>
@@ -199,6 +199,15 @@
 			$('#daftarbarang').hide(1000);
 	
 		}
+
+		$(document).ready(function(){
+			$("#myInput").on("keyup", function() {
+				var value = $(this).val().toLowerCase();
+				$("#myTable tr").filter(function() {
+				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+				});
+			});
+		});
 	</script>
 </body>
 </html>
