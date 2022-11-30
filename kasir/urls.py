@@ -14,6 +14,7 @@ urlpatterns = [
     path("i/mb/", views.Input_Master_Barang,name="Input_Master_Barang"),
     path("i/", views.Initial_Input_Master,name="Initial_Input_Master"),
     path('POS/<str:nomor>/',views.Pos,name="Pos"),
+    path('POS-grosir/<str:nomor>/',views.Pos_grosir,name="Pos_grosir"),
     path('chart/',views.chartku,name='chartku'),
     path('logout/',views.logout,name='logout'),
     path('v/',views.Initial_View_Master,name='Initial_View_Master'),
