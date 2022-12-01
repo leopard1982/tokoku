@@ -34,7 +34,13 @@
 				</div>
 			</div>
 			<div class="col-2 rounded border h3 mx-3 py-4 shadow text-end" style="background-color:lightblue; font-weight:bold">Total Belanja</div>
-			<div class="col-3 rounded border h2 mx-3 py-4 shadow text-center" style="background-color:lightblue;font-weight:bold">Rp.{{totalbelanja|intcomma}},00</div>
+			<div class="col-3 rounded border h2 mx-3 py-4 shadow text-center" style="background-color:lightblue;font-weight:bold">Rp.
+				{% if totalbelanja is not None %}
+				{{totalbelanja|intcomma}}
+				{% else%}
+				0
+				{% endif%}
+				,00</div>
 			<div class="col-3 rounded border h3 mx-3 py-4 shadow text-center" style="background-color:lightblue;font-weight:bold">Jumlah Item: #{{totalitem | intcomma}}#</div>
 		</div>
 		<div class="row text-center h5 shadow my-1" style="background-color:lightblue">
