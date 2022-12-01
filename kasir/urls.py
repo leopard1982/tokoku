@@ -14,6 +14,7 @@ urlpatterns = [
     path("i/mb/", views.Input_Master_Barang,name="Input_Master_Barang"),
     path("i/", views.Initial_Input_Master,name="Initial_Input_Master"),
     path('POS/<str:nomor>/',views.Pos,name="Pos"),
+    path('POS/<str:nomor>/<str:id_barang>/d/',views.Pos_delete,name="Pos_delete"),
     path('POS-grosir/<str:nomor>/',views.Pos_grosir,name="Pos_grosir"),
     path('chart/',views.chartku,name='chartku'),
     path('logout/',views.logout,name='logout'),
@@ -22,4 +23,5 @@ urlpatterns = [
     path('v/b/',views.View_Master_Barang,name='View_Master_Barang'),
     path('v/s/',views.View_Master_Supplier,name='View_Master_Supplier'),
     path('f/',views.Find_kode_barang,name='Find_kode_barang'),
+    
 ]

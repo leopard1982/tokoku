@@ -2,19 +2,25 @@ from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 
 from .forms import InputMasterSupplier, InputMasterPelanggan, InputMasterBarang
 
-from .models import MasterSupplier, MasterPelanggan, MasterBarang
+from .models import MasterSupplier, MasterPelanggan, MasterBarang, Parameter
+
+from .models import POS1_ecer, POS2_ecer, POS3_ecer
+from .models import POS1_grosir, POS2_grosir, POS3_grosir
 
 from django.contrib.auth.models import User
 from django.contrib import auth
 
 from django.db.models import Q
+from django.db.models import F
+from django.db.models import Sum
 
 import datetime
 
 # Create your views here.
 def indeks(request):
     loginkan=0
-    
+    id_sistemnya=""
+
     if request.method == 'POST':
         loginkan=1
         username=request.POST['txtusername']
@@ -23,7 +29,11 @@ def indeks(request):
         user = auth.authenticate(request, username=username, password=password)
         if user is not None:
             auth.login(request,user)
-    return render(request, 'coba.html',{'loginkan':loginkan})
+
+    param = Parameter.objects.all()
+    for par in param:
+        id_sistemnya = par.id_sistem
+    return render(request, 'coba.html',{'loginkan':loginkan,'id_sistem':id_sistemnya})
 
 def Input_Master_Supplier(request):
     errornya = None
@@ -73,12 +83,168 @@ def Initial_Input_Master(request):
         return render(request, 'master/initial_input_masterdata.html')
 
 def Pos(request,nomor):
+    nomor_notanya =0
+    belanjaku=None
+    total_item = 0
+    total_belanja =0
+
+    if(nomor=="1"):
+        belanjaku = POS1_ecer.objects.all()
+        for param in Parameter.objects.all():
+            nomor_notanya = param.counter1_ecer
+    elif(nomor=="2"):
+        belanjaku = POS2_ecer.objects.all()
+        for param in Parameter.objects.all():
+            nomor_notanya = param.counter2_ecer
+    elif(nomor=="3"):
+        belanjaku = POS3_ecer.objects.all()
+        for param in Parameter.objects.all():
+            nomor_notanya = param.counter3_ecer
+
+    if request.method == "POST":    
+        '''simpan transaksi'''
+        '''cek ini pos1, 2 atau 3'''
+        datastream = request.POST['datastream']
+        '''cek id sistem'''
+        id_sistem = ""
+        '''jika isi pos1, atau 2 atau 3 kosong maka counter akan nambah 1'''
+        pos_ke = int(datastream.split('^')[0])
+        
+        if(pos_ke==1):
+            if(POS1_ecer.objects.all().count()==0):
+                Parameter.objects.update(counter_nota=F('counter_nota')+1)
+                Parameter.objects.update(counter1_ecer = F('counter_nota')-1)
+                '''ITS COOL WORK'''
+            for param in Parameter.objects.all():
+                nomor_notanya = param.counter1_ecer
+                id_sistem = param.id_sistem
+            '''cek apakah sudah pernah diinput'''
+            hai_pos1 = POS1_ecer.objects.all().filter(id_barang=datastream.split('^')[2])
+            if hai_pos1.exists():
+                POS1_ecer.objects.filter(id_barang=datastream.split('^')[2]).update(jumlah_barang=F('jumlah_barang')+int( datastream.split('^')[7]))
+                POS1_ecer.objects.filter(id_barang=datastream.split('^')[2]).update(sub_total=F('jumlah_barang')*F('harga_barang'))
+                POS1_ecer.objects.filter(id_barang=datastream.split('^')[2]).update(rupiah_discount=F('sub_total')*F('discount')/100)
+                POS1_ecer.objects.filter(id_barang=datastream.split('^')[2]).update(total=F('sub_total')-F('rupiah_discount'))
+            else:
+                pos1_ecer = POS1_ecer()
+                pos1_ecer.user_id = datastream.split('^')[1]
+                pos1_ecer.kode_sistem = id_sistem
+                pos1_ecer.kode_pelanggan = datastream.split('^')[4]
+                pos1_ecer.nama_pelanggan = datastream.split('^')[5]
+                pos1_ecer.nomor_nota = nomor_notanya
+                pos1_ecer.id_barang = datastream.split('^')[2]
+                pos1_ecer.nama_barang = datastream.split('^')[3]
+                pos1_ecer.harga_barang = datastream.split('^')[6]
+                pos1_ecer.jumlah_barang = datastream.split('^')[7]
+                pos1_ecer.discount = datastream.split('^')[8]
+                pos1_ecer.rupiah_discount = datastream.split('^')[9]
+                pos1_ecer.sub_total = int(datastream.split('^')[6])*int(datastream.split('^')[7])
+                pos1_ecer.total = int(datastream.split('^')[6])*int(datastream.split('^')[7]) - int(datastream.split('^')[9])
+                pos1_ecer.posting=False
+                pos1_ecer.save()
+            belanjaku = POS1_ecer.objects.all()
+            total_item = POS1_ecer.objects.all().count()
+            
+        elif pos_ke==2:
+            if(POS2_ecer.objects.all().count()==0):
+                Parameter.objects.update(counter_nota=F('counter_nota')+1)
+                Parameter.objects.update(counter2_ecer = F('counter_nota')-1)
+                '''ITS COOL WORK'''
+            for param in Parameter.objects.all():
+                nomor_notanya = param.counter2_ecer
+                id_sistem = param.id_sistem
+            '''cek apakah sudah pernah diinput'''
+            hai_pos2 = POS2_ecer.objects.all().filter(id_barang=datastream.split('^')[2])
+            if hai_pos2.exists():
+                POS2_ecer.objects.filter(id_barang=datastream.split('^')[2]).update(jumlah_barang=F('jumlah_barang')+int( datastream.split('^')[7]))
+                POS2_ecer.objects.filter(id_barang=datastream.split('^')[2]).update(sub_total=F('jumlah_barang')*F('harga_barang'))
+                POS2_ecer.objects.filter(id_barang=datastream.split('^')[2]).update(rupiah_discount=F('sub_total')*F('discount')/100)
+                POS2_ecer.objects.filter(id_barang=datastream.split('^')[2]).update(total=F('sub_total')-F('rupiah_discount'))
+            else:
+                pos2_ecer = POS2_ecer()
+                pos2_ecer.user_id = datastream.split('^')[1]
+                pos2_ecer.kode_sistem = id_sistem
+                pos2_ecer.kode_pelanggan = datastream.split('^')[4]
+                pos2_ecer.nama_pelanggan = datastream.split('^')[5]
+                pos2_ecer.nomor_nota = nomor_notanya
+                pos2_ecer.id_barang = datastream.split('^')[2]
+                pos2_ecer.nama_barang = datastream.split('^')[3]
+                pos2_ecer.harga_barang = datastream.split('^')[6]
+                pos2_ecer.jumlah_barang = datastream.split('^')[7]
+                pos2_ecer.discount = datastream.split('^')[8]
+                pos2_ecer.rupiah_discount = datastream.split('^')[9]
+                pos2_ecer.sub_total = int(datastream.split('^')[6])*int(datastream.split('^')[7])
+                pos2_ecer.total = int(datastream.split('^')[6])*int(datastream.split('^')[7]) - int(datastream.split('^')[9])
+                pos2_ecer.posting=False
+                pos2_ecer.save()
+            belanjaku = POS2_ecer.objects.all()
+            total_item = POS2_ecer.objects.all().count()
+            
+        elif pos_ke==3:
+            if(POS3_ecer.objects.all().count()==0):
+                Parameter.objects.update(counter_nota=F('counter_nota')+1)
+                Parameter.objects.update(counter3_ecer = F('counter_nota')-1)
+                '''ITS COOL WORK'''
+            for param in Parameter.objects.all():
+                nomor_notanya = param.counter3_ecer
+                id_sistem = param.id_sistem
+            '''cek apakah sudah pernah diinput'''
+            hai_pos3 = POS3_ecer.objects.all().filter(id_barang=datastream.split('^')[2])
+            if hai_pos3.exists():
+                POS3_ecer.objects.filter(id_barang=datastream.split('^')[2]).update(jumlah_barang=F('jumlah_barang')+int( datastream.split('^')[7]))
+                POS3_ecer.objects.filter(id_barang=datastream.split('^')[2]).update(sub_total=F('jumlah_barang')*F('harga_barang'))
+                POS3_ecer.objects.filter(id_barang=datastream.split('^')[2]).update(rupiah_discount=F('sub_total')*F('discount')/100)
+                POS3_ecer.objects.filter(id_barang=datastream.split('^')[2]).update(total=F('sub_total')-F('rupiah_discount'))
+            else:
+                pos3_ecer = POS3_ecer()
+                pos3_ecer.user_id = datastream.split('^')[1]
+                pos3_ecer.kode_sistem = id_sistem
+                pos3_ecer.kode_pelanggan = datastream.split('^')[4]
+                pos3_ecer.nama_pelanggan = datastream.split('^')[5]
+                pos3_ecer.nomor_nota = nomor_notanya
+                pos3_ecer.id_barang = datastream.split('^')[2]
+                pos3_ecer.nama_barang = datastream.split('^')[3]
+                pos3_ecer.harga_barang = datastream.split('^')[6]
+                pos3_ecer.jumlah_barang = datastream.split('^')[7]
+                pos3_ecer.discount = datastream.split('^')[8]
+                pos3_ecer.rupiah_discount = datastream.split('^')[9]
+                pos3_ecer.sub_total = int(datastream.split('^')[6])*int(datastream.split('^')[7])
+                pos3_ecer.total = int(datastream.split('^')[6])*int(datastream.split('^')[7]) - int(datastream.split('^')[9])
+                pos3_ecer.posting=False
+                pos3_ecer.save()
+            belanjaku = POS3_ecer.objects.all()
+            
+
     mydate = datetime.date.today()
     daftarbarang = MasterBarang.objects.all()
+
+    if(nomor=="1"):
+        total_item = POS1_ecer.objects.all().count()
+        total_belanja = POS1_ecer.objects.aggregate(jumlah=Sum('total'))
+        total_belanja = total_belanja['jumlah']
+    elif(nomor=="2"):
+        total_item = POS2_ecer.objects.all().count()
+        total_belanja = POS2_ecer.objects.aggregate(jumlah=Sum('total'))
+        total_belanja = total_belanja['jumlah']
+    elif(nomor=="3"):
+        total_item = POS3_ecer.objects.all().count()
+        total_belanja = POS3_ecer.objects.aggregate(jumlah=Sum('total'))
+        total_belanja = total_belanja['jumlah']
+
+
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
-        return render(request,'POS/initial.html',{'nomor':nomor,'mydate':mydate,'daftarbarang':daftarbarang})
+        return render(request,'POS/initial.html',{'nomor':nomor,'mydate':mydate,'daftarbarang':daftarbarang,'belanjaku':belanjaku,'nomornota':nomor_notanya,'totalitem':total_item,'totalbelanja':total_belanja})
+
+def Pos_delete(request,nomor,id_barang):
+    if nomor =="1" :
+        POS1_ecer.objects.get(id_barang=id_barang).delete()
+    elif nomor == "2":
+        POS2_ecer.objects.get(id_barang=id_barang).delete()
+    elif nomor == "3":
+        POS3_ecer.objects.get(id_barang=id_barang).delete()
+    return HttpResponseRedirect('/POS/' + str(nomor) + '/')
 
 def Pos_grosir(request,nomor):
     mydate = datetime.date.today()
@@ -112,6 +278,7 @@ def Input_Master_Barang(request):
             forms = InputMasterBarang(request.POST,request.FILES)
             if forms.is_valid():
                 forms.save()
+                MasterBarang.objects.update(stok_akhir=F('stok_awal'))
             else:
                 errornya= forms.errors.items()
                 

@@ -36,8 +36,8 @@
 				</div>
 			</div>
 			<div class="col-2 rounded border h3 mx-3 py-4 shadow text-end" style="background-color:lightblue; font-weight:bold">Total Belanja</div>
-			<div class="col-3 rounded border h2 mx-3 py-4 shadow text-start" style="background-color:lightblue;font-weight:bold">Rp.10.000.000,00</div>
-			<div class="col-3 rounded border h3 mx-3 py-4 shadow text-center" style="background-color:lightblue;font-weight:bold">Jumlah Item: #3</div>
+			<div class="col-3 rounded border h2 mx-3 py-4 shadow text-center" style="background-color:lightblue;font-weight:bold">Rp.{{totalbelanja|intcomma}},00</div>
+			<div class="col-3 rounded border h3 mx-3 py-4 shadow text-center" style="background-color:lightblue;font-weight:bold">Jumlah Item: #{{totalitem | intcomma}}#</div>
 		</div>
 		<div class="row text-center h5 shadow my-1" style="background-color:lightblue">
 			<div class="col-12 py-2">
@@ -48,6 +48,7 @@
 					<div class="d-flex justify-content-start col-1 py-2 bg-primary rounded-start rounded-pill" >
 						<b>{{user.username}}</b> 
 					</div>
+					<input type="hidden" id="username" value="{{user.username}}">
 					<div class="col-1 "> 
 					</div>
 
@@ -81,6 +82,7 @@
 						<div class="row">
 							<div class="col-6 text-center py-2  border-1 my-2 rounded-end rounded-pill shadow" style="background-color: cyan;" style="position: absolute;z-index: 1;"><b>SALES</b></div>
 							<div class="col-6 text-center py-2 rounded-pill rounded-start border-1 my-2 shadow" style="background-color: paleturquoise;" style="left:20px; position:absolute; z-index: 2;"><b>
+								<input type="hidden" value="{{nomor}}" id="pilihan_POS">
 								{% if nomor == "1" %}
 									<b>POS#1</b>
 								{% elif nomor == "2" %}
@@ -112,7 +114,7 @@
 								Kranggan-Temanggung<br>
 								081213270275<hr>
 							</div>
-							<pre>Nomor Nota: xxxxxxxxxxx
+							<pre>Nomor Nota: {{nomornota | stringformat:"015d"}}
 							</pre>
 						</div>
 						<div class="col-9">
@@ -121,26 +123,66 @@
 									 Input Penjualan 
 								</div>
 								<div class="row">
-									<div class="col-3">Kode Barang:<br>
-									<input type="text" class="form-control rounded-pill shadow" placeholder="Daftar Barang" readonly id="kode_barang" onclick="tampilkanbarang()"><br>
+									<div class="col-3 text-center">Kode Barang:<br>
+									<input type="text" class="form-control rounded-pill text-center shadow bg-info" placeholder="Klik Daftar Barang" readonly id="kode_barang" onclick="tampilkanbarang()"><br>
 									</div>
-									<div class="col-3 ">Nama Barang:<br>
-										<input type="text" class="form-control rounded-pill shadow" placeholder="Nama Barang" id="nama_barang" readonly >
+									<div class="col-3 text-center">Nama Barang:
+										<div class="container rounded-pill shadow p-2 text-center bg-info" id="tampilkan_nama_barang">-</div>
 									</div>
-									<div class="col-2">Stok:<br>
-										<input type="text" class="form-control rounded-pill shadow" placeholder="0" id="jml_stok" readonly>
+									<div class="col-1 text-center">Harga:
+										<div class="container rounded-pill shadow p-2 text-center bg-info" id="tampilkan_harga_barang">-</div>
 									</div>
-									<div class="col-2">Beli:<br>
-										<input type="text" class="form-control rounded-pill shadow" placeholder="0" id="jml_beli">
+									<div class="col-1 text-center">Stok:
+										<div class="container rounded-pill shadow p-2 text-center bg-info" id="tampilkan_stok_barang">-</div>
+									</div>
+									<div class="col-1 text-center">Disc.%
+										<div class="container rounded-pill shadow p-2 text-center bg-info" id="tampilkan_discount_barang">-</div>
+									</div>
+									<div class="col-1 text-center">Beli:<br>
+										<input type="number" class="form-control rounded-pill shadow bg-info" placeholder="0" id="jml_beli">
 									</div>
 									<div class="col-2"><br>
-										<button class="btn btn-outline-primary rounded-pill shadow">Tambahkan</button>
+										<button class="btn btn-outline-primary rounded-pill shadow" onclick="streamingkan()">tambahkan</button>
 									</div>
 								</div>
 							</div>
 							<div  class="row  border shadow p-3 rounded">
 								<div class="h5 p-2 rounded-pill text-center shadow" style="background-color: lightblue;">
 									Daftar Belanja
+								</div>
+								<div>
+									<table class="table">
+										<thead>
+											<tr>
+												<th scope="col">#</th>
+												<th scope="col">kd.Brg</th>
+												<th scope="col">Nama Brg.</th>
+												<th scope="col">Hrg.@</th>
+												<th scope="col">Jml</th>
+												<th scope="col">Sub.Total</th>
+												<th scope="col">Disc.%</th>
+												<th scope="col">Dics.Rp</th>
+												<th scope="col">Total</th>
+												<th scope="col"></th>
+											</tr>
+										</thead>
+										{% for belanja in belanjaku %}
+										<tbody>
+											<tr>
+												<th scope="row">{{forloop.counter}}</th>
+												<td>{{belanja.id_barang}}</td>
+												<td>{{belanja.nama_barang}}</td>
+												<td>Rp.{{belanja.harga_barang | intcomma}}.00</td>
+												<td>{{belanja.jumlah_barang | intcomma}}</td>
+												<td>Rp.{{belanja.sub_total |intcomma}}.00</td>
+												<td>{{belanja.discount}}</td>
+												<td>Rp.{{belanja.rupiah_discount | intcomma}}.00</td>
+												<td>Rp.{{belanja.total|intcomma}}.00</td>
+												<td><button class="btn btn-outline-danger" onclick="location.href='/POS/{{nomor}}/{{belanja.id_barang}}/d/'">hapus</button></td>
+											</tr>
+										</tbody>
+										{% endfor%}
+									</table>
 								</div>
 							</div>
 						<div>
@@ -172,6 +214,7 @@
 						<th scope="col">Nama Barang</th>
 						<th scope="col">Harga Ecer</th>
 						<th scope="col">Jumlah Stok</th>
+						<th scope="col">Disc.%</th>
 						<th scope="col">Gambar</th>
 						<th scope="col"></th>
 					</tr>
@@ -182,8 +225,9 @@
 						<td>{{daftar.nama_barang}}</td>
 						<td>Rp.{{daftar.harga_ecer | intcomma}},00</td>
 						<td>{{daftar.stok_akhir | intcomma}}</td>
+						<td>{{daftar.discount}}</td>
 						<td><img src="{{daftar.foto.url}}" style="width: 100px;height:50px"></td>
-						<td><button class="btn btn-outline-primary" onclick="oke_barangditambahkan('{{daftar.id_barang}}^{{daftar.nama_barang}}^{{daftar.stok_akhir}}')" >tambahkan</button></td>
+						<td><button class="btn btn-outline-primary" onclick="oke_barangditambahkan('{{daftar.id_barang}}^{{daftar.nama_barang}}^{{daftar.stok_akhir}}^{{daftar.discount}}^{{daftar.harga_ecer}}')" >tambahkan</button></td>
 					</tr>
 					{% endfor%}
 				</table>
@@ -209,9 +253,11 @@
 		{
 			$('#daftarbarang').hide(1000);
 			$('#barangnya').value="";
+			document.getElementById('tampilkan_nama_barang').innerHTML="-";
+			document.getElementById('tampilkan_stok_barang').innerHTML="-";
+			document.getElementById('tampilkan_discount_barang').innerHTML="-";
+			document.getElementById('tampilkan_harga_barang').innerHTML="-";
 			document.getElementById('kode_barang').value="";
-			document.getElementById('nama_barang').value="";
-			document.getElementById('jml_barang').value="";
 		}
 
 		$(document).ready(function(){
@@ -226,9 +272,69 @@
 		function oke_barangditambahkan(mydata) {
 			$('#daftarbarang').hide(1000);
 			$('#barangnya').value="";
+			/*setting untuk data disimpan ke hidden input*/
 			document.getElementById('kode_barang').value=mydata.split('^')[0];
-			document.getElementById('nama_barang').value=mydata.split('^')[1];
-			document.getElementById('jml_barang').value=mydata.split('^')[2];
+			document.getElementById('tampilkan_nama_barang').innerHTML=mydata.split('^')[1];
+			document.getElementById('tampilkan_stok_barang').innerHTML=mydata.split('^')[2];
+			document.getElementById('tampilkan_discount_barang').innerHTML=mydata.split('^')[3];
+			document.getElementById('tampilkan_harga_barang').innerHTML=mydata.split('^')[4];
+		}
+
+		function streamingkan() {
+			let kode_barang = document.getElementById('kode_barang').value;
+			let nama_barang = document.getElementById('tampilkan_nama_barang').innerHTML;
+			let jumlah_beli = document.getElementById('jml_beli').value;
+			let pilihan_POS = document.getElementById('pilihan_POS').value;
+			let username = document.getElementById('username').value;
+			let kode_pelanggan = "Eceran";
+			let nama_pelanggan = "Eceran";
+			let id_barang = document.getElementById('kode_barang').value;
+			let jumlah_stok = document.getElementById('tampilkan_stok_barang').innerHTML;
+			let discount = document.getElementById('tampilkan_discount_barang').innerHTML;
+			let harga_ecer = document.getElementById('tampilkan_harga_barang').innerHTML;
+			if(kode_barang != "") 
+			{
+				if(jumlah_beli=="") {
+					alert('kosong');
+				}
+				else if(jumlah_beli<=0) {
+					alert('minus');
+				}
+				else {
+					console.log(jumlah_beli);
+					console.log(jumlah_stok);
+					if(parseInt(jumlah_beli)>parseInt(jumlah_stok))
+					{
+						alert('kebanyakan');
+					}
+					else {
+						//mantap
+						let total_belanja = jumlah_beli *  harga_ecer;
+						let discount_rupiah = total_belanja * discount / 100;
+
+						mystream = pilihan_POS + "^" + username + "^" + kode_barang + "^" + nama_barang + "^Eceran^Eceran^"   + harga_ecer + "^" + jumlah_beli + "^" + discount + "^" + discount_rupiah + "^" + total_belanja
+						
+						formku = document.createElement('form');
+						formku.setAttribute('method','POST')
+						//kurang crsf token saja
+						formku.setAttribute('action','/POS/' + pilihan_POS + "/")
+						inputan = document.createElement('input');
+						inputan.setAttribute('name','datastream');
+						inputan.setAttribute('value',mystream);
+						csrf_input = document.createElement('input');
+						csrf_input.setAttribute('type','hidden');
+						csrf_input.setAttribute('name','csrfmiddlewaretoken');
+						csrf_input.setAttribute('value','{{csrf_token}}');
+						formku.appendChild(inputan);
+						formku.appendChild(csrf_input);
+						document.body.appendChild(formku);
+						formku.submit();
+					}
+				}
+			}
+			else {
+				alert('barang belum dipilih');
+			}
 		}
 	</script>
 </body>

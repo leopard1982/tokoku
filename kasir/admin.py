@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from .models import MasterSupplier, MasterPelanggan
+from .models import Parameter, Parameter
 
 # Register your models here.
-admin.site.register(MasterSupplier)
-admin.site.register(MasterPelanggan)
+admin.site.register(Parameter)
