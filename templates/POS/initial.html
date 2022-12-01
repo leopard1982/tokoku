@@ -16,9 +16,7 @@
     <style type="text/css">
     	pre {
         	word-wrap: nowrap !important;
-    		font-family: verdana !important;
     		border-radius: 0 !important;
-
         }
     </style>
     <script src="{% static 'js/chart.js'%}"></script>
@@ -108,14 +106,28 @@
 				<div class="container-fluid my-2 p-2">
 					<div class="row">
 						<div class="container col-3 rounded shadow border" style="background-color: rgb(255, 255, 214);">
+							{% if totalitem is not 0 %}
+							<div class="d-flex justify-content-center py-3"><button type="button" class="btn btn-outline-primary">Proses Pembayaran Transaksi</button></div>
+							{% endif %}
 							<div class="containers text-center">
 								<span style="font-weight: bold;">Toko Sembako</span><br>
 								Jl. Kyai Kasan Timur no.250<br>
 								Kranggan-Temanggung<br>
 								081213270275<hr>
 							</div>
-							<pre>Nomor Nota: {{nomornota | stringformat:"015d"}}
-							</pre>
+							<pre>Nota: {{nomornota | stringformat:"012d"}} |<code>Kasir: {{user.username}}</code></pre>
+							{% for nota in belanjaku%}
+							<pre>{{forloop.counter|stringformat:"02d"}}.{{nota.id_barang |truncatechars:10|ljust:10}}{{nota.nama_barang|truncatechars:20}}</pre>
+							<pre>{{nota.jumlah_barang | intcomma | rjust:4}}x{{nota.harga_barang | intcomma|rjust:10}} = {{nota.sub_total |intcomma}}</pre>
+							<pre> disc: {{nota.discount}}% {{nota.rupiah_discount | intcomma|rjust:10}} = {{nota.total |intcomma}}</pre>
+							{% endfor %}
+							<hr>
+							<pre>Total Item: {{totalitem |intcomma}} item(s)</pre>
+							{% if totalbelanja is not None %}
+								<pre>Total Belanja: Rp.{{totalbelanja|intcomma}}.00</pre>
+							{% else %}
+								<pre>Total Belanja: Rp.0.00</pre>
+							{% endif%}	
 						</div>
 						<div class="col-9">
 							<div>
@@ -127,22 +139,22 @@
 									<input type="text" class="form-control rounded-pill text-center shadow bg-info" placeholder="Klik Daftar Barang" readonly id="kode_barang" onclick="tampilkanbarang()"><br>
 									</div>
 									<div class="col-3 text-center">Nama Barang:
-										<div class="container rounded-pill shadow p-2 text-center bg-info" id="tampilkan_nama_barang">-</div>
+										<div class="container rounded-pill shadow p-1 text-center bg-info" id="tampilkan_nama_barang" style="overflow-x: scroll">-</div>
 									</div>
 									<div class="col-1 text-center">Harga:
-										<div class="container rounded-pill shadow p-2 text-center bg-info" id="tampilkan_harga_barang">-</div>
+										<div class="container rounded-pill shadow p-1 text-center bg-info" id="tampilkan_harga_barang" style="overflow-x: scroll">-</div>
 									</div>
 									<div class="col-1 text-center">Stok:
-										<div class="container rounded-pill shadow p-2 text-center bg-info" id="tampilkan_stok_barang">-</div>
+										<div class="container rounded-pill shadow p-1 text-center bg-info" id="tampilkan_stok_barang" style="overflow-x: scroll">-</div>
 									</div>
 									<div class="col-1 text-center">Disc.%
-										<div class="container rounded-pill shadow p-2 text-center bg-info" id="tampilkan_discount_barang">-</div>
+										<div class="container rounded-pill shadow p-1 text-center bg-info" id="tampilkan_discount_barang" style="overflow-x: scroll">-</div>
 									</div>
-									<div class="col-1 text-center">Beli:<br>
-										<input type="number" class="form-control rounded-pill shadow bg-info" placeholder="0" id="jml_beli">
+									<div class="col-2 text-center">Beli:<br>
+										<input type="number" class="form-control rounded-pill shadow bg-info" placeholder="0" id="jml_beli" style="overflow-x: scroll">
 									</div>
-									<div class="col-2"><br>
-										<button class="btn btn-outline-primary rounded-pill shadow" onclick="streamingkan()">tambahkan</button>
+									<div class="col-1"><br>
+										<button class="btn btn-outline-primary form-control rounded-pill shadow" onclick="streamingkan()"> + </button>
 									</div>
 								</div>
 							</div>
