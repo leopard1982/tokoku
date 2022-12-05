@@ -23,5 +23,5 @@ urlpatterns = [
     path('v/b/',views.View_Master_Barang,name='View_Master_Barang'),
     path('v/s/',views.View_Master_Supplier,name='View_Master_Supplier'),
     path('f/',views.Find_kode_barang,name='Find_kode_barang'),
-    
+    path('nota_ecer/',views.Cetak_Nota_Ecer,name="Cetak_Nota_Ecer")
 ]

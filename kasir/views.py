@@ -237,6 +237,21 @@ def Pos(request,nomor):
     else:
         return render(request,'POS/initial.html',{'nomor':nomor,'mydate':mydate,'daftarbarang':daftarbarang,'belanjaku':belanjaku,'nomornota':nomor_notanya,'totalitem':total_item,'totalbelanja':total_belanja})
 
+def Cetak_Nota_Ecer(request):
+    tanggal_jam = datetime.datetime.now()
+    nomor_notanya =0
+    belanjaku=None
+    total_belanja =0
+    mydate = datetime.date.today()
+    belanjaku = POS1_ecer.objects.all()
+    total_item = belanjaku.count()
+    for param in Parameter.objects.all():
+        nomor_notanya = param.counter1_ecer
+
+    total_belanja = POS1_ecer.objects.aggregate(jumlah=Sum('total'))
+    total_belanja = total_belanja['jumlah']
+    return render(request,'POS/nota_ecer.html',{'mydate':mydate,'belanjaku':belanjaku,'nomornota':nomor_notanya,'totalitem':total_item,'totalbelanja':total_belanja,'tanggaljam':tanggal_jam})
+
 def Pos_delete(request,nomor,id_barang):
     if nomor =="1" :
         POS1_ecer.objects.get(id_barang=id_barang).delete()

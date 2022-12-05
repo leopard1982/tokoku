@@ -1,0 +1,61 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cetak Nota Ecer</title>
+    <style>
+    @page {
+        margin: 5px 0 0 0;
+        
+    }
+    body {
+        margin-left: 5px;
+        margin-top:0;
+        margin-right:0;
+        margin-bottom:0;
+    }
+    pre {
+        font-family: "Arial Narrow", "Helvetica Neue",;
+    }
+
+    </style>
+</head>
+<body onload="actionbruh()" onafterprint="closeme()">
+    <center style="margin-top:40px">
+        <span style="font-weight: bold; ">Toko Sembako</span><br>
+        Jl. Kyai Kasan Timur no.250<br>
+        Kranggan-Temanggung<br>
+        081213270275<br>
+        ===========================
+    </center>
+    <pre>Tanggal: {{tanggaljam|date:'d-m-Y'}}  @{{tanggaljam|date:'H:i:s'}}<br>Nota: <b>{{nomornota | stringformat:"012d"}}</b> | Kasir: <b>{{user.username}}</b></pre><br>
+    {% for nota in belanjaku%}
+    <pre>{{forloop.counter|stringformat:"02d"}}.<b>{{nota.id_barang |truncatechars:10|ljust:10}}</b><b>{{nota.nama_barang|truncatechars:20|title}}</b></pre>
+    <pre><b>{{nota.jumlah_barang | intcomma | rjust:4}}x{{nota.harga_barang | intcomma|rjust:10}} = {{nota.sub_total |intcomma}}</b></pre>
+    <pre> <i>disc: {{nota.discount}}%</i> <b>{{nota.rupiah_discount | intcomma|rjust:10}}</b> = <b>{{nota.total |intcomma}}</b></pre>
+    {% endfor %}
+    <center>===========================</center>
+    <b>
+    <pre>Total Item: {{totalitem |intcomma}} item(s)</pre>
+    <pre>Total Belanja: Rp.{{totalbelanja|intcomma}}.00</pre>	
+    </div>
+    </b>    
+    <div style="margin-top:20px;margin-bottom: 10px; text-align:center">
+        **********<br>
+    ^^ terima kasih sudah belanja ^^<br>***********</div>.
+    <script>
+        function actionbruh()
+        {
+            window.print();
+            
+        }
+
+        function closeme() {
+            window.close();
+        }
+    </script>
+</body>
+</html>

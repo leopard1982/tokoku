@@ -111,30 +111,61 @@
 				
 				<div class="container-fluid my-2 p-2">
 					<div class="row">
-						<div class="container col-3 rounded shadow border" style="background-color: rgb(255, 255, 214);">
-							{% if totalitem is not 0 %}
-							<div class="d-flex justify-content-center py-3"><button type="button" class="btn btn-outline-primary">Proses Pembayaran Transaksi</button></div>
-							{% endif %}
+						<div class="container col-3 rounded shadow" style="background-color: rgb(255, 255, 214);">
 							<div class="containers text-center">
 								<span style="font-weight: bold;">Toko Sembako</span><br>
 								Jl. Kyai Kasan Timur no.250<br>
 								Kranggan-Temanggung<br>
 								081213270275<hr>
 							</div>
-							<pre>Nota: {{nomornota | stringformat:"012d"}} |<code>Kasir: {{user.username}}</code></pre>
+							<pre>Nota: {{nomornota | stringformat:"012d"}} |Kasir: {{user.username}}</pre>
 							{% for nota in belanjaku%}
 							<pre>{{forloop.counter|stringformat:"02d"}}.{{nota.id_barang |truncatechars:10|ljust:10}}{{nota.nama_barang|truncatechars:20}}</pre>
 							<pre>{{nota.jumlah_barang | intcomma | rjust:4}}x{{nota.harga_barang | intcomma|rjust:10}} = {{nota.sub_total |intcomma}}</pre>
 							<pre> disc: {{nota.discount}}% {{nota.rupiah_discount | intcomma|rjust:10}} = {{nota.total |intcomma}}</pre>
 							{% endfor %}
-							<hr>
+							
 							<pre>Total Item: {{totalitem |intcomma}} item(s)</pre>
 							{% if totalbelanja is not None %}
 								<pre>Total Belanja: Rp.{{totalbelanja|intcomma}}.00</pre>
 							{% else %}
 								<pre>Total Belanja: Rp.0.00</pre>
-							{% endif%}	
+							{% endif%}
+							<hr>	
+							{% if totalitem is not 0 %}
+								<div style="background-color: lightgreen;" class="p-2 border-2 shadow rounded">
+									<div class="card rounded bg-success text-center my-2 p-2 text-white">
+										&laquo; PEMBAYARAN &raquo;
+									</div>
+									<div class="row p-1">
+										<div class="col-5 py-2">Bayar: Rp.</div>
+										<div class="col-7"><input type="number"  id="input_bayar" class="form-control border-1 shadow  btn-outline-success"></div>
+									</div>
+									<div class="row p-1">
+										<div class="col-5 py-2">Kembali: Rp.</div>
+										<div class="col-7"><input type="number"  id="kembalian_bayar" class="form-control border-1 shadow  btn-outline-success" disabled></div>
+									</div>
+									<div class="row p-1">
+										<div class="col-5 py-2">Cara Bayar:</div>
+										<div class="col-7">
+											<select class="form-control btn-outline-success shad" id="">
+												<option value="cash">Cash</option>
+												<option value="card">Card</option>
+											</select>
+										</div>
+									</div>
+									<div class="row p-1">
+										<div class="col-5 py-2">No. Kartu:</div>
+										<div class="col-7"><input type="number"  id="kembalian_bayar" class="form-control border-1 shadow  btn-outline-success"></div>
+									</div>
+
+									<br>
+									<div class="d-flex justify-content-center"><button type="button" class="btn btn-success" onclick="window.open('/nota_ecer/','_blank')">&laquo; Proses Pembayaran &raquo;</button></div>
+								</div>
+								<br><br><br>
+							{% endif %}
 						</div>
+						
 						<div class="col-9">
 							<div>
 								<div class="h5 p-2 rounded-pill text-center shadow" style="background-color: lightblue">
@@ -211,7 +242,7 @@
 	</div>
 
 	<footer class="footer fixed-bottom bg-transparent py-2  border">
-		<div class="container-fluid text-center">
+		<div class="container-fluid text-center w-50">
 		  <code class="bg-light rounded-3 border shadow"><b>&copy; 2022 </b> - <b>by:  <img  src="{% static 'img/logo.ico'%}" alt="logo-leopard" class=" mx-auto rounded-5 d-inline-flex "> Leopard Inc.</code></b>
 		</div>
 	</footer>
