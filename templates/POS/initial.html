@@ -160,7 +160,7 @@
 									</div>
 
 									<br>
-									<div class="d-flex justify-content-center"><button type="button" class="btn btn-success" onclick="window.open('/nota_ecer/','_blank')">&laquo; Proses Pembayaran &raquo;</button></div>
+									<div class="d-flex justify-content-center"><button type="button" class="btn btn-success" onclick="location.href='/nota_ecer/{{nomor}}'">&laquo; Proses Pembayaran &raquo;</button></div>
 								</div>
 								<br><br><br>
 							{% endif %}
@@ -290,6 +290,7 @@
     <script src="{% static 'js/jquery.min.js'%}"></script>
     <script src="{% static 'js/sidebar_click.js'%}"></script>
 	<script src="{% static 'js/konfirmasi.js'%}"></script>
+	<script src="{% static 'js/scrolljs.js'%}"></script>
 
 	<script>
 		function tampilkanbarang()

@@ -4,6 +4,18 @@ from django.urls import reverse
 
 from django.contrib.auth.models import User
 
+
+class MasterParameter(models.Model):
+	id_sistem = models.CharField(max_length=6,default="-",primary_key=True,blank=False,null=False)
+	counter_nota = models.PositiveBigIntegerField(default=0)
+	counter1_ecer = models.PositiveBigIntegerField(default=0)
+	counter2_ecer = models.PositiveBigIntegerField(default=0)
+	counter3_ecer = models.PositiveBigIntegerField(default=0)
+	counter1_grosir = models.PositiveBigIntegerField(default=0)
+	counter2_grosir = models.PositiveBigIntegerField(default=0)
+	counter3_grosir = models.PositiveBigIntegerField(default=0)
+
+
 # Create your models here.
 class MasterSupplier(models.Model):
 	kode_supplier= models.CharField(max_length=100,verbose_name="Kode Supplier",default="",primary_key=True,null=False,blank=False)
@@ -18,7 +30,7 @@ class MasterSupplier(models.Model):
 	hapus= models.BooleanField(default=True)
 
 	def __str__(self):
-		return "%s - %s"%(self.kode_supplier,self.nama_supplier)
+		return "%s "%(self.nama_supplier)
 
 
 	def delete_master(self):
@@ -40,7 +52,7 @@ class MasterPelanggan(models.Model):
 	hapus= models.BooleanField(default=True)
 	
 	def __str_(self):
-		return "%s - %s"%(self.kode_pelanggan,self.nama_pelanggan)
+		return "%s"%(self.nama_pelanggan)
 
 	class Meta:
 		ordering = ['kode_pelanggan','nama_pelanggan']
@@ -67,23 +79,12 @@ class MasterBarang(models.Model):
 	discount = models.PositiveIntegerField(default=0)
 	
 	def __str__(self):
-		return "%s - %s"%(self.id_barang,self.nama_barang)
+		return "%s"%(self.nama_barang)
 	
 	class Meta:
 		ordering = ['id_barang','nama_barang']
 	
-class MasterParameter(models.Model):
-	kode_sistem = models.CharField(max_length=5,default="LT001",primary_key=True,blank=False,null=False)
-	nomor_nota = models.PositiveBigIntegerField(default=1)
-	nota_POS1_ecer = models.PositiveBigIntegerField(default=1)
-	nota_POS2_ecer = models.PositiveBigIntegerField(default=1)
-	nota_POS3_ecer = models.PositiveBigIntegerField(default=1)
-	nota_POS1_grosir = models.PositiveBigIntegerField(default=1)
-	nota_POS2_grosir = models.PositiveBigIntegerField(default=1)
-	nota_POS3_grosir = models.PositiveBigIntegerField(default=1)
-
 class POS1_ecer(models.Model):
-	user_id = models.CharField(max_length=100,default="-",null=False,blank=False)
 	kode_sistem = models.CharField(max_length=100,default="-",null=False,blank=False)
 	kode_pelanggan =models.CharField(max_length=100,default="-",null=False,blank=False)
 	nama_pelanggan = models.CharField(max_length=100,default="-")
@@ -99,7 +100,6 @@ class POS1_ecer(models.Model):
 	posting=models.BooleanField(default=False)
 
 class POS2_ecer(models.Model):
-	user_id = models.CharField(max_length=100,default="-",null=False,blank=False)
 	kode_sistem = models.CharField(max_length=100,default="-",null=False,blank=False)
 	kode_pelanggan =models.CharField(max_length=100,default="-",null=False,blank=False)
 	nama_pelanggan = models.CharField(max_length=100,default="-")
@@ -115,7 +115,6 @@ class POS2_ecer(models.Model):
 	posting=models.BooleanField(default=False)
 
 class POS3_ecer(models.Model):
-	user_id = models.CharField(max_length=100,default="-",null=False,blank=False)
 	kode_sistem = models.CharField(max_length=100,default="-",null=False,blank=False)
 	kode_pelanggan =models.CharField(max_length=100,default="-",null=False,blank=False)
 	nama_pelanggan = models.CharField(max_length=100,default="-")
@@ -131,7 +130,6 @@ class POS3_ecer(models.Model):
 	posting=models.BooleanField(default=False)
 
 class POS1_grosir(models.Model):
-	user_id = models.CharField(max_length=100,default="-",null=False,blank=False)
 	kode_sistem = models.CharField(max_length=100,default="-",null=False,blank=False)
 	kode_pelanggan =models.CharField(max_length=100,default="-",null=False,blank=False)
 	nama_pelanggan = models.CharField(max_length=100,default="-")
@@ -147,7 +145,6 @@ class POS1_grosir(models.Model):
 	posting=models.BooleanField(default=False)
 
 class POS2_grosir(models.Model):
-	user_id = models.CharField(max_length=100,default="-",null=False,blank=False)
 	kode_sistem = models.CharField(max_length=100,default="-",null=False,blank=False)
 	kode_pelanggan =models.CharField(max_length=100,default="-",null=False,blank=False)
 	nama_pelanggan = models.CharField(max_length=100,default="-")
@@ -163,7 +160,6 @@ class POS2_grosir(models.Model):
 	posting=models.BooleanField(default=False)
 
 class POS3_grosir(models.Model):
-	user_id = models.CharField(max_length=100,default="-",null=False,blank=False)
 	kode_sistem = models.CharField(max_length=100,default="-",null=False,blank=False)
 	kode_pelanggan =models.CharField(max_length=100,default="-",null=False,blank=False)
 	nama_pelanggan = models.CharField(max_length=100,default="-")
@@ -179,7 +175,7 @@ class POS3_grosir(models.Model):
 	posting=models.BooleanField(default=False)
 
 class Posting(models.Model):
-	user_id = models.ForeignKey(User,on_delete=models.RESTRICT)
+	user_id = models.ForeignKey(User, null=False,blank=False, on_delete=models.RESTRICT)  # type: ignore
 	kode_sistem = models.ForeignKey(MasterParameter,models.RESTRICT)
 	kode_pelanggan = models.ForeignKey(MasterPelanggan,models.RESTRICT)
 	nama_pelanggan = models.CharField(max_length=100,default="-")
@@ -210,13 +206,3 @@ class Penjualan_Stok_Keluar(models.Model):
 	nomor_nota = models.CharField(max_length=12,default="0")
 	id_barang = models.ForeignKey(MasterBarang,on_delete=models.RESTRICT)
 	stok_jual = models.IntegerField(default=0)
-
-class Parameter(models.Model):
-	id_sistem = models.CharField(max_length=6,default="-",primary_key=True,blank=False,null=False)
-	counter_nota = models.PositiveBigIntegerField(default=0)
-	counter1_ecer = models.PositiveBigIntegerField(default=0)
-	counter2_ecer = models.PositiveBigIntegerField(default=0)
-	counter3_ecer = models.PositiveBigIntegerField(default=0)
-	counter1_grosir = models.PositiveBigIntegerField(default=0)
-	counter2_grosir = models.PositiveBigIntegerField(default=0)
-	counter3_grosir = models.PositiveBigIntegerField(default=0)

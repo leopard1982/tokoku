@@ -52,12 +52,20 @@
                           <li><a class="dropdown-item" href="/i/">Menambah Master Data</a></li>
                           <li><a class="dropdown-item" href="/v/">Daftar Master Data</a></li>
                         </ul>
+                      </li>
                       <li class="nav-item">
                         <a class="nav-link" href="/POS/1/">POS Penjualan Retail</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="/POS-grosir/1/">POS Penjualan Grosir</a>
-                      </li>                      
+                      </li>    
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">History</a>
+                        <ul class="dropdown-menu shadow">
+                          <li><a class="dropdown-item" href="/i/">History Pembelian Barang</a></li>
+                          <li><a class="dropdown-item" href="/v/">History Penjualan</a></li>
+                        </ul>
+                      </li>               
                     </ul>
                     <form class="d-flex ms-auto" action="{% url 'Find_kode_barang'%}" method="POST" target="_blank">
                       {% csrf_token %}
@@ -104,16 +112,23 @@
           {% endblock%}
         </div>
       
-    <footer class="footer fixed-bottom bg-transparent py-2  border">
-      <div class="container-fluid text-center">
-        <code class="bg-light rounded-3 border shadow"><b>&copy; 2022 </b> - <b>by:  <img  src="{% static 'img/logo.ico'%}" alt="logo-leopard" class=" mx-auto rounded-5 d-inline-flex "> Leopard Inc.</code></b>
+    <div class="row">
+      <div class="col-4">
       </div>
-    </footer>
+      <div class="col-4">
+        <footer class="footer fixed-bottom bg-primary py-2 d-flex justify-content-center">    
+          <code class="bg-light rounded-3  shadow"><b>&copy; 2022 </b> - <b>by:  <img  src="{% static 'img/logo.ico'%}" alt="logo-leopard" class=" mx-auto rounded-5 d-inline-flex "> Leopard Inc.</code></b>
+      </footer>
+      </div>
+      <div class="col-4">
+      </div>
+    </div>
     <script src="{% static 'js/bootstrap5.bundle.min.js'%}"></script>
     <script src="{% static 'js/jquery.min.js'%}"></script>
     <script src="{% static 'js/sidebar_click.js'%}"></script>
     <script src="{% static 'js/konfirmasi.js'%}"></script>
-    
+    <script src="{% static 'js/scrolljs.js'%}"></script>
+
     {% block javascript%}
     {% endblock%}
 </body>

@@ -48,4 +48,7 @@ class InputMasterBarang(forms.ModelForm):
 			'harga_grosir3': forms.TextInput(attrs={'class':'form-control input-lg'}),
 			'keterangan_isi' : forms.TextInput(attrs={'class':'form-control input-lg'}),
 		}
+
+class InputPOS_ecer1(forms.ModelForm):
+	pass 
 		

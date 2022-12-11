@@ -2,10 +2,10 @@ from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 
 from .forms import InputMasterSupplier, InputMasterPelanggan, InputMasterBarang
 
-from .models import MasterSupplier, MasterPelanggan, MasterBarang, Parameter
+from .models import MasterSupplier, MasterPelanggan, MasterBarang, MasterParameter
 
 from .models import POS1_ecer, POS2_ecer, POS3_ecer
-from .models import POS1_grosir, POS2_grosir, POS3_grosir
+from .models import POS1_grosir, POS2_grosir, POS3_grosir, Posting
 
 from django.contrib.auth.models import User
 from django.contrib import auth
@@ -30,7 +30,7 @@ def indeks(request):
         if user is not None:
             auth.login(request,user)
 
-    param = Parameter.objects.all()
+    param = MasterParameter.objects.all()
     for par in param:
         id_sistemnya = par.id_sistem
     return render(request, 'coba.html',{'loginkan':loginkan,'id_sistem':id_sistemnya})
@@ -90,15 +90,15 @@ def Pos(request,nomor):
 
     if(nomor=="1"):
         belanjaku = POS1_ecer.objects.all()
-        for param in Parameter.objects.all():
+        for param in MasterParameter.objects.all():
             nomor_notanya = param.counter1_ecer
     elif(nomor=="2"):
         belanjaku = POS2_ecer.objects.all()
-        for param in Parameter.objects.all():
+        for param in MasterParameter.objects.all():
             nomor_notanya = param.counter2_ecer
     elif(nomor=="3"):
         belanjaku = POS3_ecer.objects.all()
-        for param in Parameter.objects.all():
+        for param in MasterParameter.objects.all():
             nomor_notanya = param.counter3_ecer
 
     if request.method == "POST":    
@@ -112,10 +112,10 @@ def Pos(request,nomor):
         
         if(pos_ke==1):
             if(POS1_ecer.objects.all().count()==0):
-                Parameter.objects.update(counter_nota=F('counter_nota')+1)
-                Parameter.objects.update(counter1_ecer = F('counter_nota')-1)
+                MasterParameter.objects.update(counter_nota=F('counter_nota')+1)
+                MasterParameter.objects.update(counter1_ecer = F('counter_nota')-1)
                 '''ITS COOL WORK'''
-            for param in Parameter.objects.all():
+            for param in MasterParameter.objects.all():
                 nomor_notanya = param.counter1_ecer
                 id_sistem = param.id_sistem
             '''cek apakah sudah pernah diinput'''
@@ -147,10 +147,10 @@ def Pos(request,nomor):
             
         elif pos_ke==2:
             if(POS2_ecer.objects.all().count()==0):
-                Parameter.objects.update(counter_nota=F('counter_nota')+1)
-                Parameter.objects.update(counter2_ecer = F('counter_nota')-1)
+                MasterParameter.objects.update(counter_nota=F('counter_nota')+1)
+                MasterParameter.objects.update(counter2_ecer = F('counter_nota')-1)
                 '''ITS COOL WORK'''
-            for param in Parameter.objects.all():
+            for param in MasterParameter.objects.all():
                 nomor_notanya = param.counter2_ecer
                 id_sistem = param.id_sistem
             '''cek apakah sudah pernah diinput'''
@@ -182,10 +182,10 @@ def Pos(request,nomor):
             
         elif pos_ke==3:
             if(POS3_ecer.objects.all().count()==0):
-                Parameter.objects.update(counter_nota=F('counter_nota')+1)
-                Parameter.objects.update(counter3_ecer = F('counter_nota')-1)
+                MasterParameter.objects.update(counter_nota=F('counter_nota')+1)
+                MasterParameter.objects.update(counter3_ecer = F('counter_nota')-1)
                 '''ITS COOL WORK'''
-            for param in Parameter.objects.all():
+            for param in MasterParameter.objects.all():
                 nomor_notanya = param.counter3_ecer
                 id_sistem = param.id_sistem
             '''cek apakah sudah pernah diinput'''
@@ -237,19 +237,53 @@ def Pos(request,nomor):
     else:
         return render(request,'POS/initial.html',{'nomor':nomor,'mydate':mydate,'daftarbarang':daftarbarang,'belanjaku':belanjaku,'nomornota':nomor_notanya,'totalitem':total_item,'totalbelanja':total_belanja})
 
-def Cetak_Nota_Ecer(request):
+def Cetak_Nota_Ecer(request,nomor):
+    nomor_pos = int(nomor)
+    
     tanggal_jam = datetime.datetime.now()
     nomor_notanya =0
-    belanjaku=None
+    belanjaku=""
     total_belanja =0
     mydate = datetime.date.today()
-    belanjaku = POS1_ecer.objects.all()
-    total_item = belanjaku.count()
-    for param in Parameter.objects.all():
-        nomor_notanya = param.counter1_ecer
+    
+    if nomor_pos == 1:
+        belanjaku = POS1_ecer.objects.all()
+        total_item = belanjaku.count()
+        for param in MasterParameter.objects.all():
+            nomor_notanya = param.counter1_ecer
+    elif nomor_pos == 2:
+        belanjaku = POS2_ecer.objects.all()
+        total_item = belanjaku.count()
+        for param in MasterParameter.objects.all():
+            nomor_notanya = param.counter2_ecer
+    elif nomor_pos == 3:
+        belanjaku = POS2_ecer.objects.all()
+        total_item = belanjaku.count()
+        for param in MasterParameter.objects.all():
+            nomor_notanya = param.counter3_ecer
+
 
     total_belanja = POS1_ecer.objects.aggregate(jumlah=Sum('total'))
     total_belanja = total_belanja['jumlah']
+
+    '''posting data'''
+    for belanja in belanjaku:
+        posting = Posting()
+        posting.user_id = User.objects.get(username=request.user.username)
+        posting.kode_sistem  = MasterParameter.objects.get()
+        posting.id_barang = MasterBarang.objects.get(id_barang = belanja.id_barang)
+        posting.kode_pelanggan = MasterPelanggan.objects.get(kode_pelanggan=belanja.kode_pelanggan)
+        posting.save()
+    
+    '''hapus data pos1 atau 2 atau 3'''
+    if nomor_pos == 1:
+        POS1_ecer.objects.all().delete()
+    elif nomor_pos == 2:
+        POS2_ecer.objects.all().delete()
+    elif nomor_pos == 3:
+        POS3_ecer.objects.all().delete()
+        
+
     return render(request,'POS/nota_ecer.html',{'mydate':mydate,'belanjaku':belanjaku,'nomornota':nomor_notanya,'totalitem':total_item,'totalbelanja':total_belanja,'tanggaljam':tanggal_jam})
 
 def Pos_delete(request,nomor,id_barang):
