@@ -290,22 +290,22 @@ def Cetak_Nota_Ecer(request,nomor):
     
     '''hapus data pos1 atau 2 atau 3'''
     if nomor_pos == 1:
-        POS1_ecer.objects.all().get(user_id=request.user.username).delete()
+        POS1_ecer.objects.all().filter(user_id=request.user.username).delete()
     elif nomor_pos == 2:
-        POS2_ecer.objects.all().get(user_id=request.user.username).delete()
+        POS2_ecer.objects.all().filter(user_id=request.user.username).delete()
     elif nomor_pos == 3:
-        POS3_ecer.objects.all().get(user_id=request.user.username).delete()
+        POS3_ecer.objects.all().filter(user_id=request.user.username).delete()
         
 
     return render(request,'POS/nota_ecer.html',{'mydate':mydate,'belanjaku':belanjaku,'nomornota':nomor_notanya,'totalitem':total_item,'totalbelanja':total_belanja,'tanggaljam':tanggal_jam})
 
 def Pos_delete(request,nomor,id_barang):
     if nomor =="1" :
-        POS1_ecer.objects.get(id_barang=id_barang,user_id=request.user.username).delete()
+        POS1_ecer.objects.filter(id_barang=id_barang).filter(user_id=request.user.username).delete()
     elif nomor == "2":
-        POS2_ecer.objects.get(id_barang=id_barang,user_id=request.user.username).delete()
+        POS2_ecer.objects.filter(id_barang=id_barang).filter(user_id=request.user.username).delete()
     elif nomor == "3":
-        POS3_ecer.objects.get(id_barang=id_barang,user_id=request.user.username).delete()
+        POS3_ecer.objects.filter(id_barang=id_barang).filter(user_id=request.user.username).delete()
     return HttpResponseRedirect('/POS/' + str(nomor) + '/')
 
 def Pos_grosir(request,nomor):
