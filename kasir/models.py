@@ -86,6 +86,7 @@ class MasterBarang(models.Model):
 	
 class POS1_ecer(models.Model):
 	kode_sistem = models.CharField(max_length=100,default="-",null=False,blank=False)
+	user_id = models.CharField(max_length=100,default="-",null=False,blank=False)
 	kode_pelanggan =models.CharField(max_length=100,default="-",null=False,blank=False)
 	nama_pelanggan = models.CharField(max_length=100,default="-")
 	nomor_nota = models.CharField(max_length=12,default="0")
@@ -101,6 +102,7 @@ class POS1_ecer(models.Model):
 
 class POS2_ecer(models.Model):
 	kode_sistem = models.CharField(max_length=100,default="-",null=False,blank=False)
+	user_id = models.CharField(max_length=100,default="-",null=False,blank=False)
 	kode_pelanggan =models.CharField(max_length=100,default="-",null=False,blank=False)
 	nama_pelanggan = models.CharField(max_length=100,default="-")
 	nomor_nota = models.CharField(max_length=12,default="0")
@@ -116,6 +118,7 @@ class POS2_ecer(models.Model):
 
 class POS3_ecer(models.Model):
 	kode_sistem = models.CharField(max_length=100,default="-",null=False,blank=False)
+	user_id = models.CharField(max_length=100,default="-",null=False,blank=False)
 	kode_pelanggan =models.CharField(max_length=100,default="-",null=False,blank=False)
 	nama_pelanggan = models.CharField(max_length=100,default="-")
 	nomor_nota = models.CharField(max_length=12,default="0")
@@ -131,6 +134,7 @@ class POS3_ecer(models.Model):
 
 class POS1_grosir(models.Model):
 	kode_sistem = models.CharField(max_length=100,default="-",null=False,blank=False)
+	user_id = models.CharField(max_length=100,default="-",null=False,blank=False)
 	kode_pelanggan =models.CharField(max_length=100,default="-",null=False,blank=False)
 	nama_pelanggan = models.CharField(max_length=100,default="-")
 	nomor_nota = models.CharField(max_length=12,default="0")
@@ -146,6 +150,7 @@ class POS1_grosir(models.Model):
 
 class POS2_grosir(models.Model):
 	kode_sistem = models.CharField(max_length=100,default="-",null=False,blank=False)
+	user_id = models.CharField(max_length=100,default="-",null=False,blank=False)
 	kode_pelanggan =models.CharField(max_length=100,default="-",null=False,blank=False)
 	nama_pelanggan = models.CharField(max_length=100,default="-")
 	nomor_nota = models.CharField(max_length=12,default="0")
