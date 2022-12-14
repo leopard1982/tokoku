@@ -139,7 +139,13 @@ Hasil Pencarian Keyword="{{filter_data}}"
             <td>{{dataku.nama_pelanggan}}</td>
             <td>{{dataku.nomor_tlp}}</td>
             <td>{{dataku.alamat_pelanggan}}</td>
-            <td><img style="width: 100px; height: 50px" src="{{dataku.foto_ktp.url}}"></td>
+            <td>
+                {% if dataku.foto_ktp == ""%}
+                ---*---
+                {% else %}
+                <img style="width: 100px; height: 50px" src="{{dataku.foto_ktp.url}}">
+                {% endif%}
+            </td>
             <td>{{dataku.get_tipe_display}}</td>
             <td>{{dataku.hapus}}</td>
         </tr>

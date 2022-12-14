@@ -204,8 +204,7 @@
 										<thead>
 											<tr>
 												<th scope="col">#</th>
-												<th scope="col">kd.Brg</th>
-												<th scope="col">Nama Brg.</th>
+												<th scope="col">Nama Barang</th>
 												<th scope="col">Hrg.@</th>
 												<th scope="col">Jml</th>
 												<th scope="col">Sub.Total</th>
@@ -219,9 +218,8 @@
 										<tbody>
 											<tr>
 												<th scope="row">{{forloop.counter}}</th>
-												<td>{{belanja.id_barang}}</td>
-												<td>{{belanja.nama_barang}}</td>
-												<td>Rp.{{belanja.harga_barang | intcomma}}.00</td>
+												<td>[{{belanja.id_barang}}] {{belanja.id_barang.nama_barang}}</td>
+												<td>Rp.{{belanja.id_barang.harga_ecer | intcomma}}.00</td>
 												<td>{{belanja.jumlah_barang | intcomma}}</td>
 												<td>Rp.{{belanja.sub_total |intcomma}}.00</td>
 												<td>{{belanja.discount}}</td>
@@ -241,7 +239,7 @@
 		</div>
 	</div>
 
-	<footer class="footer fixed-bottom bg-transparent py-2  border">
+	<footer class="footer fixed-bottom bg-white py-2  border">
 		<div class="container-fluid text-center w-50">
 		  <code class="bg-light rounded-3 border shadow"><b>&copy; 2022 </b> - <b>by:  <img  src="{% static 'img/logo.ico'%}" alt="logo-leopard" class=" mx-auto rounded-5 d-inline-flex "> Leopard Inc.</code></b>
 		</div>

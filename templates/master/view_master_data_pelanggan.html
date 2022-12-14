@@ -62,10 +62,20 @@ Daftar Pelanggan
             <td>{{dataku.nama_pelanggan}}</td>
             <td>{{dataku.nomor_tlp}}</td>
             <td>{{dataku.alamat_pelanggan}}</td>
-            <td><img style="width: 100px; height: 50px" src="{{dataku.foto_ktp.url}}"></td>
+            <td>
+                {% if dataku.foto_ktp == ""%}
+                ---*---
+                {% else %}
+                <img style="width: 100px; height: 50px" src="{{dataku.foto_ktp.url}}">
+                {% endif%}
+            </td>
             <td>{{dataku.get_tipe_display}}</td>
             <td>{% if dataku.hapus%}
-                <button onclick="konfirmasi_hapus('{{dataku.kode_pelanggan}}^{{dataku.nama_pelanggan}}')" class="btn btn-outline-danger">Hapus</button>
+                {% if not dataku.kode_pelanggan == "Eceran" %}
+                    <button onclick="konfirmasi_hapus('{{dataku.kode_pelanggan}}^{{dataku.nama_pelanggan}}')" class="btn btn-outline-danger">Hapus</button>
+                {% else%}
+                    ***-***
+                {% endif %}
             {% else %}
                 <button disabled class="btn btn-outline-dark">Hapus</button>
             {% endif%}

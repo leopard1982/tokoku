@@ -1,0 +1,49 @@
+{% extends 'POS/base_history.html'%}
+{% load humanize%}
+
+{% block content%}
+	<div class="h4 p-2 border border-2 rounded rounded-4 text-center shadow my-2" style="background-color: beige;">
+		History Transaksi
+	</div>
+	<div class="p-2 border border-2 rounded rounded-3 shadow">
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">User ID</th>
+				<th scope="col">Nomor Nota</th>
+				<th scope="col">Tgl. Nota</th>
+				<th scope="col">Kode Pelanggan</th>
+				<th scope="col">Nama Pelanggan</th>
+				<th scope="col">ID Barang</th>
+				<th scope="col">Nama Barang</th>
+				<th scope="col">Harga @</th>
+				<th scope="col">Jml. Barang</th>
+				<th scope="col">Disc.%</th>
+				<th scope="col">Disc.Rp</th>
+				<th scope="col">Sub Total</th>
+			</tr>
+		</thead>
+	{% for hist in history%}
+		<tbody>
+			<tr>
+				<th scope="col">{{forloop.counter}}</th>
+				<th scope="col">{{hist.user_id}}</th>
+				<th scope="col">{{hist.nomor_nota}}</th>
+				<th scope="col">{{hist.tanggal_nota | date:"d/m/Y"}}</th>
+				<th scope="col">{{hist.kode_pelanggan.kode_pelanggan}}</th>
+				<th scope="col">{{hist.kode_pelanggan.nama_pelanggan}}</th>
+				<th scope="col">{{hist.id_barang}}</th>
+				<th scope="col">{{hist.id_barang.nama_barang}}</th>
+				<th scope="col">{{hist.harga_barang}}</th>
+				<th scope="col">{{hist.jumlah_barang|intcomma}}</th>
+				<th scope="col">{{hist.discount|intcomma}}</th>
+				<th scope="col">{{hist.rupiah_discount|intcomma}}</th>
+				<th scope="col">{{hist.sub_total|intcomma}}</th>
+			</tr>
+		</thead>
+	{% endfor%}				
+	</table>
+	</div>
+
+{% endblock%}

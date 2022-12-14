@@ -41,13 +41,13 @@ class MasterSupplier(models.Model):
 		ordering = ["kode_supplier","nama_supplier"]
 
 class MasterPelanggan(models.Model):
-	pilihan = [('A','Pelanggan Harga#1'),('B','Pelanggan Harga#2'),('C','Pelanggan Harga#3')
+	pilihan = [('A','Pelanggan Harga#1'),('B','Pelanggan Harga#2'),('C','Pelanggan Harga#3'),('E','Pelanggan Eceran')
 	]
 	kode_pelanggan = models.CharField(max_length=100,verbose_name="Kode Pelanggan",null=False,blank=False,primary_key=True)
 	nama_pelanggan = models.CharField(max_length=100,verbose_name="Nama Pelanggan",null=False,blank=False)
 	nomor_tlp = models.CharField(max_length=15,verbose_name="Nomor Telepon",null=False,blank=False)
 	alamat_pelanggan = models.CharField(max_length=100,verbose_name="Alamat KTP",null=False,blank=False)
-	foto_ktp = models.ImageField(verbose_name="Foto KTP",upload_to="ktp",null=False,blank=False)
+	foto_ktp = models.ImageField(verbose_name="Foto KTP",upload_to="ktp",null=True,blank=True)
 	tipe = models.CharField(max_length=1,choices=pilihan,verbose_name="Tipe Pelanggan",null=False,blank=False)
 	hapus= models.BooleanField(default=True)
 	
@@ -79,22 +79,20 @@ class MasterBarang(models.Model):
 	discount = models.PositiveIntegerField(default=0)
 	
 	def __str__(self):
-		return "%s"%(self.nama_barang)
+		return "%s"%(self.id_barang)
 	
 	class Meta:
 		ordering = ['id_barang','nama_barang']
 	
 class POS1_ecer(models.Model):
 	kode_sistem = models.CharField(max_length=100,default="-",null=False,blank=False)
-	user_id = models.CharField(max_length=100,default="-",null=False,blank=False)
-	kode_pelanggan =models.CharField(max_length=100,default="-",null=False,blank=False)
-	nama_pelanggan = models.CharField(max_length=100,default="-")
+	userid = models.ForeignKey(User,null=False,blank=False,default="0",on_delete=models.RESTRICT)
+	kode_pelanggan = models.ForeignKey(MasterPelanggan,models.RESTRICT)
 	nomor_nota = models.CharField(max_length=12,default="0")
-	id_barang = models.CharField(max_length=100,default="-",null=False,blank=False)
-	nama_barang = models.CharField(max_length=100,default="-")
-	harga_barang = models.PositiveIntegerField(default=0)
+	id_barang = models.ForeignKey(MasterBarang,null=False,blank=False,default="0",on_delete=models.RESTRICT)
+	harga_barang = models.PositiveBigIntegerField(verbose_name="Harga Ecer",default=0,null=False,blank=False)
 	jumlah_barang = models.PositiveIntegerField(default=0)
-	discount = models.PositiveIntegerField(default=0)
+	discount = models.IntegerField(default=0)
 	rupiah_discount = models.PositiveIntegerField(default=0)
 	sub_total = models.PositiveBigIntegerField(default=0)
 	total = models.PositiveBigIntegerField(default=0)
@@ -102,15 +100,13 @@ class POS1_ecer(models.Model):
 
 class POS2_ecer(models.Model):
 	kode_sistem = models.CharField(max_length=100,default="-",null=False,blank=False)
-	user_id = models.CharField(max_length=100,default="-",null=False,blank=False)
-	kode_pelanggan =models.CharField(max_length=100,default="-",null=False,blank=False)
-	nama_pelanggan = models.CharField(max_length=100,default="-")
+	userid = models.ForeignKey(User,null=False,blank=False,default="0",on_delete=models.RESTRICT)
+	kode_pelanggan = models.ForeignKey(MasterPelanggan,models.RESTRICT)
 	nomor_nota = models.CharField(max_length=12,default="0")
-	id_barang = models.CharField(max_length=100,default="-",null=False,blank=False)
-	nama_barang = models.CharField(max_length=100,default="-")
-	harga_barang = models.PositiveIntegerField(default=0)
+	id_barang = models.ForeignKey(MasterBarang,null=False,blank=False,default="0",on_delete=models.RESTRICT)
+	harga_barang = models.PositiveBigIntegerField(verbose_name="Harga Ecer",default=0,null=False,blank=False)
 	jumlah_barang = models.PositiveIntegerField(default=0)
-	discount = models.PositiveIntegerField(default=0)
+	discount = models.IntegerField(default=0)
 	rupiah_discount = models.PositiveIntegerField(default=0)
 	sub_total = models.PositiveBigIntegerField(default=0)
 	total = models.PositiveBigIntegerField(default=0)
@@ -118,15 +114,13 @@ class POS2_ecer(models.Model):
 
 class POS3_ecer(models.Model):
 	kode_sistem = models.CharField(max_length=100,default="-",null=False,blank=False)
-	user_id = models.CharField(max_length=100,default="-",null=False,blank=False)
-	kode_pelanggan =models.CharField(max_length=100,default="-",null=False,blank=False)
-	nama_pelanggan = models.CharField(max_length=100,default="-")
+	userid = models.ForeignKey(User,null=False,blank=False,default="0",on_delete=models.RESTRICT)
+	kode_pelanggan = models.ForeignKey(MasterPelanggan,models.RESTRICT)
 	nomor_nota = models.CharField(max_length=12,default="0")
-	id_barang = models.CharField(max_length=100,default="-",null=False,blank=False)
-	nama_barang = models.CharField(max_length=100,default="-")
-	harga_barang = models.PositiveIntegerField(default=0)
+	id_barang = models.ForeignKey(MasterBarang,null=False,blank=False,default="0",on_delete=models.RESTRICT)
+	harga_barang = models.PositiveBigIntegerField(verbose_name="Harga Ecer",default=0,null=False,blank=False)
 	jumlah_barang = models.PositiveIntegerField(default=0)
-	discount = models.PositiveIntegerField(default=0)
+	discount = models.IntegerField(default=0)
 	rupiah_discount = models.PositiveIntegerField(default=0)
 	sub_total = models.PositiveBigIntegerField(default=0)
 	total = models.PositiveBigIntegerField(default=0)
@@ -134,15 +128,13 @@ class POS3_ecer(models.Model):
 
 class POS1_grosir(models.Model):
 	kode_sistem = models.CharField(max_length=100,default="-",null=False,blank=False)
-	user_id = models.CharField(max_length=100,default="-",null=False,blank=False)
-	kode_pelanggan =models.CharField(max_length=100,default="-",null=False,blank=False)
-	nama_pelanggan = models.CharField(max_length=100,default="-")
+	userid = models.ForeignKey(User,null=False,blank=False,default="0",on_delete=models.RESTRICT)
+	kode_pelanggan = models.ForeignKey(MasterPelanggan,models.RESTRICT)
 	nomor_nota = models.CharField(max_length=12,default="0")
-	id_barang = models.CharField(max_length=100,default="-",null=False,blank=False)
-	nama_barang = models.CharField(max_length=100,default="-")
-	harga_barang = models.PositiveIntegerField(default=0)
+	id_barang = models.ForeignKey(MasterBarang,null=False,blank=False,default="0",on_delete=models.RESTRICT)
+	harga_barang = models.PositiveBigIntegerField(verbose_name="Harga Ecer",default=0,null=False,blank=False)
 	jumlah_barang = models.PositiveIntegerField(default=0)
-	discount = models.PositiveIntegerField(default=0)
+	discount = models.IntegerField(default=0)
 	rupiah_discount = models.PositiveIntegerField(default=0)
 	sub_total = models.PositiveBigIntegerField(default=0)
 	total = models.PositiveBigIntegerField(default=0)
@@ -150,15 +142,13 @@ class POS1_grosir(models.Model):
 
 class POS2_grosir(models.Model):
 	kode_sistem = models.CharField(max_length=100,default="-",null=False,blank=False)
-	user_id = models.CharField(max_length=100,default="-",null=False,blank=False)
-	kode_pelanggan =models.CharField(max_length=100,default="-",null=False,blank=False)
-	nama_pelanggan = models.CharField(max_length=100,default="-")
+	userid = models.ForeignKey(User,null=False,blank=False,default="0",on_delete=models.RESTRICT)
+	kode_pelanggan = models.ForeignKey(MasterPelanggan,models.RESTRICT)
 	nomor_nota = models.CharField(max_length=12,default="0")
-	id_barang = models.CharField(max_length=100,default="-",null=False,blank=False)
-	nama_barang = models.CharField(max_length=100,default="-")
-	harga_barang = models.PositiveIntegerField(default=0)
+	id_barang = models.ForeignKey(MasterBarang,null=False,blank=False,default="0",on_delete=models.RESTRICT)
+	harga_barang = models.PositiveBigIntegerField(verbose_name="Harga Ecer",default=0,null=False,blank=False)
 	jumlah_barang = models.PositiveIntegerField(default=0)
-	discount = models.PositiveIntegerField(default=0)
+	discount = models.IntegerField(default=0)
 	rupiah_discount = models.PositiveIntegerField(default=0)
 	sub_total = models.PositiveBigIntegerField(default=0)
 	total = models.PositiveBigIntegerField(default=0)
@@ -166,33 +156,30 @@ class POS2_grosir(models.Model):
 
 class POS3_grosir(models.Model):
 	kode_sistem = models.CharField(max_length=100,default="-",null=False,blank=False)
-	kode_pelanggan =models.CharField(max_length=100,default="-",null=False,blank=False)
-	nama_pelanggan = models.CharField(max_length=100,default="-")
+	userid = models.ForeignKey(User,null=False,blank=False,default="0",on_delete=models.RESTRICT)
+	kode_pelanggan = models.ForeignKey(MasterPelanggan,models.RESTRICT)
 	nomor_nota = models.CharField(max_length=12,default="0")
-	id_barang = models.CharField(max_length=100,default="-",null=False,blank=False)
-	nama_barang = models.CharField(max_length=100,default="-")
-	harga_barang = models.PositiveIntegerField(default=0)
+	id_barang = models.ForeignKey(MasterBarang,null=False,blank=False,default="0",on_delete=models.RESTRICT)
+	harga_barang = models.PositiveBigIntegerField(verbose_name="Harga Ecer",default=0,null=False,blank=False)	
 	jumlah_barang = models.PositiveIntegerField(default=0)
-	discount = models.PositiveIntegerField(default=0)
+	discount = models.IntegerField(default=0)
 	rupiah_discount = models.PositiveIntegerField(default=0)
 	sub_total = models.PositiveBigIntegerField(default=0)
 	total = models.PositiveBigIntegerField(default=0)
 	posting=models.BooleanField(default=False)
 
 class Posting(models.Model):
-	user_id = models.ForeignKey(User, null=False,blank=False, on_delete=models.RESTRICT)  # type: ignore
-	kode_sistem = models.ForeignKey(MasterParameter,models.RESTRICT)
+	kode_sistem = models.CharField(max_length=100,default="-",null=False,blank=False)
+	userid = models.ForeignKey(User,null=False,blank=False,default="0",on_delete=models.RESTRICT)
 	kode_pelanggan = models.ForeignKey(MasterPelanggan,models.RESTRICT)
-	nama_pelanggan = models.CharField(max_length=100,default="-")
 	nomor_nota = models.CharField(max_length=12,default="0")
-	tanggal_nota = models.DateField(auto_now=True)
-	id_barang = models.ForeignKey(MasterBarang,on_delete=models.RESTRICT)
-	nama_barang = models.CharField(max_length=100,default="-")
-	harga_barang = models.PositiveIntegerField(default=0)
+	id_barang = models.ForeignKey(MasterBarang,null=False,blank=False,default="0",on_delete=models.RESTRICT)
+	harga_barang = models.PositiveBigIntegerField(verbose_name="Harga Ecer",default=0,null=False,blank=False)	
 	jumlah_barang = models.PositiveIntegerField(default=0)
-	discount = models.PositiveIntegerField(default=0)
+	discount = models.IntegerField(default=0)
 	rupiah_discount = models.PositiveIntegerField(default=0)
 	sub_total = models.PositiveBigIntegerField(default=0)
+	total = models.PositiveBigIntegerField(default=0)
 	status_bayar = models.BooleanField(default=False)
 
 class Pembayaran(models.Model):

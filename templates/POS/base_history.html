@@ -79,44 +79,22 @@
               </nav>
             <!-- END Mega Menu HTML -->
         </main>
-    
-    {% block warnings%}
-    {% endblock %}
-
-    {% block konfirmasi %}
-    {% endblock%}
-
-    <div class="row px-5 py-3 shadow border rounded-2 w-auto m-3 my-5">
-      <div class=" col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-3  shadow rounded-2 p-3" style="border: 1px solid; border: 1px solid bisque;">
-        <div class=" bg-light text-center bg-gradient rounded shadow mb-2" style="border: 1px solid bisque;font-weight:bold; font-size: 16px; background-color: lightyellow !important ;">
-          <b>{%block header_sidebar%}{%endblock%}</b></div>
-          
-          <!--sidebar menu-->
-          <div class=" justify-content-center bg-light">
-            {% block sidebar %}
- 
-            {% endblock %}
-          </div>
-          <!--end of sidebar menu-->
-      </div>
-        <div class=" col-xxl-9 col-xl-9 col-lg-9 col-md-9 col-sm-9 p-2 m-auto " style="overflow-x:auto" >
-          <div class="container-fluid shadow text-center p-3 my-2 rounded-4" style="background-color:lightyellow" >
-              <p class="h2">{% block stamp%}{% endblock%}</p>
-          </div>
+        
+        <div class="container-fluid p-2 my-3">
+          <div class="p-2">
           {% block content %}
 
-          {% endblock %}
+          {% endblock %}            
+          </div>
         </div>
-        <div class="container-fluid">
-          {% block mylist %}
-          {% endblock%}
-        </div>
+          
+     
       
     <div class="row">
       <div class="col-4">
       </div>
       <div class="col-4">
-        <footer class="footer fixed-bottom bg-transparent py-2 d-flex justify-content-center">    
+        <footer class="footer fixed-bottom bg-white py-2 d-flex justify-content-center">    
           <code class="bg-light rounded-3  shadow"><b>&copy; 2022 </b> - <b>by:  <img  src="{% static 'img/logo.ico'%}" alt="logo-leopard" class=" mx-auto rounded-5 d-inline-flex "> Leopard Inc.</code></b>
       </footer>
       </div>
