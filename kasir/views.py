@@ -124,7 +124,7 @@ def Pos(request,nomor):
         pos_ke = int(datastream.split('^')[0])
         
         if(pos_ke==1):
-            if(POS1_ecer.objects.all().count()==0):
+            if(POS1_ecer.objects.all().filter(user_id=request.user.username).count()==0):
                 MasterParameter.objects.update(counter_nota=F('counter_nota')+1)
                 MasterParameter.objects.update(counter1_ecer = F('counter_nota')-1)
                 '''ITS COOL WORK'''
@@ -159,7 +159,7 @@ def Pos(request,nomor):
             total_item = POS1_ecer.objects.all().filter(user_id=request.user.username).count()
             
         elif pos_ke==2:
-            if(POS2_ecer.objects.all().count()==0):
+            if(POS2_ecer.objects.all().filter(user_id=request.user.username).count()==0):
                 MasterParameter.objects.update(counter_nota=F('counter_nota')+1)
                 MasterParameter.objects.update(counter2_ecer = F('counter_nota')-1)
                 '''ITS COOL WORK'''
@@ -194,7 +194,7 @@ def Pos(request,nomor):
             total_item = POS2_ecer.objects.all().filter(user_id=request.user.username).count()
             
         elif pos_ke==3:
-            if(POS3_ecer.objects.all().count()==0):
+            if(POS3_ecer.objects.all().filter(user_id=request.user.username).count()==0):
                 MasterParameter.objects.update(counter_nota=F('counter_nota')+1)
                 MasterParameter.objects.update(counter3_ecer = F('counter_nota')-1)
                 '''ITS COOL WORK'''
