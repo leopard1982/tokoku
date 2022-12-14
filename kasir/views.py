@@ -31,6 +31,19 @@ def indeks(request):
             auth.login(request,user)
 
     param = MasterParameter.objects.all()
+    if param.count() == 0:
+        param = MasterParameter()
+        param.id_sistem="LT001"
+        param.counter_nota=1
+        param.counter1_ecer=0
+        param.counter2_ecer=0
+        param.counter3_ecer=0
+        param.counter1_grosir=0
+        param.counter1_grosir=0
+        param.counter1_grosir=0
+        param.save()
+
+    param = MasterParameter.objects.all()
     for par in param:
         id_sistemnya = par.id_sistem
     return render(request, 'coba.html',{'loginkan':loginkan,'id_sistem':id_sistemnya})
