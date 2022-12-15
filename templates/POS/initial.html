@@ -23,57 +23,60 @@
 </head>
 <body>
 	<div class="container-fluid position-absolute">
-		<div class="row py-3 bg-primary d-flex justify-content-center shadow">
+		<div class="row  bg-primary  shadow p-2">
 		<!--pakai row ya-->
-			<div class="col-2 m-2 border rounded" style="color:lightblue">
-				<div class="row d-flex justify-content-center h3 my-2 style="font-weight:bold"">
-					Toko Sembako
-				</div>
-				<div class="row d-flex justify-content-center  style="font-weight:bold"">
-					Jl. Kyai Kasan Timur no.250
+			<div class="col-3  shadow p-2  rounded-pill mx-3" style="background-color:#F1E5AC">
+				<div class="container-fluid text-center text-bold p-2">
+					<h3><b>Toko Sembako</b></h3>
+					Jl. Kyai Kasan Timur no.250<br>
+					Kranggan - Temanggung<br>
+					081213270275
 				</div>
 			</div>
-			<div class="col-2 rounded border h3 mx-3 py-4 shadow text-end" style="background-color:lightblue; font-weight:bold">Total Belanja</div>
-			<div class="col-3 rounded border h2 mx-3 py-4 shadow text-center" style="background-color:lightblue;font-weight:bold">Rp.
+			<div class="col-6 rounded-pill border h3  p-4 shadow mx-3 text-center" style="background-color:lightblue; font-weight:bold">&laquo; Total Pembelanjaan &raquo;<br>
+				<h1 style="font-family: 'courier new'; font-weight: bold;">
+				Rp.
 				{% if totalbelanja is not None %}
 				{{totalbelanja|intcomma}}
 				{% else%}
 				0
 				{% endif%}
-				,00</div>
-			<div class="col-3 rounded border h3 mx-3 py-4 shadow text-center" style="background-color:lightblue;font-weight:bold">Jumlah Item: #{{totalitem | intcomma}}#</div>
+				,00
+				</h1>
+			</div>
+			<div class="col-2  rounded-pill border h3 p-5 shadow text-center mx-3" style="background-color:lightblue;font-weight:bold"> Item: #{{totalitem | intcomma}}#</div>
 		</div>
-		<div class="row text-center h5 shadow my-1" style="background-color:lightblue">
-			<div class="col-12 py-2">
+		<div class="row text-center h5 shadow my-1 py-1" style="background-color:lightblue">
+			<div class="container-fluid py-2">
 				<div class="row">
-					<div class="mx-3d-flex justify-content-start col-1 py-2 shadow" style="background-color: aqua;">
+					<div class="text-end col-1 py-2 fw-bold shadow" style="background-color: aqua;">
 						login:  
 					</div>
-					<div class="d-flex justify-content-start col-1 py-2 bg-primary rounded-start rounded-pill" >
+					<div class="d-flex text-white justify-content-start col-1 py-2 bg-primary rounded-start rounded-pill" >
 						<b>{{user.username}}</b> 
 					</div>
 					<input type="hidden" id="username" value="{{user.username}}">
 					<div class="col-1 "> 
 					</div>
 
-					<div class="d-flex justify-content-center col-1 py-2 shadow rounded-pill bg-primary" >
+					<div class="d-flex justify-content-center col-1 text-white py-2 shadow rounded-pill bg-primary" >
 						<b>RETAIL</b> 
 					</div>
 					<div class="col-1"></div>
 
-					<div class="d-flex justify-content-center col-2 py-2 shadow rounded-pill bg-primary" >
+					<div class="d-flex justify-content-center text-white col-2 py-2 shadow rounded-pill bg-primary" >
 						<b>{{mydate | date:"d-M-Y"}}</b> 
 					</div>
 					<div class="d-flex justify-content-center col-1 py-2">
 					</div>
-					<div class="col-1 rounded-pill bg-primary py-2 shadow"><b>Toko#1</b></div>
+					<div class="col-1 rounded-pill bg-primary py-2 text-white shadow"><b>LT001</b></div>
 					<div class=" col-2 d-flex justify-content-end"  >
-						<button class="btn form-con btn-primary shadow rounded-pill" onclick="location.href='/i/'">Master Data</button> 
+						<button class="btn form-con btn-success text-white shadow rounded-pill" onclick="location.href='/i/'">Master Data</button> 
 					</div>
 
 
-					<div class="d-flex justify-content-start col-1">
-						<button class="btn btn-primary shadow rounded-pill rounded-end form-control" onclick="location.href='{% url 'logout'%}'">logout</button>
+					<div class=" col-1 d-flex justify-content-end">
+						<button class="btn btn-success shadow rounded-pill form-control " onclick="location.href='{% url 'logout'%}'">logout</button>
 					</div>	
 				</div>
 			</div>
@@ -168,8 +171,8 @@
 						
 						<div class="col-9">
 							<div>
-								<div class="h5 p-2 rounded-pill text-center shadow" style="background-color: lightblue">
-									 Input Penjualan 
+								<div class="h5 p-2 rounded text-center shadow fw-bold" style="background-color: silver;">
+									 &equiv; Input Penjualan &equiv; 
 								</div>
 								<div class="row">
 									<div class="col-3 text-center">Kode Barang:<br>
@@ -196,8 +199,8 @@
 								</div>
 							</div>
 							<div  class="row  border shadow p-3 rounded">
-								<div class="h5 p-2 rounded-pill text-center shadow" style="background-color: lightblue;">
-									Daftar Belanja
+								<div class="h5 p-2 rounded text-center shadow fw-bold" style="background-color: silver;">
+									&equiv; Daftar Belanja &equiv;
 								</div>
 								<div>
 									<table class="table">
