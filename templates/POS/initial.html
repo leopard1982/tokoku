@@ -23,9 +23,9 @@
 </head>
 <body>
 	<div class="container-fluid position-absolute">
-		<div class="row  bg-primary  shadow p-2">
+		<div class="row  bg-primary  shadow p-3 d-flex justify-content-center ">
 		<!--pakai row ya-->
-			<div class="col-3  shadow p-2  rounded-pill mx-3" style="background-color:#F1E5AC">
+			<div class="col-3  shadow   rounded border border-3 mx-2 " style="background-color:#F1E5AC">
 				<div class="container-fluid text-center text-bold p-2">
 					<h3><b>Toko Sembako</b></h3>
 					Jl. Kyai Kasan Timur no.250<br>
@@ -33,7 +33,7 @@
 					081213270275
 				</div>
 			</div>
-			<div class="col-6 rounded-pill border h3  p-4 shadow mx-3 text-center" style="background-color:lightblue; font-weight:bold">&laquo; Total Pembelanjaan &raquo;<br>
+			<div class="col-6 border border-3 rounded h3  pt-3 shadow mx-2 text-center " style="background-color:lightblue; font-weight:bold">&laquo; Total Pembelanjaan &raquo;<br>
 				<h1 style="font-family: 'courier new'; font-weight: bold;">
 				Rp.
 				{% if totalbelanja is not None %}
@@ -44,7 +44,7 @@
 				,00
 				</h1>
 			</div>
-			<div class="col-2  rounded-pill border h3 p-5 shadow text-center mx-3" style="background-color:lightblue;font-weight:bold"> Item: #{{totalitem | intcomma}}#</div>
+			<div class="col-2  rounded  border border-3 h3  pt-5 shadow text-center mx-2 " style="background-color:lightblue;font-weight:bold"> Item: #{{totalitem | intcomma}}#</div>
 		</div>
 		<div class="row text-center h5 shadow my-1 py-1" style="background-color:lightblue">
 			<div class="container-fluid py-2">
