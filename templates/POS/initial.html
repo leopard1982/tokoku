@@ -22,7 +22,7 @@
     <script src="{% static 'js/chart.js'%}"></script>
 </head>
 <body>
-	<div class="container-fluid position-absolute">
+	<div class="container-fluid fixed-top">
 		<div class="row  bg-primary  shadow p-3 d-flex justify-content-center ">
 		<!--pakai row ya-->
 			<div class="col-3  shadow   rounded border border-3 mx-2 " style="background-color:#F1E5AC">
@@ -46,7 +46,8 @@
 			</div>
 			<div class="col-2  rounded  border border-3 h3  pt-5 shadow text-center mx-2 " style="background-color:lightblue;font-weight:bold"> Item: #{{totalitem | intcomma}}#</div>
 		</div>
-		<div class="row text-center h5 shadow my-1 py-1" style="background-color:lightblue">
+	
+		<div class="row text-center h5 shadow" style="background-color:lightblue">
 			<div class="container-fluid py-2">
 				<div class="row">
 					<div class="text-end col-1 py-2 fw-bold shadow" style="background-color: aqua;">
@@ -81,7 +82,8 @@
 				</div>
 			</div>
 		</div>
-
+	</div>
+	<div class="container-fluid" style="margin-top: 240px;">
 		<div class="row container-fluid">
 			<div class="col-12 mx-1">
 				<div class="row p-2  rounded-pill shadow" style="background-color: lightcyan;">
@@ -184,6 +186,7 @@
 									<div class="col-1 text-center">Harga:
 										<div class="container rounded-pill shadow p-1 text-center bg-info" id="tampilkan_harga_barang" style="overflow-x: scroll">-</div>
 									</div>
+									<input type="hidden" id="harga_modal">
 									<div class="col-1 text-center">Stok:
 										<div class="container rounded-pill shadow p-1 text-center bg-info" id="tampilkan_stok_barang" style="overflow-x: scroll">-</div>
 									</div>
@@ -277,7 +280,7 @@
 						<td>{{daftar.stok_akhir | intcomma}}</td>
 						<td>{{daftar.discount}}</td>
 						<td><img src="{{daftar.foto.url}}" style="width: 100px;height:50px"></td>
-						<td><button class="btn btn-outline-primary" onclick="oke_barangditambahkan('{{daftar.id_barang}}^{{daftar.nama_barang}}^{{daftar.stok_akhir}}^{{daftar.discount}}^{{daftar.harga_ecer}}')" >tambahkan</button></td>
+						<td><button class="btn btn-outline-primary" onclick="oke_barangditambahkan('{{daftar.id_barang}}^{{daftar.nama_barang}}^{{daftar.stok_akhir}}^{{daftar.discount}}^{{daftar.harga_ecer}}^{{daftar.harga_modal}}')" >tambahkan</button></td>
 					</tr>
 					{% endfor%}
 				</table>
@@ -329,6 +332,7 @@
 			document.getElementById('tampilkan_stok_barang').innerHTML=mydata.split('^')[2];
 			document.getElementById('tampilkan_discount_barang').innerHTML=mydata.split('^')[3];
 			document.getElementById('tampilkan_harga_barang').innerHTML=mydata.split('^')[4];
+			document.getElementById('harga_modal').value = mydata.split('^')[5];
 		}
 
 		function streamingkan() {
@@ -343,6 +347,7 @@
 			let jumlah_stok = document.getElementById('tampilkan_stok_barang').innerHTML;
 			let discount = document.getElementById('tampilkan_discount_barang').innerHTML;
 			let harga_ecer = document.getElementById('tampilkan_harga_barang').innerHTML;
+			let harga_modal = document.getElementById('harga_modal').value;
 			if(kode_barang != "") 
 			{
 				if(jumlah_beli=="") {
@@ -363,7 +368,7 @@
 						let total_belanja = jumlah_beli *  harga_ecer;
 						let discount_rupiah = total_belanja * discount / 100;
 
-						mystream = pilihan_POS + "^" + username + "^" + kode_barang + "^" + nama_barang + "^Eceran^Eceran^"   + harga_ecer + "^" + jumlah_beli + "^" + discount + "^" + discount_rupiah + "^" + total_belanja
+						mystream = pilihan_POS + "^" + username + "^" + kode_barang + "^" + nama_barang + "^Eceran^Eceran^"   + harga_ecer + "^" + jumlah_beli + "^" + discount + "^" + discount_rupiah + "^" + total_belanja + "^" + harga_modal
 						
 						formku = document.createElement('form');
 						formku.setAttribute('method','POST')

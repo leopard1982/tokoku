@@ -158,7 +158,9 @@ def Pos(request,nomor):
                 pos1_ecer.kode_pelanggan = MasterPelanggan.objects.get(kode_pelanggan="Eceran")
                 pos1_ecer.nomor_nota = nomor_notanya
                 pos1_ecer.id_barang = MasterBarang.objects.get(id_barang=datastream.split('^')[2])
+                pos1_ecer.nama_barang = datastream.split('^')[3]
                 pos1_ecer.harga_barang = int(datastream.split('^')[6])
+                pos1_ecer.harga_modal = int(datastream.split('^')[11])
                 pos1_ecer.jumlah_barang = datastream.split('^')[7]
                 pos1_ecer.discount = datastream.split('^')[8]
                 pos1_ecer.rupiah_discount = datastream.split('^')[9]
@@ -191,8 +193,10 @@ def Pos(request,nomor):
                 pos2_ecer.kode_pelanggan =  MasterPelanggan.objects.get(kode_pelanggan="Eceran")
                 pos2_ecer.nomor_nota = nomor_notanya
                 pos2_ecer.id_barang = MasterBarang.objects.get(id_barang=datastream.split('^')[2])
+                pos2_ecer.nama_barang = datastream.split('^')[3]
                 pos2_ecer.harga_barang = int(datastream.split('^')[6])
                 pos2_ecer.nama_barang = datastream.split('^')[3]
+                pos2_ecer.harga_modal = int(datastream.split('^')[11])
                 pos2_ecer.harga_barang = datastream.split('^')[6]
                 pos2_ecer.jumlah_barang = datastream.split('^')[7]
                 pos2_ecer.discount = datastream.split('^')[8]
@@ -226,8 +230,10 @@ def Pos(request,nomor):
                 pos3_ecer.kode_pelanggan = MasterPelanggan.objects.get(kode_pelanggan="Eceran")
                 pos3_ecer.nomor_nota = nomor_notanya
                 pos3_ecer.id_barang = MasterBarang.objects.get(id_barang=datastream.split('^')[2])
+                pos3_ecer.nama_barang = datastream.split('^')[3]
                 pos3_ecer.harga_barang = int(datastream.split('^')[6]) 
                 pos3_ecer.nama_barang = datastream.split('^')[3]
+                pos3_ecer.harga_modal = int(datastream.split('^')[11])
                 pos3_ecer.harga_barang = datastream.split('^')[6]
                 pos3_ecer.jumlah_barang = datastream.split('^')[7]
                 pos3_ecer.discount = datastream.split('^')[8]
@@ -296,7 +302,12 @@ def Cetak_Nota_Ecer(request,nomor):
         posting.userid = User.objects.get(id=request.user.id)
         posting.kode_sistem  = MasterParameter.objects.get()
         posting.id_barang = MasterBarang.objects.get(id_barang = belanja.id_barang)
+        posting.nama_barang = belanja.nama_barang
         posting.kode_pelanggan = MasterPelanggan.objects.get(kode_pelanggan=belanja.kode_pelanggan.kode_pelanggan)
+        posting.total = belanja.total
+        posting.jumlah_barang = belanja.jumlah_barang
+        posting.nomor_nota = belanja.nomor_nota
+        posting.harga_modal = belanja.harga_modal
         posting.save()
     
     '''hapus data pos1 atau 2 atau 3'''
