@@ -22,9 +22,9 @@ Master Data Pelanggan
 {% block warnings%}
     {% if apa_post %}
         {% if errornya is not None %}
-            <div class="d-flex justify-content-center" >
-                <div class="card shadow mx-2 roundend-2 py-4 bg-warning"  id="exitwarning">
-                    <div class="row text-center h3 mx-2">Error Input</div>
+           <div class="container d-flex justify-content-center py-3 fixed-top w-50" >
+                <div class="container shadow mx-2 roundend-pill py-4" style="background-color: lightpink;"  id="exitwarning">
+                    <div class="row text-center h3 mx-2 fw-bold">Error Input</div>
                     {% for bagian, message in errornya%}
                         <div class="row mx-4">
                             {{forloop.counter}}. {{bagian}}: {{message}}
@@ -34,9 +34,9 @@ Master Data Pelanggan
                 </div>
             </div>
         {% else %}
-            <div class="d-flex justify-content-center " >
-                <div class="card shadow mx-2 rounded-2 bg-success py-4"  id="exitwarning">
-                    <div class="row text-center h3 mx-2">Data Berhasil ditambahkan!</div>
+            <div class="container d-flex justify-content-center py-3 fixed-top w-50" >
+                <div class="container shadow mx-2 roundend-pill py-4" style="background-color: lightpink;"  id="exitwarning">
+                    <div class="class text-center h3 mx-2 fw-bold">Data Berhasil ditambahkan!</div>
                 </div>
             </div>
         {% endif %}

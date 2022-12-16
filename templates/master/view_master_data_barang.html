@@ -10,9 +10,9 @@ L-tokoku | Master Pelanggan
 {% endblock%}
 
 {% block sidebar%}
-<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="viewmasterbarang">Daftar Barang</button>
-<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="viewmastersupplier">Daftar Supplier</button>
-<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="viewmasterpelanggan">Daftar Pelanggan</button>
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="viewmasterbarang">Lihat Data Barang</button>
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="viewmastersupplier">Lihat Data Supplier</button>
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" id="viewmasterpelanggan">Lihat Data Pelanggan</button>
 {% endblock%}
 
 {% block stamp%}
@@ -42,12 +42,18 @@ Daftar Barang
 {% endblock%}
 
 {% block content%}
-    <table class="table" style="font-size: 15px;">
+    <div class="row p-2">
+        <div class="col-2 py-2 fw-bold">Filter Barang:</div>
+        <div class="col-10"><input type="text" class="form-control" id="myInput"></div>
+    </div>
+    <table class="table" style="font-size: 15px;" id="myTable">
         <thead>
             <tr>
+                <th scope="col">Hapus</th>
                 <th scope="col">#</th>
                 <th scope="col">Id</th>
                 <th scope="col">Nama</th>
+                <th scope="col">Gambar</th>
                 <th scope="col">Stk.Awal</th>
                 <th scope="col">Stk.Tmbh</th>
                 <th scope="col">Stk.Rusak</th>
@@ -60,16 +66,21 @@ Daftar Barang
                 <th scope="col">Satuan</th>
                 <th scope="col">Keterangan</th>
                 <th scope="col">Disc.%</th>
-                <th scope="col">Foto</th>
-                <th scope="col">Hapus</th>
             </tr>
         </thead>
         {% for dataku in data %}
         <tbody style="overflow: auto;">
             <tr class="{% cycle 'table-primary' 'table-secondary' 'table-success'%}">
+                <td>{% if dataku.hapus%}
+                        <button onclick="konfirmasi_hapus('{{dataku.id_barang}}^{{dataku.nama_barang}}')" class="btn btn-outline-danger rounded-circle text-center ">X</button>
+                    {% else %}
+                        <button disabled class="btn btn-outline-dark rounded-circle text-center">X</button>
+                    {% endif%}
+                </td>
                 <th scope="col">{{forloop.counter}}</th>
                 <td>{{dataku.id_barang}}</td>
                 <td>{{dataku.nama_barang}}</td>
+                <td><img src="{{dataku.foto.url}}" class="rounded-circle img-thumbnail" ></td>
                 <td>{{dataku.stok_awal|intcomma}}</td>
                 <td>{{dataku.stok_beli|intcomma}}</td>
                 <td>{{dataku.stok_rusak|intcomma}}</td>
@@ -82,13 +93,6 @@ Daftar Barang
                 <td>{{dataku.get_satuan_barang_display}}</td>
                 <td>{{dataku.keterangan_isi}}</td>
                 <td>{{dataku.discount}}</td>
-                <td><img src="{{dataku.foto.url}}" style="width:50px;height: 50px;"></td>
-                <td>{% if dataku.hapus%}
-                        <button onclick="konfirmasi_hapus('{{dataku.id_barang}}^{{dataku.nama_barang}}')" class="btn btn-outline-danger">Hapus</button>
-                    {% else %}
-                        <button disabled class="btn btn-outline-dark">Hapus</button>
-                    {% endif%}
-                </td>
             </tr>
         </tbody>
         {% endfor %}
@@ -117,5 +121,15 @@ Daftar Barang
     function hapuskan() {
       window.location.href= '/d/mb/' + document.getElementById('hapuskanlah').value;
     }
+
+    $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tbody").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
 </script>
 {% endblock%}

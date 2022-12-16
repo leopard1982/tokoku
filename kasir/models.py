@@ -4,6 +4,8 @@ from django.urls import reverse
 
 from django.contrib.auth.models import User
 
+from django.utils import timezone
+
 
 class MasterParameter(models.Model):
 	id_sistem = models.CharField(max_length=6,default="-",primary_key=True,blank=False,null=False)
@@ -194,6 +196,7 @@ class Posting(models.Model):
 	sub_total = models.PositiveBigIntegerField(default=0)
 	total = models.PositiveBigIntegerField(default=0)
 	status_bayar = models.BooleanField(default=False)
+	tanggal_trx = models.DateField(auto_now=True)
 
 class Pembayaran(models.Model):
 	pilihan_bayar = [

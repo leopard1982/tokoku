@@ -279,7 +279,7 @@
 						<td>Rp.{{daftar.harga_ecer | intcomma}},00</td>
 						<td>{{daftar.stok_akhir | intcomma}}</td>
 						<td>{{daftar.discount}}</td>
-						<td><img src="{{daftar.foto.url}}" style="width: 100px;height:50px"></td>
+						<td><img src="{{daftar.foto.url}}" class=" rounded-circle" style="width:50px;height: 50px;"></td>
 						<td><button class="btn btn-outline-primary" onclick="oke_barangditambahkan('{{daftar.id_barang}}^{{daftar.nama_barang}}^{{daftar.stok_akhir}}^{{daftar.discount}}^{{daftar.harga_ecer}}^{{daftar.harga_modal}}')" >tambahkan</button></td>
 					</tr>
 					{% endfor%}
