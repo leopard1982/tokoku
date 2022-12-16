@@ -24,5 +24,6 @@ urlpatterns = [
     path('v/s/',views.View_Master_Supplier,name='View_Master_Supplier'),
     path('f/',views.Find_kode_barang,name='Find_kode_barang'),
     path('nota_ecer/<str:nomor>/',views.Cetak_Nota_Ecer,name="Cetak_Nota_Ecer"),
-    path('h/',views.history_penjualan, name="history_penjualan")
+    path('h/',views.history_penjualan, name="history_penjualan"),
+    path('u/',views.untungku,name='untungku'),
 ]

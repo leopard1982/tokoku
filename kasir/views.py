@@ -16,6 +16,8 @@ from django.db.models import Sum
 
 import datetime
 
+from django.contrib.auth.decorators import user_passes_test
+
 # Create your views here.
 def indeks(request):
     loginkan=0
@@ -61,9 +63,14 @@ def indeks(request):
         id_sistemnya = par.id_sistem
     return render(request, 'coba.html',{'loginkan':loginkan,'id_sistem':id_sistemnya})
 
+
 def Input_Master_Supplier(request):
     errornya = None
     apa_post= False
+
+    if not request.user.is_superuser:
+        return HttpResponseRedirect('/')
+
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
@@ -78,16 +85,25 @@ def Input_Master_Supplier(request):
         forms = InputMasterSupplier()
         return render(request, 'master/input-master-supplier.html',{'form':forms,'errornya':errornya,'apa_post':apa_post})
 
+
 def Delete_Master_Supplier(request,idsupplier):
+    if not request.user.is_superuser:
+        return HttpResponseRedirect('/')
+
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
         MasterSupplier.objects.get(kode_supplier=idsupplier).delete()
         return HttpResponseRedirect('/i/ms/')
 
+
 def Input_Master_Pelanggan(request):
     errornya = None
     apa_post= False
+
+    if not request.user.is_superuser:
+        return HttpResponseRedirect('/')
+
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
@@ -102,7 +118,11 @@ def Input_Master_Pelanggan(request):
         forms = InputMasterPelanggan()
         return render(request, 'master/input-master_pelanggan.html',{'form':forms,'errornya':errornya,'apa_post':apa_post})
 
+
 def Initial_Input_Master(request):
+    if not request.user.is_superuser:
+        return HttpResponseRedirect('/')
+        
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
@@ -352,9 +372,13 @@ def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/')
 
+
 def Input_Master_Barang(request):
     errornya = None
     apa_post= False
+    if not request.user.is_superuser:
+        return HttpResponseRedirect('/')
+
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
@@ -370,7 +394,11 @@ def Input_Master_Barang(request):
         forms = InputMasterBarang()
         return render(request,"master/input_master_barang.html",{'form':forms,'errornya':errornya,'apa_post':apa_post})
 
+
 def Delete_Master_Barang(request,idbarang):
+    if not request.user.is_superuser:
+        return HttpResponseRedirect('/')
+
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
@@ -380,7 +408,11 @@ def Delete_Master_Barang(request,idbarang):
             pass
         return HttpResponseRedirect('/v/b/')
 
+
 def Delete_Master_Supplier(request,idsupplier):
+    if not request.user.is_superuser:
+        return HttpResponseRedirect('/')
+
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
@@ -390,7 +422,11 @@ def Delete_Master_Supplier(request,idsupplier):
             pass
         return HttpResponseRedirect('/v/s/')
 
+
 def Delete_Master_Pelanggan(request,idpelanggan):
+    if not request.user.is_superuser:
+        return HttpResponseRedirect('/')
+
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
@@ -400,31 +436,49 @@ def Delete_Master_Pelanggan(request,idpelanggan):
             pass
         return HttpResponseRedirect('/v/p/')
 
+
 def Initial_View_Master(request):
+    if not request.user.is_superuser:
+        return HttpResponseRedirect('/')
+
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
         return render(request,"master/initial_view_master_data.html")
 
+
 def View_Master_Pelanggan(request):
     data = MasterPelanggan.objects.all()
     jml_data = data.count()
+    if not request.user.is_superuser:
+        return HttpResponseRedirect('/')
+
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
         return render(request,"master/view_master_data_pelanggan.html",{'data':data,'jml_data':jml_data})
 
+
 def View_Master_Barang(request):
+    print(request.user.is_superuser)
+   
     data = MasterBarang.objects.all()
     jml_data = data.count()
+    if not request.user.is_superuser:
+        return HttpResponseRedirect('/')
+
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
         return render(request,"master/view_master_data_barang.html",{'data':data,'jml_data':jml_data})
+    
 
 def View_Master_Supplier(request):
     data = MasterSupplier.objects.all()
     jml_data = data.count()
+    if not request.user.is_superuser:
+        return HttpResponseRedirect('/')
+
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
@@ -472,3 +526,6 @@ def history_penjualan(request):
     history = list(Posting.objects.all())
 
     return render(request,'POS/history.html',{'history':history})
+
+def untungku(request):
+    return render(request,'transaksi/view_keuntungan.html')
