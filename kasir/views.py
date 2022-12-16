@@ -69,7 +69,7 @@ def Input_Master_Supplier(request):
     apa_post= False
 
     if not request.user.is_superuser:
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
@@ -88,7 +88,7 @@ def Input_Master_Supplier(request):
 
 def Delete_Master_Supplier(request,idsupplier):
     if not request.user.is_superuser:
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
@@ -102,7 +102,7 @@ def Input_Master_Pelanggan(request):
     apa_post= False
 
     if not request.user.is_superuser:
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
@@ -120,9 +120,6 @@ def Input_Master_Pelanggan(request):
 
 
 def Initial_Input_Master(request):
-    if not request.user.is_superuser:
-        return HttpResponseRedirect('/')
-        
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
@@ -377,7 +374,7 @@ def Input_Master_Barang(request):
     errornya = None
     apa_post= False
     if not request.user.is_superuser:
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
@@ -397,7 +394,7 @@ def Input_Master_Barang(request):
 
 def Delete_Master_Barang(request,idbarang):
     if not request.user.is_superuser:
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
@@ -411,7 +408,7 @@ def Delete_Master_Barang(request,idbarang):
 
 def Delete_Master_Supplier(request,idsupplier):
     if not request.user.is_superuser:
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
@@ -425,7 +422,7 @@ def Delete_Master_Supplier(request,idsupplier):
 
 def Delete_Master_Pelanggan(request,idpelanggan):
     if not request.user.is_superuser:
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
@@ -438,9 +435,6 @@ def Delete_Master_Pelanggan(request,idpelanggan):
 
 
 def Initial_View_Master(request):
-    if not request.user.is_superuser:
-        return HttpResponseRedirect('/')
-
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
     else:
@@ -451,7 +445,7 @@ def View_Master_Pelanggan(request):
     data = MasterPelanggan.objects.all()
     jml_data = data.count()
     if not request.user.is_superuser:
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
@@ -465,7 +459,7 @@ def View_Master_Barang(request):
     data = MasterBarang.objects.all()
     jml_data = data.count()
     if not request.user.is_superuser:
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
@@ -477,7 +471,7 @@ def View_Master_Supplier(request):
     data = MasterSupplier.objects.all()
     jml_data = data.count()
     if not request.user.is_superuser:
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
