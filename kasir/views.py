@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 
 from .forms import InputMasterSupplier, InputMasterPelanggan, InputMasterBarang
+from .forms import InputPembelianNomorNota, InputPembelianDetail
 
 from .models import MasterSupplier, MasterPelanggan, MasterBarang, MasterParameter
 
@@ -523,3 +524,15 @@ def history_penjualan(request):
 
 def untungku(request):
     return render(request,'transaksi/view_keuntungan.html')
+
+def pembelian(request):
+    return render(request,'pembelian/initial_pembelian.html')
+
+def pembelian_nota(request):
+    if request.method == "POST":
+        forms = InputPembelianNomorNota(request.POST)
+        if forms.is_valid():
+            forms.save()
+            
+    forms = InputPembelianNomorNota()
+    return render(request,'pembelian/pembelian_nota.html',{'forms':forms})

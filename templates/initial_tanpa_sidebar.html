@@ -30,7 +30,7 @@
  
         <main>
             <!-- Start Mega Menu HTML -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-primary navbar-dark shadow fixed-top"">
+            <nav class="navbar navbar-expand-lg navbar-light bg-primary navbar-dark shadow fixed-top">
                 <div class="container-fluid">
                   <a class="navbar-brand" href="#" style="font-weight: bold;font-size:30px">L-tokoku</a>
                   <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content">
@@ -48,20 +48,38 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                       </li>
                       <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">Master</a>
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">Master Data</a>
                         <ul class="dropdown-menu shadow">
                           <li><a class="dropdown-item" href="/i/">Menambah Master Data</a></li>
-                          <li><a class="dropdown-item" href="/v/">Lihat/ Update Master Data</a></li>
+                          <li><a class="dropdown-item" href="/v/">Melihat Master Data</a></li>
                         </ul>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">Pembelian</a>
+                        <ul class="dropdown-menu shadow">
+                          <li><a class="dropdown-item" href="/i/">Pembelian Barang</a></li>
+                          <li><a class="dropdown-item" href="/v/">Pembayaran Barang</a></li>
+                        </ul>
+                      </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="/POS/1/">POS Penjualan</a>
-                      </li>                      
+                        <a class="nav-link" href="/POS/1/">POS Retail</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/POS-grosir/1/">POS Grosir</a>
+                      </li>    
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">History</a>
+                        <ul class="dropdown-menu shadow">
+                          <li><a class="dropdown-item" href="/i/">History Pembelian Barang</a></li>
+                          <li><a class="dropdown-item" href="/v/">History Penjualan</a></li>
+                        </ul>
+                      </li>               
                     </ul>
-                    <form class="d-flex ms-auto" action="{% url 'Find_kode_barang'%}" method="POST">
+                    <form class="d-flex ms-auto" action="{% url 'Find_kode_barang'%}" method="POST" target="_blank">
                       {% csrf_token %}
                         <div class="input-group">
-                            <input class="form-control border-0 mr-2" type="text" placeholder="Pencarian" aria-label="Search" name='txtcari'>
-                            <button class="btn btn-info border-0" type="submit">Search</button>
+                            <input class="form-control border-0 mr-2 rounded-pill rounded-end" type="text" placeholder="Pencarian" aria-label="Search" name='txtcari'>
+                            <button class="btn btn-info rounded-pill rounded-start " type="submit">Search</button>
                         </div>
                     </form>
                   </div>
@@ -74,10 +92,10 @@
     {% endblock %}
 
     <div class="row px-5 py-3 shadow border rounded-2 w-auto m-3 my-5">
-      <div class="container-fluid shadow text-start p-3 my-2 rounded-pill text-center fw-bold" style="background-color: lightgreen; font-size: 30px;" >
+      <div class="container-fluid shadow text-start p-3 my-2 rounded-pill rounded-bottom text-center fw-bold" style="background-color: lightgreen; font-size: 30px;" >
         &diams; {% block stamp%}{% endblock%} &diams;
       </div>
-      <div class="container-fluid shadow" style="overflow-x:auto;">
+      <div class="container-fluid border border-2 rounded p-4" style="overflow-x:auto;">
           {% block content %}
 
           {% endblock %}

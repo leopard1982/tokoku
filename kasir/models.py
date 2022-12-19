@@ -80,7 +80,7 @@ class MasterBarang(models.Model):
 	discount = models.PositiveIntegerField(default=0)
 	
 	def __str__(self):
-		return "%s"%(self.id_barang)
+		return "%s"%(self.nama_barang)
 	
 	class Meta:
 		ordering = ['id_barang','nama_barang']
@@ -213,3 +213,33 @@ class Penjualan_Stok_Keluar(models.Model):
 	nomor_nota = models.CharField(max_length=12,default="0")
 	id_barang = models.ForeignKey(MasterBarang,on_delete=models.RESTRICT)
 	stok_jual = models.IntegerField(default=0)
+
+class Pembelian_NomorNota(models.Model):
+	nomor_nota = models.CharField(max_length=50,default="0")
+	tanggal_nota = models.DateField(blank=False,null=False,default="2022-01-01")
+	tanggal_jtempo = models.DateField(blank=False,null=False,default="2022-01-01")
+	kode_supplier = models.ForeignKey(MasterSupplier,blank=False,null=False,on_delete=models.RESTRICT)
+	selesai = models.BooleanField(default=False)
+	
+	def __str__(self):
+		return "[%s] [%s] [%s]"%(self.nomor_nota,self.tanggal_nota,self.kode_supplier)
+
+	class Meta:
+		unique_together = ['nomor_nota','kode_supplier','tanggal_nota']
+		ordering = ['tanggal_nota','nomor_nota']
+
+class Pembelian_Detail(models.Model):
+	nomor_nota = models.ForeignKey(Pembelian_NomorNota,null=False,blank=False,on_delete=models.RESTRICT)
+	kode_barang = models.ForeignKey(MasterBarang,blank=False,null=False,on_delete=models.RESTRICT)
+	jumlah_barang = models.PositiveIntegerField(blank=False,null=False,default=0)
+	harga_barang = models.PositiveBigIntegerField(blank=False,null=False,default=0)
+	sub_total_harga = models.PositiveBigIntegerField(default=0)
+	disc_persen = models.PositiveIntegerField(blank=False,null=False,default=0)
+	disc_rupiah = models.PositiveIntegerField(default=0)
+	pajak_persen = models.PositiveIntegerField(blank=False,null=False,default=0)
+	pajak_rupiah = models.PositiveBigIntegerField(default=0)
+	total_harga = models.PositiveBigIntegerField(default=0)
+	posting = models.BooleanField(null=False,blank=False,default=False)
+
+	def __str__(self):
+		return "[%s] - %s - %i"%(self.nomor_nota,self.kode_barang,self.jumlah_barang)

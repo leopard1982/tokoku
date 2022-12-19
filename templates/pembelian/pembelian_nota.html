@@ -1,0 +1,59 @@
+{% extends 'initial.html'%}
+{% load humanize %}
+
+{% block title %}
+L-tokoku | Master Pelanggan
+{% endblock %}
+
+{% block header_sidebar%}
+    Management Pembelian
+{% endblock%}
+
+{% block sidebar%}
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" onclick="location.href='/p/n/'">Membuat Nota</button>
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" onclick="location.href='/p/nd/'">Detail Nota</button>
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2">Daftar Seluruh Nota</button>
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2">Daftar Nota Jatuh Tempo</button>
+{% endblock%}
+
+{% block stamp%}
+Pembuatan Nota
+{% endblock%}
+
+{% block content%}
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="row rounded p-4 h5">
+        <div class="col-4 fw-bold p-2">
+            Nomor Nota:
+        </div>
+        <div class="col-8 fw-bold">
+            {{forms.nomor_nota}}
+        </div>
+   
+        <div class="col-4 fw-bold p-2">
+            Kode Supplier:
+        </div>
+        <div class="col-8 fw-bold">
+            {{forms.kode_supplier}}
+        </div>
+   
+        <div class="col-4 fw-bold p-2">
+            Tanggal Nota:
+        </div>
+        <div class="col-8 fw-bold">
+            {{forms.tanggal_nota}}
+        </div>
+    
+        <div class="col-4 fw-bold p-2">
+            Tanggal Jatuh Tempo:
+        </div>
+        <div class="col-8 fw-bold">
+            {{forms.tanggal_jtempo}}
+        </div>
+    </div>
+    <div class="container-fluid d-flex justify-content-center">
+        <input type="submit" value="Tambahkan Nota" class="btn btn-outline-success">
+    </div>
+</form>
+{% endblock%}

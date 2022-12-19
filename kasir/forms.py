@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import MasterSupplier, MasterPelanggan, MasterBarang
+from .models import MasterSupplier, MasterPelanggan, MasterBarang, Pembelian_NomorNota, Pembelian_Detail
 
 class InputMasterSupplier(forms.ModelForm):
 	class Meta:
@@ -49,6 +49,20 @@ class InputMasterBarang(forms.ModelForm):
 			'keterangan_isi' : forms.TextInput(attrs={'class':'form-control input-lg'}),
 		}
 
-class InputPOS_ecer1(forms.ModelForm):
-	pass 
+class InputPembelianNomorNota(forms.ModelForm):
+	class Meta:
+		model = Pembelian_NomorNota
+		fields = ["nomor_nota","tanggal_nota","tanggal_jtempo","kode_supplier"]
+
+		widgets = {
+			'tanggal_nota':forms.DateInput(format=('%d-%m-%Y'),attrs={'class': 'form-control', 'placeholder': 'Tanggal Pembelian','type': 'date'}),
+			'tanggal_jtempo':forms.DateInput(format=('%d-%m-%Y'),attrs={'class': 'form-control', 'placeholder': 'Tanggal Jatuh Tempo','type': 'date'}),
+			'nomor_nota':forms.TextInput(attrs={'class':'form-control'}),
+			'kode_supplier':forms.Select(attrs={'class':'form-control'}),
+		}
+class InputPembelianDetail(forms.ModelForm):
+	class Meta:
+		model = Pembelian_Detail
+		fields = "__all__"
+		exclude=['sub_total_harga','disc_rupiah','pajak_rupiah','total_harga','posting']
 		

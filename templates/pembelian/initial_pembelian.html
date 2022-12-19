@@ -1,0 +1,29 @@
+{% extends 'initial.html'%}
+{% load humanize %}
+
+{% block title %}
+L-tokoku | Master Pelanggan
+{% endblock %}
+
+{% block header_sidebar%}
+    Management Pembelian
+{% endblock%}
+
+{% block sidebar%}
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" onclick="location.href='/p/n/'">Membuat Nota</button>
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" onclick="location.href='/p/nd/'">Detail Nota</button>
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2">Daftar Seluruh Nota</button>
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2">Daftar Nota Jatuh Tempo</button>
+{% endblock%}
+
+{% block stamp%}
+Management Pembelian Barang
+{% endblock%}
+
+{% block content%}
+    <div class="shadow rounded p-2">
+        <p><b>Selamat datang di menu Management Pembelian Barang</b></p>
+        <p>Silakan Anda buat Nota terlebih dahulu untuk melakukan pembelian, setelah itu baru Anda mengisi detail barang sesuai dengan nomor nota yang telah dibuat.</p>
+        <p>Terima kasih. Admin.</p>
+    </div>
+{% endblock%}
