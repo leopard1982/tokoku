@@ -5,7 +5,6 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 
-
 class MasterParameter(models.Model):
 	id_sistem = models.CharField(max_length=6,default="-",primary_key=True,blank=False,null=False)
 	counter_nota = models.PositiveBigIntegerField(default=0)
@@ -219,7 +218,7 @@ class Pembelian_NomorNota(models.Model):
 	tanggal_nota = models.DateField(blank=False,null=False,default="2022-01-01")
 	tanggal_jtempo = models.DateField(blank=False,null=False,default="2022-01-01")
 	kode_supplier = models.ForeignKey(MasterSupplier,blank=False,null=False,on_delete=models.RESTRICT)
-	selesai = models.BooleanField(default=False)
+	proses = models.BooleanField(default=False)
 	
 	def __str__(self):
 		return "[%s] [%s] [%s]"%(self.nomor_nota,self.tanggal_nota,self.kode_supplier)
@@ -239,7 +238,7 @@ class Pembelian_Detail(models.Model):
 	pajak_persen = models.PositiveIntegerField(blank=False,null=False,default=0)
 	pajak_rupiah = models.PositiveBigIntegerField(default=0)
 	total_harga = models.PositiveBigIntegerField(default=0)
-	posting = models.BooleanField(null=False,blank=False,default=False)
+	proses = models.BooleanField(null=False,blank=False,default=False)
 
 	def __str__(self):
 		return "[%s] - %s - %i"%(self.nomor_nota,self.kode_barang,self.jumlah_barang)

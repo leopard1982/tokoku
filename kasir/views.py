@@ -1,9 +1,10 @@
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 
 from .forms import InputMasterSupplier, InputMasterPelanggan, InputMasterBarang
-from .forms import InputPembelianNomorNota, InputPembelianDetail
+from .forms import InputPembelianNomorNota, InputPembelianDetail, PilihanNomorNota
 
 from .models import MasterSupplier, MasterPelanggan, MasterBarang, MasterParameter
+from .models import Pembelian_NomorNota
 
 from .models import POS1_ecer, POS2_ecer, POS3_ecer
 from .models import POS1_grosir, POS2_grosir, POS3_grosir, Posting
@@ -536,3 +537,22 @@ def pembelian_nota(request):
             
     forms = InputPembelianNomorNota()
     return render(request,'pembelian/pembelian_nota.html',{'forms':forms})
+
+
+def pembelian_detail_barang(request):
+    initial=False   
+    detailnota = ""
+    if request.method == "POST":
+        initial=True
+        detailnota = Pembelian_NomorNota.objects.all().filter(nomor_nota=request.POST['selectNomorNota'])
+        forms = InputPembelianDetail(request.POST)
+        if forms.is_valid():
+            forms.save()
+        forms = InputPembelianDetail(nomor_nota=request.POST['selectNomorNota'])
+    else:
+        forms = InputPembelianDetail(nomor_nota="")        
+    nomornota = Pembelian_NomorNota.objects.values('nomor_nota').filter(proses=False)
+            
+    
+    return render(request,'pembelian/pembelian_detail.html',{'nomornota':nomornota,'initial':initial,'detailnota':detailnota,'forms':forms})
+

@@ -1,0 +1,128 @@
+{% extends 'initial.html'%}
+{% load humanize %}
+
+{% block title %}
+L-tokoku | Master Pelanggan
+{% endblock %}
+
+{% block header_sidebar%}
+    Management Pembelian
+{% endblock%}
+
+{% block sidebar%}
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" onclick="location.href='/p/n/'">Membuat Nota</button>
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2" onclick="location.href='/p/nd/'">Detail Nota</button>
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2">Daftar Nota Belum di Proses</button>
+<button type="button" class="btn form-control btn-outline-success mt-2 mb-2 p-2">Daftar Nota Jatuh Tempo</button>
+{% endblock%}
+
+{% block stamp%}
+Detail Nota
+{% endblock%}
+
+{% block content%}
+<div class="container">
+{% if not initial %}
+    <div class="container text-center h4 p-3">
+        Silakan Pilih Nomor Nota
+    </div>
+    <div class="container">
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-2">
+                    
+                </div>
+                <div class="col-2 p-2">
+            Nomor Nota:            
+                </div>
+                <div class="col-4">
+                    <select name="selectNomorNota" class="form-control">
+                        {% for nomor in nomornota %}
+                        <option value = "{{nomor.nomor_nota}}">{{nomor.nomor_nota}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-2">    
+                <input type="submit" class="btn btn-outline-primary" value="Proses!">
+                <div class="col-2">
+                    
+                </div>
+                </div>
+            </div>
+        </form>
+        <br><br><br><br><br><br><br><br>
+
+    </div>
+{% else %}
+    <div class="h5 text-start fw-bold">
+        Informasi Nota:
+    </div>
+    <div class="p-2 border border-2 border-dark">
+        {% for details in detailnota%}
+        <div class="row">
+            <div class="col-4">Nomor Nota:</div>
+            <div class="col-4 fw-bold">{{details.nomor_nota}}</div>
+            <input type="hidden" name="nomorNota" value="{{details.nomor_nota}}">
+        </div>
+        <div class="row">
+            <div class="col-4">Tanggal Nota:</div>
+            <div class="col-4 fw-bold">{{details.tanggal_nota | date:"d/m/Y"}}</div>
+        </div>
+        <div class="row">
+            <div class="col-4">Tanggal Jatuh Tempo:</div>
+            <div class="col-4 fw-bold">{{details.tanggal_jtempo | date:"d/m/Y"}}</div>
+        </div>
+        <div class="row">
+            <div class="col-4">Supplier:</div>
+            <div class="col-8 fw-bold">[{{details.kode_supplier.kode_supplier}}] - {{details.kode_supplier.nama_supplier}}</div>
+        </div>
+        {% endfor%}
+    </div>
+{% endif%}
+
+</div>
+<div class="container p-4 fw-bold ">
+    Daftar Barang dikirim:
+    <div>
+        {{forms}}
+    </div>
+</div>
+<!--
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="row rounded p-4 h5">
+        <div class="col-4 fw-bold p-2">
+            Nomor Nota:
+        </div>
+        <div class="col-8 fw-bold">
+            {{forms.nomor_nota}}
+        </div>
+   
+        <div class="col-4 fw-bold p-2">
+            Kode Supplier:
+        </div>
+        <div class="col-8 fw-bold">
+            {{forms.kode_supplier}}
+        </div>
+   
+        <div class="col-4 fw-bold p-2">
+            Tanggal Nota:
+        </div>
+        <div class="col-8 fw-bold">
+            {{forms.tanggal_nota}}
+        </div>
+    
+        <div class="col-4 fw-bold p-2">
+            Tanggal Jatuh Tempo:
+        </div>
+        <div class="col-8 fw-bold">
+            {{forms.tanggal_jtempo}}
+        </div>
+    </div>
+    <div class="container-fluid d-flex justify-content-center">
+        <input type="submit" value="Tambahkan Nota" class="btn btn-outline-success">
+    </div>
+</form>
+-->
+{% endblock%}

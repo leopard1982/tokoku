@@ -27,5 +27,6 @@ urlpatterns = [
     path('h/',views.history_penjualan, name="history_penjualan"),
     path('u/',views.untungku,name='untungku'),
     path('p/n/',views.pembelian_nota,name="pembelian_nota"),
+    path('p/dn/',views.pembelian_detail_barang,name="pembelian_detail_barang"),
     path('p/',views.pembelian,name="pembelian"),
 ]

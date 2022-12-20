@@ -60,9 +60,30 @@ class InputPembelianNomorNota(forms.ModelForm):
 			'nomor_nota':forms.TextInput(attrs={'class':'form-control'}),
 			'kode_supplier':forms.Select(attrs={'class':'form-control'}),
 		}
+
 class InputPembelianDetail(forms.ModelForm):
 	class Meta:
 		model = Pembelian_Detail
 		fields = "__all__"
 		exclude=['sub_total_harga','disc_rupiah','pajak_rupiah','total_harga','posting']
-		
+
+		widgets = {
+			'nomor_nota': forms.TextInput(attrs={'readonly':'readonly'})
+		}
+
+		def __init__(self,nomor_nota=None,**kwargs):
+			super(InputPembelianDetail,self).__init__(**kwargs)
+			self.Pembelian_Detail.queryset = models.Pembelian_Detail.objects.filter(nomor_nota=nomor_nota)
+
+class PilihanNomorNota(forms.ModelForm):
+	class Meta:
+		model = Pembelian_NomorNota
+		fields =["nomor_nota"]
+
+		def __init__ (self):
+			super(PilihanNomorNota,self).__init__(self)
+			self.fields['nomor_nota'] = Pembelian_NomorNota.values('nomor_nota').objects.filter(proses=False)
+
+		widgets = {
+			'nomor_nota':forms.Select(attrs={'class':'form-control'})
+		}
