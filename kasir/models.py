@@ -14,6 +14,44 @@ class MasterParameter(models.Model):
 	counter1_grosir = models.PositiveBigIntegerField(default=0)
 	counter2_grosir = models.PositiveBigIntegerField(default=0)
 	counter3_grosir = models.PositiveBigIntegerField(default=0)
+	stok_minus = models.BooleanField(default=False)
+
+
+class MasterBarang(models.Model):
+	pilih_satuan = [('D','Kardus'),
+		('R','Renceng'),
+		('E','Ecer')]
+	id_barang = models.CharField(max_length=100,verbose_name="ID Barang",null=False,blank=False,primary_key=True,default="-")
+	nama_barang = models.CharField(max_length=100,verbose_name="Nama Barang",null=False,blank=False,default="-")
+	stok_awal = models.PositiveBigIntegerField(verbose_name="Stok Awal Barang",default=0,null=False,blank=False)
+	stok_beli = models.PositiveBigIntegerField(verbose_name="Stok Pembelian",default=0,null=False,blank=False)
+	stok_rusak = models.PositiveBigIntegerField(verbose_name="Stok Barang Rusak",default=0,null=False,blank=False)
+	stok_akhir = models.PositiveBigIntegerField(verbose_name="Stok Barang Akhir",default=0,null=False,blank=False)
+	harga_modal = models.PositiveBigIntegerField(verbose_name="Harga Modal",default=0,null=False,blank=False)
+	harga_ecer = models.PositiveBigIntegerField(verbose_name="Harga Ecer",default=0,null=False,blank=False)
+	harga_grosir1 = models.PositiveBigIntegerField(verbose_name="Harga Grosir#1",default=0,null=False,blank=False)
+	harga_grosir2 = models.PositiveBigIntegerField(verbose_name="Harga Grosir#2",default=0,null=False,blank=False)
+	harga_grosir3 = models.PositiveBigIntegerField(verbose_name="Harga Grosir#3",default=0,null=False,blank=False)
+	satuan_barang = models.CharField(verbose_name="Satuan Barang",max_length=1,choices=pilih_satuan,null=False,blank=False,default="D")
+	keterangan_isi = models.CharField(verbose_name="Keterangan Isi",max_length=100,null=False,blank=False)
+	foto = models.ImageField(verbose_name="Foto Barang",upload_to="stok_barang",null=False,blank=False)
+	hapus= models.BooleanField(default=True)
+	discount = models.PositiveIntegerField(default=0)
+	
+	def __str__(self):
+		return "%s"%(self.nama_barang)
+	
+	class Meta:
+		ordering = ['id_barang','nama_barang']
+
+
+class TransaksiPenyesuaianStok(models.Model):
+	id_barang = models.ForeignKey(MasterBarang,null=False,blank=False,on_delete=models.RESTRICT)
+	user_id = models.ForeignKey(User,null=False,blank=False,on_delete=models.RESTRICT)
+	tanggal = models.DateField(null=False,blank=False,auto_now=True)
+	penambahan = models.IntegerField(default=0,null=False,blank=False)
+	pengurangan = models.IntegerField(default=0,null=False,blank=False)
+	alasan = models.CharField(max_length=200,null=False,blank=False)
 
 
 # Create your models here.
@@ -57,32 +95,6 @@ class MasterPelanggan(models.Model):
 	class Meta:
 		ordering = ['kode_pelanggan','nama_pelanggan']
 
-class MasterBarang(models.Model):
-	pilih_satuan = [('D','Kardus'),
-		('R','Renceng'),
-		('E','Ecer')]
-	id_barang = models.CharField(max_length=100,verbose_name="ID Barang",null=False,blank=False,primary_key=True,default="-")
-	nama_barang = models.CharField(max_length=100,verbose_name="Nama Barang",null=False,blank=False,default="-")
-	stok_awal = models.PositiveBigIntegerField(verbose_name="Stok Awal Barang",default=0,null=False,blank=False)
-	stok_beli = models.PositiveBigIntegerField(verbose_name="Stok Pembelian",default=0,null=False,blank=False)
-	stok_rusak = models.PositiveBigIntegerField(verbose_name="Stok Barang Rusak",default=0,null=False,blank=False)
-	stok_akhir = models.PositiveBigIntegerField(verbose_name="Stok Barang Akhir",default=0,null=False,blank=False)
-	harga_modal = models.PositiveBigIntegerField(verbose_name="Harga Modal",default=0,null=False,blank=False)
-	harga_ecer = models.PositiveBigIntegerField(verbose_name="Harga Ecer",default=0,null=False,blank=False)
-	harga_grosir1 = models.PositiveBigIntegerField(verbose_name="Harga Grosir#1",default=0,null=False,blank=False)
-	harga_grosir2 = models.PositiveBigIntegerField(verbose_name="Harga Grosir#2",default=0,null=False,blank=False)
-	harga_grosir3 = models.PositiveBigIntegerField(verbose_name="Harga Grosir#3",default=0,null=False,blank=False)
-	satuan_barang = models.CharField(verbose_name="Satuan Barang",max_length=1,choices=pilih_satuan,null=False,blank=False,default="D")
-	keterangan_isi = models.CharField(verbose_name="Keterangan Isi",max_length=100,null=False,blank=False)
-	foto = models.ImageField(verbose_name="Foto Barang",upload_to="stok_barang",null=False,blank=False)
-	hapus= models.BooleanField(default=True)
-	discount = models.PositiveIntegerField(default=0)
-	
-	def __str__(self):
-		return "%s"%(self.nama_barang)
-	
-	class Meta:
-		ordering = ['id_barang','nama_barang']
 	
 class POS1_ecer(models.Model):
 	kode_sistem = models.CharField(max_length=100,default="-",null=False,blank=False)

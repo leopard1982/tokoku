@@ -320,7 +320,7 @@ def Cetak_Nota_Ecer(request,nomor):
         posting = Posting()
         posting.userid = User.objects.get(id=request.user.id)
         posting.kode_sistem  = MasterParameter.objects.get()
-        posting.id_barang = MasterBarang.objects.get(id_barang = belanja.id_barang)
+        posting.id_barang = MasterBarang.objects.get(id_barang = belanja.id_barang.id_barang)
         posting.nama_barang = belanja.nama_barang
         posting.kode_pelanggan = MasterPelanggan.objects.get(kode_pelanggan=belanja.kode_pelanggan.kode_pelanggan)
         posting.total = belanja.total
@@ -556,3 +556,5 @@ def pembelian_detail_barang(request):
     
     return render(request,'pembelian/pembelian_detail.html',{'nomornota':nomornota,'initial':initial,'detailnota':detailnota,'forms':forms})
 
+def sidebar(request):
+    return render(request,'transaksi/template_sidebar.html')
