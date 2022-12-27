@@ -20,7 +20,9 @@ class MasterParameter(models.Model):
 class MasterBarang(models.Model):
 	pilih_satuan = [('D','Kardus'),
 		('R','Renceng'),
-		('E','Ecer')]
+		('E','Ecer'),
+		('C','Kolian'),
+		('K','Kantong')]
 	id_barang = models.CharField(max_length=100,verbose_name="ID Barang",null=False,blank=False,primary_key=True,default="-")
 	nama_barang = models.CharField(max_length=100,verbose_name="Nama Barang",null=False,blank=False,default="-")
 	stok_awal = models.PositiveBigIntegerField(verbose_name="Stok Awal Barang",default=0,null=False,blank=False)
