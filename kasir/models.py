@@ -55,6 +55,9 @@ class TransaksiPenyesuaianStok(models.Model):
 	pengurangan = models.IntegerField(default=0,null=False,blank=False)
 	alasan = models.CharField(max_length=200,null=False,blank=False)
 
+	def __str__(self):
+		return "%s - %s: tambah %i, kurang %i, alasan %s"%(self.user_id.username, self.tanggal,self.penambahan,self.pengurangan,self.alasan)
+
 
 # Create your models here.
 class MasterSupplier(models.Model):
