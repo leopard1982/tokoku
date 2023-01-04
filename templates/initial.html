@@ -72,7 +72,10 @@
                           <li><a class="dropdown-item" href="/i/">History Pembelian Barang</a></li>
                           <li><a class="dropdown-item" href="/v/">History Penjualan</a></li>
                         </ul>
-                      </li>               
+                      </li> 
+                      <li class="nav-item">
+                        <a class="nav-link fw-bold" href="{% url 'logout'%}">Logout</a>
+                      </li>              
                     </ul>
                     <form class="d-flex ms-auto" action="{% url 'Find_kode_barang'%}" method="POST" target="_blank">
                       {% csrf_token %}
