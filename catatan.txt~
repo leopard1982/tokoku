@@ -5,5 +5,3 @@
 5. Buat counter untuk nomor nota
 6. untuk transaksi dibuat dengan berdasarkan: nomor nota, nama user, tanggal nota, tetapi untuk data POS1-POS2-POS3 tidak usah memakai tanggal, dan setiap login, disetting ID-POS
 https://docs.python.org/3/library/hashlib.html
-
-coba yah
